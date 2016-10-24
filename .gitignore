@@ -1,2 +1,24 @@
 
 PixelsSpriteEditor/PixelsSpriteEditor.pro.user
+
+*.stash
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/main.o
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/Makefile
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/moc_SpriteMainWindow.cpp
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/moc_SpriteMainWindow.o
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/PixelsSpriteEditor.app/Contents/Info.plist
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/PixelsSpriteEditor.app/Contents/MacOS/PixelsSpriteEditor
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/PixelsSpriteEditor.app/Contents/PkgInfo
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/PixelsSpriteEditor.app/Contents/Resources/empty.lproj
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/SpriteMainWindow.o
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/ui_SpriteMainWindow.h
