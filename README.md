@@ -24,7 +24,7 @@
 - App *_opens with a dialog_* asking for `resolution` of the image, `file name`, etc. Then opens up the main GUI.
 - Clicking the _preview_ window will _pop up a new window_ (containing the preview) with zoom controls, etc.
    - Implement those zoom controls.
-- Export to .gif
+- Export to `.gif`
 - The workspace should `resize` based on the image resolution. If the image is smaller than workspace's resolution, scale the image 2x, 3x, etc.
 - Save as a static `Stamp`.
 - Save as `SpriteSheet`.
