@@ -6,6 +6,7 @@
  - The `developmental` is where we implement our _*next wave of features*_. Once we finish a set number of features, we all test if eveything's in order and `merge  back` the `developmental` branch to `master`. 
  - Then begin implementing the next wave of features in the `developmental` branch again. 
 3. As such, `push` all your changes to the `developmental` branch.
+4. Use `GitHub`'s *_Issue Tracker_* to keep a list of all the issues and such.
 
 ## WEEK 1 WAVE OF FEATURES:
 - Basic scalable GUI
