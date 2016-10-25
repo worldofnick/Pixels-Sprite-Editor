@@ -1,7 +1,7 @@
 ## CODING GUIDELINES
 
 1. Make sure to `pull` the changes from the `remote` repository to your `local` repository before beginning your implementation. This minimizes the `merge` conflicts and ensures all conflicts are resolved early.
-2. There are only be 2 branches at any given time. 
+2. There will only be 2 branches at any given time. 
  - The `master` branch will only contain the working codebase at given time (think of it as the `Gold Master` release version).
  - The `developmental` is where we implement our _*next wave of features*_. Once we finish a set number of features, we all test if eveything's in order and `merge  back` the `developmental` branch to `master`. 
  - Then begin implementing the next wave of features in the `developmental` branch again. 
