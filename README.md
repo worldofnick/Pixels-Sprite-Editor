@@ -28,5 +28,5 @@
 - Export to `.gif`
 - The workspace should `resize` based on the image resolution. If the image is smaller than workspace's resolution, scale the image 2x, 3x, etc.
 - Save as a static `Stamp`.
-- Save as `SpriteSheet`.
+- Load from / Save as `SpriteSheet`.
 - Other features.
