@@ -584,7 +584,7 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About_</string>
+    <string>About</string>
    </property>
    <property name="toolTip">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the about menu option&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

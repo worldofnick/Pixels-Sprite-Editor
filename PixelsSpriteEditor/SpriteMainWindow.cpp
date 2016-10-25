@@ -1,7 +1,6 @@
 #include <QColorDialog>
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
-#include "AboutDialog.h"
 
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -162,11 +161,13 @@ void SpriteMainWindow::on_actionRemove_All_triggered()
 
 }
 
+
 void SpriteMainWindow::on_actionAbout_triggered()
 {
     AboutDialog dialogWindow;
-    dialogWindow.show();
+    dialogWindow.exec();
 }
+
 
 void SpriteMainWindow::on_actionWalkthrough_triggered()
 {
