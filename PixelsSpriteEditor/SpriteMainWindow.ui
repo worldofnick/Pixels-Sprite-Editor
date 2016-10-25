@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>500</height>
+    <height>503</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -85,7 +85,7 @@
               <x>0</x>
               <y>0</y>
               <width>162</width>
-              <height>191</height>
+              <height>194</height>
              </rect>
             </property>
            </widget>
@@ -467,7 +467,7 @@
     <addaction name="actionFlip_Vertically"/>
     <addaction name="separator"/>
     <addaction name="actionRotate_Horizontally"/>
-    <addaction name="actionRotate_Anti_clockwise"/>
+    <addaction name="actionRotate_Counterclockwise"/>
     <addaction name="separator"/>
     <addaction name="actionShow_Hide_Frame"/>
     <addaction name="actionDuplicate"/>
@@ -479,8 +479,8 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout"/>
     <addaction name="actionWalkthrough"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -557,9 +557,9 @@
     <string>Rotate Clockwise</string>
    </property>
   </action>
-  <action name="actionRotate_Anti_clockwise">
+  <action name="actionRotate_Counterclockwise">
    <property name="text">
-    <string>Rotate Anti-clockwise</string>
+    <string>Rotate Counterclockwise</string>
    </property>
   </action>
   <action name="actionShow_Hide_Frame">
@@ -584,7 +584,10 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>About_</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the about menu option&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
   <action name="actionWalkthrough">

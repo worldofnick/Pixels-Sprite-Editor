@@ -17,6 +17,9 @@ public:
     ~SpriteMainWindow();
 
 private slots:
+
+    //Button Slots
+
     void on_colorPickButton_clicked();
 
     void on_stampTool_clicked();
@@ -34,6 +37,50 @@ private slots:
     void on_addFrameButton_clicked();
 
     void on_fpsSlider_valueChanged(int value);
+
+
+
+    //Menu Item Slots
+
+    void on_actionNew_triggered();
+
+    void on_actionOpen_triggered();
+
+    void on_actionSave_triggered();
+
+    void on_actionStamp_triggered();
+
+    void on_actionQuit_triggered();
+
+    void on_actionSprite_Sheet_triggered();
+
+    void on_actionExport_as_gif_triggered();
+
+    void on_actionUndo_triggered();
+
+    void on_actionRedo_triggered();
+
+    void on_actionReset_triggered();
+
+    void on_actionFlip_Horizontally_triggered();
+
+    void on_actionFlip_Vertically_triggered();
+
+    void on_actionRotate_Horizontally_triggered();
+
+    void on_actionRotate_Counterclockwise_triggered();
+
+    void on_actionShow_Hide_Frame_triggered();
+
+    void on_actionDuplicate_triggered();
+
+    void on_actionDelete_triggered();
+
+    void on_actionRemove_All_triggered();
+
+    void on_actionAbout_triggered();
+
+    void on_actionWalkthrough_triggered();
 
 private:
     Ui::SpriteMainWindow *ui;

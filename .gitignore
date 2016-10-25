@@ -24,3 +24,9 @@ build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/SpriteMainWindow.o
 build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/ui_SpriteMainWindow.h
 
 *.autosave
+
+*.o
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/ui_AboutDialog.h
+
+build-PixelsSpriteEditor-Desktop_Qt_5_7_0_clang_64bit-Debug/moc_AboutDialog.cpp

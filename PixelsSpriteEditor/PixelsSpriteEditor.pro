@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        SpriteMainWindow.cpp
+        SpriteMainWindow.cpp \
+    AboutDialog.cpp
 
-HEADERS  += SpriteMainWindow.h
+HEADERS  += SpriteMainWindow.h \
+    AboutDialog.h
 
-FORMS    += SpriteMainWindow.ui
+FORMS    += SpriteMainWindow.ui \
+    AboutDialog.ui
