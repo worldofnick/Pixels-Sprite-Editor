@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         SpriteMainWindow.cpp \
-    AboutDialog.cpp
+    PopupWindow.cpp \
+    Frame.cpp
 
 HEADERS  += SpriteMainWindow.h \
-    AboutDialog.h
+    PopupWindow.h \
+    Frame.h
 
 FORMS    += SpriteMainWindow.ui \
-    AboutDialog.ui
+    PopupWindow.ui

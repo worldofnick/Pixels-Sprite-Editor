@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QPen>
+#include <QCloseEvent>
+#include "PopupWindow.h"
 
 namespace Ui {
 class SpriteMainWindow;
@@ -82,10 +84,19 @@ private slots:
 
     void on_actionWalkthrough_triggered();
 
+    //Miscellaneous
+
+    void rejected(PopupWindow*);
+
 private:
     Ui::SpriteMainWindow *ui;
     QPen pen;
     QColor penColor;
+    bool isModified;
+    bool stillContinue;
+
+protected:
+    void closeEvent(QCloseEvent*);
 };
 
 #endif // SPRITEMAINWINDOW_H
