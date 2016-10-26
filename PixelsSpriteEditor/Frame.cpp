@@ -6,7 +6,7 @@ Frame::Frame()
 {
     height = 32;
     width = 32;
-    this->setPixmap(new QPixmap(width, height));
+    this->setPixmap(QPixmap(width, height));
 }
 
 //Destructs the current Frame.
