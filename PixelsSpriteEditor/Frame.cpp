@@ -14,4 +14,23 @@ Frame::~Frame(){
 
 }
 
+// Override the paintEvent to allow pointing
+void Frame::paintEvent(QPaintEvent *event){
+
+}
+
+// Track mouse moving events
+void Frame::mouseMoveEvent(QMouseEvent *event) {
+
+}
+
+// Notify when the mouse ie released
+void Frame::mouseReleaseEvent(QMouseEvent *event) {
+
+}
+
+// Nofity when the mouse is clicked
+void Frame::mousePressEvent(QMouseEvent *event) {
+
+}
 

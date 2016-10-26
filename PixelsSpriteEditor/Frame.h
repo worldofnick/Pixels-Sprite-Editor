@@ -16,6 +16,12 @@ private:
     bool isVisible;
     int height;
     int width;
+
+protected:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // FRAME_H
