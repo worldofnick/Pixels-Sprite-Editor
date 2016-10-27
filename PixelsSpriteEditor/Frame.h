@@ -2,6 +2,7 @@
 #define FRAME_H
 
 #include <QLabel>
+#include <QPainter>
 
 
 class Frame : public QLabel
@@ -16,6 +17,8 @@ private:
     bool isVisible;
     int height;
     int width;
+    bool mousePressed;
+    QPainter painter;
 
 protected:
     void mousePressEvent(QMouseEvent *event);
