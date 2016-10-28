@@ -89,15 +89,6 @@ private:
     bool isModified;
     bool maybeSave();
     QString filename;
-    void toggleTools(QString);
-
-    //Tools Activity Indicators
-    bool penIsActive;
-    bool eraserIsActive;
-    bool stampIsActive;
-    bool lineToolIsAtive;
-    bool rectToolIsActive;
-    bool ellipseToolIsActive;
 
 protected:
     void closeEvent(QCloseEvent*);

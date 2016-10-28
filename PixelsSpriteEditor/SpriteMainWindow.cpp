@@ -19,16 +19,6 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     filename = "";
     isModified = true;
-
-    //Tools Activity Indicators
-    penIsActive = true;
-
-    eraserIsActive = false;
-    stampIsActive = false;
-    lineToolIsAtive = false;
-    rectToolIsActive = false;
-    ellipseToolIsActive = false;
-
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -47,32 +37,32 @@ void SpriteMainWindow::on_colorPickButton_clicked()
 
 void SpriteMainWindow::on_stampTool_clicked()
 {
-    toggleTools("stamp");
+
 }
 
 void SpriteMainWindow::on_ellipseTool_clicked()
 {
-    toggleTools("ellipse");
+
 }
 
 void SpriteMainWindow::on_rectangleTool_clicked()
 {
-    toggleTools("rect");
+
 }
 
 void SpriteMainWindow::on_lineTool_clicked()
 {
-    toggleTools("line");
+
 }
 
 void SpriteMainWindow::on_eraserTool_clicked()
 {
-    toggleTools("eraser");
+
 }
 
 void SpriteMainWindow::on_penTool_clicked()
 {
-    toggleTools("pen");
+
 }
 
 void SpriteMainWindow::on_addFrameButton_clicked()
@@ -236,36 +226,4 @@ bool SpriteMainWindow::maybeSave(){
         }
     }
     return true;
-}
-
-//Toggles the Activity Indicators for the Tools, also ensures that only one tool is marked as active at a time.
-void SpriteMainWindow::toggleTools(QString newTool){
-    penIsActive = false;
-    eraserIsActive = false;
-    stampIsActive = false;
-    lineToolIsAtive = false;
-    rectToolIsActive = false;
-    ellipseToolIsActive = false;
-
-    if(newTool == "eraser"){
-        eraserIsActive = true;
-    }
-    else if(newTool == "stamp"){
-        stampIsActive = true;
-    }
-    else if(newTool == "line"){
-        lineToolIsAtive = true;
-    }
-    else if(newTool == "rect"){
-        rectToolIsActive = true;
-    }
-    else if(newTool == "ellipse"){
-        ellipseToolIsActive = true;
-    }
-    else{
-        penIsActive = true;
-    }
-
-    std::cout << penIsActive << " " << eraserIsActive << " " << stampIsActive << " " << lineToolIsAtive << " " << rectToolIsActive
-              << " " << ellipseToolIsActive << std::endl;
 }
