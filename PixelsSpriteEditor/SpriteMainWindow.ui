@@ -38,6 +38,43 @@
       <property name="rightMargin">
        <number>0</number>
       </property>
+      <item row="0" column="1">
+       <widget class="QLabel" name="workspaceLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>335</width>
+          <height>335</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Will display the current selected frame. The size is dependent on the resolution of the image selected. Should scale without changing the resolution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(52, 55, 70);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0" rowspan="2">
        <widget class="QGroupBox" name="framesGroupBox">
         <property name="sizePolicy">
@@ -112,6 +149,8 @@
               <height>200</height>
              </rect>
             </property>
+            <zorder>workspaceGroupBox</zorder>
+            <zorder>frame</zorder>
            </widget>
           </widget>
          </item>
@@ -207,65 +246,6 @@
              </widget>
             </item>
            </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="1" rowspan="2">
-       <widget class="QGroupBox" name="workspaceGroupBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(52, 55, 70);
-color: rgb(239, 239, 239);</string>
-        </property>
-        <property name="title">
-         <string notr="true">    WORKSPACE</string>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QLabel" name="workspaceLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>335</width>
-             <height>335</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Will display the current selected frame. The size is dependent on the resolution of the image selected. Should scale without changing the resolution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 55, 70);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="lineWidth">
-            <number>0</number>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
           </widget>
          </item>
         </layout>
@@ -928,8 +908,8 @@ color: rgb(239, 239, 239);</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>2</width>
-      <height>2</height>
+      <width>16</width>
+      <height>16</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout"/>
@@ -939,8 +919,8 @@ color: rgb(239, 239, 239);</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>2</width>
-      <height>2</height>
+      <width>16</width>
+      <height>16</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2"/>
