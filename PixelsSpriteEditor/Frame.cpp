@@ -31,10 +31,10 @@ void Frame::mouseMoveEvent(QMouseEvent *event) {
 
     //As mouse is moving set the second point again and again
     // and update continuously
-    if(event->type() == QEvent::MouseMove){
+    //if(event->type() == QEvent::MouseMove){
 
-    }
-    update();
+    //}
+    //update();
 }
 
 // Notify when the mouse ie released
