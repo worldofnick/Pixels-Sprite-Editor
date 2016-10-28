@@ -7,24 +7,16 @@
 
 class Frame : public QLabel
 {
+private:
+    bool isVisible;
+    int height;
+    int width;
+    QPixmap pix;
 
 public:
     Frame();
     //void setSize(int, int);
     ~Frame();
-
-private:
-    bool isVisible;
-    int height;
-    int width;
-    bool mousePressed;
-    QPainter painter;
-
-protected:
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void paintEvent(QPaintEvent *event);
 };
 
 #endif // FRAME_H

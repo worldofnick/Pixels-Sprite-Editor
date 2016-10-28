@@ -5,6 +5,7 @@
 #include <QPen>
 #include <QCloseEvent>
 #include "PopupWindow.h"
+#include <QPainter>
 
 namespace Ui {
 class SpriteMainWindow;
@@ -14,9 +15,28 @@ class SpriteMainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    Ui::SpriteMainWindow *ui;
+    QPen pen;
+    QPoint drawPoint;
+    QColor penColor;
+    QPixmap workspacePixMap;
+    QPainter painter;
+    bool isModified;
+    bool mousePressed;
+    bool maybeSave();
+    QString filename;
+
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
+
+protected:
+    void closeEvent(QCloseEvent*);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent *event);
 
 private slots:
 
@@ -81,17 +101,6 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionWalkthrough_triggered();
-
-private:
-    Ui::SpriteMainWindow *ui;
-    QPen pen;
-    QColor penColor;
-    bool isModified;
-    bool maybeSave();
-    QString filename;
-
-protected:
-    void closeEvent(QCloseEvent*);
 };
 
 #endif // SPRITEMAINWINDOW_H

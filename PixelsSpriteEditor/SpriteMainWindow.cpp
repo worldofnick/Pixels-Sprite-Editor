@@ -5,6 +5,7 @@
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
 #include <iostream>
+#include <QPoint>
 
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,9 +17,16 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     //the beginning color will be the current penColor.
     penColor = Qt:: blue;
     pen.setColor(penColor);
+    pen.setWidth(10);
 
     filename = "";
     isModified = true;
+
+    // Set pixmap's resolution, color and set it to the workspace.
+    workspacePixMap = QPixmap(536, 408);
+    workspacePixMap.fill(Qt::white);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    mousePressed = false;
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -26,6 +34,48 @@ SpriteMainWindow::~SpriteMainWindow()
     delete ui;
 }
 
+// Nofity when the mouse is clicked
+void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
+
+    //Pen tool (add conditionals as per new tools)
+    if(event->button() == Qt::LeftButton) {
+        drawPoint.setX(event->pos().x() - 242);
+        drawPoint.setY(event->pos().y() - 50);
+        mousePressed = true;
+    }
+
+    //update();
+}
+
+// Track mouse moving events
+void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
+
+    //As mouse is moving set the second point again and again
+    // and update continuously
+    //if(event->type() == QEvent::MouseMove){
+
+    //}
+    //update();
+    if(mousePressed) {
+        drawPoint.setX(event->pos().x() -242);
+        drawPoint.setY(event->pos().y() - 50);
+    }
+    update();
+
+}
+
+// Notify when the mouse ie released
+void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
+    mousePressed = false;
+    update();
+}
+
+void SpriteMainWindow::paintEvent(QPaintEvent *event) {
+    QPainter p(&workspacePixMap);
+    p.setPen(pen);
+    p.drawPoint(drawPoint);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+}
 
 //Slots
 
