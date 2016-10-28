@@ -84,10 +84,12 @@ void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void SpriteMainWindow::paintEvent(QPaintEvent *event) {
-    QPainter p(&workspacePixMap);
-    p.setPen(pen);
-    p.drawPoint(drawPoint);
+    //QPainter p(&workspacePixMap);
+    painter.begin(&workspacePixMap);
+    painter.setPen(pen);
+    painter.drawPoint(drawPoint);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+    painter.end();
 }
 
 //Slots
