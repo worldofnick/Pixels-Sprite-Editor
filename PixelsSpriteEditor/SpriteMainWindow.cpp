@@ -57,7 +57,7 @@ void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
         mousePressed = true;
     }
 
-    //update();
+    //updateWorkspace();
 }
 
 // Track mouse moving events
@@ -68,29 +68,32 @@ void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
     //if(event->type() == QEvent::MouseMove){
 
     //}
-    //update();
+    //updateWorkspace();
     if(mousePressed) {
         drawPoint.setX(event->pos().x() -242);
         drawPoint.setY(event->pos().y() - 50);
     }
-    update();
+    updateWorkspace();
 
 }
 
-// Notify when the mouse ie released
-void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-    mousePressed = false;
-    update();
-}
-
-void SpriteMainWindow::paintEvent(QPaintEvent *event) {
-    //QPainter p(&workspacePixMap);
+void SpriteMainWindow::updateWorkspace() {
     painter.begin(&workspacePixMap);
     painter.setPen(pen);
     painter.drawPoint(drawPoint);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     painter.end();
 }
+
+// Notify when the mouse ie released
+void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
+    mousePressed = false;
+    updateWorkspace();
+}
+
+//void SpriteMainWindow::paintEvent(QPaintEvent *event) {
+
+//}
 
 //Slots
 

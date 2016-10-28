@@ -27,6 +27,7 @@ private:
     bool mousePressed;
     bool maybeSave();
     QString filename;
+    void updateWorkspace();
 
     //Sprite
     Sprite currentSprite;
@@ -40,7 +41,7 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
-    void paintEvent(QPaintEvent *event);
+    //void paintEvent(QPaintEvent *event);
 
 private slots:
 
