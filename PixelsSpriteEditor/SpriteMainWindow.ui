@@ -88,7 +88,6 @@
               <height>174</height>
              </rect>
             </property>
-            <zorder>addFrameButton</zorder>
            </widget>
           </widget>
          </item>
@@ -233,13 +232,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>60</width>
-          <height>60</height>
+          <width>80</width>
+          <height>80</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>180</width>
+          <width>80</width>
           <height>16777215</height>
          </size>
         </property>
@@ -247,26 +246,106 @@
          <string>TOOLS</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QPushButton" name="penTool">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>-1</number>
+         </property>
+         <item row="7" column="1">
+          <widget class="QPushButton" name="brushSize2Button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Brush size 2</string>
+           </property>
            <property name="text">
-            <string>Pen</string>
+            <string>2</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="7" column="0">
+          <widget class="QPushButton" name="brushSize1Button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Brush size 1</string>
+           </property>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="3">
+          <widget class="QPushButton" name="brushSize4Button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Brush size 4</string>
+           </property>
+           <property name="text">
+            <string>4</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
           <widget class="QPushButton" name="eraserTool">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -276,14 +355,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="text">
@@ -291,7 +370,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QPushButton" name="lineTool">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -301,14 +380,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="text">
@@ -316,7 +395,179 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="4" column="0">
+          <widget class="QPushButton" name="flipHorizontalButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Flip L</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QPushButton" name="unassignedButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QPushButton" name="unassignedButton_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QPushButton" name="unassignedButton_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <widget class="QPushButton" name="unassignedButton_4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="penTool">
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Pen</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="2">
+          <widget class="QPushButton" name="brushSize3Button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Brush size 3</string>
+           </property>
+           <property name="text">
+            <string>3</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
           <widget class="QPushButton" name="rectangleTool">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -326,14 +577,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="text">
@@ -341,7 +592,7 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="2" column="0">
           <widget class="QPushButton" name="ellipseTool">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -351,14 +602,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="text">
@@ -366,18 +617,43 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="0">
-          <widget class="QPushButton" name="stampTool">
+         <item row="4" column="2">
+          <widget class="QPushButton" name="flipVerticalButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>FV</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="stampTool">
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="text">
@@ -385,7 +661,57 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
+         <item row="3" column="0">
+          <widget class="QPushButton" name="rotateCounterClockButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Rotate AC</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QPushButton" name="rotateClockButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>60</horstretch>
+             <verstretch>60</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>35</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>RC</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0" colspan="3">
           <widget class="QPushButton" name="colorPickButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -395,14 +721,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>80</width>
+             <height>80</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
-             <height>60</height>
+             <width>80</width>
+             <height>80</height>
             </size>
            </property>
            <property name="text">
