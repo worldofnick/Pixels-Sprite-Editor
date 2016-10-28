@@ -77,18 +77,20 @@ void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
 
 }
 
+// Notify when the mouse ie released
+void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
+    mousePressed = false;
+    updateWorkspace();
+}
+
+// Draws on the workspace's pixmap and reassigns it. All the tools will
+// paint in this method. (Replacement for paintEvent() method).
 void SpriteMainWindow::updateWorkspace() {
     painter.begin(&workspacePixMap);
     painter.setPen(pen);
     painter.drawPoint(drawPoint);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     painter.end();
-}
-
-// Notify when the mouse ie released
-void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-    mousePressed = false;
-    updateWorkspace();
 }
 
 //void SpriteMainWindow::paintEvent(QPaintEvent *event) {
