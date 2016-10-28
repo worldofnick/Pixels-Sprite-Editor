@@ -1,11 +1,12 @@
 #include "Sprite.h"
 
-Sprite::Sprite(int w, int h, int s, std::string file)
+Sprite::Sprite(int w, int h, int s, QString file)
 {
     width = w;
     height = h;
     fps = s;
     filename = file;
+    frames.append(new Frame());
 }
 
 Sprite::~Sprite()
@@ -15,12 +16,13 @@ Sprite::~Sprite()
 
 void Sprite::addFrame()
 {
-    frames.push_back(new Frame());
+    frames.append(new Frame());
+    //Emit a signal here to the Gui
 }
 
-Frame Sprite::getFrame(int index)
+Frame& Sprite::getFrame(int index)
 {
-    return frames.at(index);
+    return *frames[index];
 }
 
 void Sprite::setFps(int speed)
@@ -28,7 +30,7 @@ void Sprite::setFps(int speed)
     fps = speed;
 }
 
-Sprite::loadFile(std::string file)
+void Sprite::loadFile(QString file)
 {
     frames.clear();
     filename = file;
@@ -39,12 +41,12 @@ Sprite::loadFile(std::string file)
     // Close file
 }
 
-Sprite::saveFile()
+void Sprite::saveFile()
 {
     // Open file
     // Save variables to header
 
-    for(auto i = frames.begin(); i != frames.end; i++)
+    for(auto i = frames.begin(); i != frames.end(); i++)
     {
         // Convert to image
         // Get RGBA from each pixel
@@ -54,7 +56,7 @@ Sprite::saveFile()
     // Close file
 }
 
-Sprite::exportToGif(std::string file)
+void Sprite::exportToGif(QString file)
 {
     // Call to GifExport class
 }

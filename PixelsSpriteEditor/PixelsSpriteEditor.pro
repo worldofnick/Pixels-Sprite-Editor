@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         SpriteMainWindow.cpp \
     PopupWindow.cpp \
-    Frame.cpp
+    Frame.cpp \
+    Sprite.cpp
 
 HEADERS  += SpriteMainWindow.h \
     PopupWindow.h \
-    Frame.h
+    Frame.h \
+    Sprite.h
 
 FORMS    += SpriteMainWindow.ui \
     PopupWindow.ui

@@ -1,25 +1,27 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include <vector>
+#include <QVector>
+#include "Frame.h"
 
-class Sprite
+
+class Sprite : public QWidget
 {
     Q_OBJECT
 
 public:
-    Sprite(int, int, int, std::string);
+    Sprite(int, int, int, QString);
     ~Sprite();
     void setFps(int);
     void addFrame();
-    Frame getFrame(int);
+    Frame& getFrame(int);
 
     void saveFile();
-    void loadFile(std::string);
-    void exportToGif(std::string);
+    void loadFile(QString);
+    void exportToGif(QString);
 private:
-    std::vector<Frame> frames;
-    std::string filename;
+    QVector<Frame*> frames;
+    QString filename;
     int fps, width, height;
 };
 
