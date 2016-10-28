@@ -96,6 +96,9 @@
            <property name="text">
             <string>+</string>
            </property>
+           <property name="shortcut">
+            <string>Ctrl+=</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -331,6 +334,9 @@
            <property name="text">
             <string>3</string>
            </property>
+           <property name="shortcut">
+            <string>Ctrl+3</string>
+           </property>
           </widget>
          </item>
          <item row="0" column="2">
@@ -459,6 +465,9 @@
            <property name="text">
             <string>4</string>
            </property>
+           <property name="shortcut">
+            <string>Ctrl+4</string>
+           </property>
           </widget>
          </item>
          <item row="8" column="0" colspan="3">
@@ -483,6 +492,9 @@
            </property>
            <property name="text">
             <string>color pick</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+P</string>
            </property>
           </widget>
          </item>
@@ -656,6 +668,9 @@
            <property name="text">
             <string>2</string>
            </property>
+           <property name="shortcut">
+            <string>Ctrl+2</string>
+           </property>
           </widget>
          </item>
          <item row="7" column="0">
@@ -683,6 +698,9 @@
            </property>
            <property name="text">
             <string>1</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+1</string>
            </property>
           </widget>
          </item>
@@ -833,15 +851,24 @@
    <property name="text">
     <string>New</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="text">
     <string>Open...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionSave">
    <property name="text">
     <string>Save...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionStamp">
@@ -873,10 +900,16 @@
    <property name="text">
     <string>Undo</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
   </action>
   <action name="actionRedo">
    <property name="text">
     <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
    </property>
   </action>
   <action name="actionReset">
@@ -898,10 +931,16 @@
    <property name="text">
     <string>Rotate Clockwise</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
   <action name="actionRotate_Counterclockwise">
    <property name="text">
     <string>Rotate Counterclockwise</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
   <action name="actionShow_Hide_Frame">
@@ -913,15 +952,24 @@
    <property name="text">
     <string>Duplicate</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
   </action>
   <action name="actionDelete">
    <property name="text">
     <string>Remove</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Backspace</string>
+   </property>
   </action>
   <action name="actionRemove_All">
    <property name="text">
     <string>Remove All...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Backspace</string>
    </property>
   </action>
   <action name="actionAbout">
