@@ -1,6 +1,7 @@
 #include <QColorDialog>
 #include <QPushButton>
 #include <QFileDialog>
+#include <QMessageBox>
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
 #include <iostream>
@@ -16,7 +17,18 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     penColor = Qt:: blue;
     pen.setColor(penColor);
 
+    filename = "";
     isModified = true;
+
+    //Tools Activity Indicators
+    penIsActive = true;
+
+    eraserIsActive = false;
+    stampIsActive = false;
+    lineToolIsAtive = false;
+    rectToolIsActive = false;
+    ellipseToolIsActive = false;
+
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -35,32 +47,32 @@ void SpriteMainWindow::on_colorPickButton_clicked()
 
 void SpriteMainWindow::on_stampTool_clicked()
 {
-
+    toggleTools("stamp");
 }
 
 void SpriteMainWindow::on_ellipseTool_clicked()
 {
-
+    toggleTools("ellipse");
 }
 
 void SpriteMainWindow::on_rectangleTool_clicked()
 {
-
+    toggleTools("rect");
 }
 
 void SpriteMainWindow::on_lineTool_clicked()
 {
-
+    toggleTools("line");
 }
 
 void SpriteMainWindow::on_eraserTool_clicked()
 {
-
+    toggleTools("eraser");
 }
 
 void SpriteMainWindow::on_penTool_clicked()
 {
-
+    toggleTools("pen");
 }
 
 void SpriteMainWindow::on_addFrameButton_clicked()
@@ -86,15 +98,13 @@ void SpriteMainWindow::on_actionOpen_triggered()
 
     QFileDialog dialog;
     QString filename = dialog.getOpenFileName();
-    std::cout << filename.toStdString() << std::endl;
 }
 
 //Save a file
 void SpriteMainWindow::on_actionSave_triggered()
 {
     QFileDialog dialog;
-    QString filename = dialog.getSaveFileName();
-    std::cout << filename.toStdString() << std::endl;
+    filename = dialog.getSaveFileName(NULL, "Save", filename, ".ssp");
 }
 
 //Slot for when the stamp tool button is clicked.
@@ -103,91 +113,85 @@ void SpriteMainWindow::on_actionStamp_triggered()
 
 }
 
-//Slot for when the quit menu itm is selected.
-void SpriteMainWindow::on_actionQuit_triggered()
-{
-    stillContinue = true;
-    if(isModified){
-        PopupWindow saveWarningPopup;
-        saveWarningPopup.setText("There are unsaved changes are you sure you want to continue?");
-        saveWarningPopup.addCancelButton();
-        saveWarningPopup.exec();
-    }
-    if(stillContinue){
-        std::cout << "Success" << std::endl;
-    }
-}
-
 //Slot for when the SpriteSheet menu item is selected.
 void SpriteMainWindow::on_actionSprite_Sheet_triggered()
 {
 
 }
 
-//Slot for when export as GIF is selected from the menu
+//Slot for when export as GIF is selected from the menu.
 void SpriteMainWindow::on_actionExport_as_gif_triggered()
 {
 
 }
 
-//Slot for when undo is selected from the menu
+//Slot for when undo is selected from the menu.
 void SpriteMainWindow::on_actionUndo_triggered()
 {
 
 }
 
-//
+//Slot for when the redo button is selected the menu.
 void SpriteMainWindow::on_actionRedo_triggered()
 {
 
 }
 
+//Slot for when the reset option is selected from the menu.
 void SpriteMainWindow::on_actionReset_triggered()
 {
 
 }
 
+//Slot for when the Flip Horizontally option is selected from the menu.
 void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
 {
 
 }
 
+//Slot for when the flip Vertically option is selected from the menu.
 void SpriteMainWindow::on_actionFlip_Vertically_triggered()
 {
 
 }
 
+//Slot for when the rotate Horizontally option is selected from the menu.
 void SpriteMainWindow::on_actionRotate_Horizontally_triggered()
 {
 
 }
 
+//Slot for when the rotate Counterclockwise option is selected from the menu.
 void SpriteMainWindow::on_actionRotate_Counterclockwise_triggered()
 {
 
 }
 
+//Slot for when the Show/Hide option is selected from the menu.
 void SpriteMainWindow::on_actionShow_Hide_Frame_triggered()
 {
 
 }
 
+//Slot for when the Duplicate option is selected from the menu.
 void SpriteMainWindow::on_actionDuplicate_triggered()
 {
 
 }
 
+//Slot for when the delete option is selected from the menu.
 void SpriteMainWindow::on_actionDelete_triggered()
 {
 
 }
 
+//Slot for when the remove all option is selected from the menu.
 void SpriteMainWindow::on_actionRemove_All_triggered()
 {
 
 }
 
-
+//Slot for when the about option is selected from the menu.
 void SpriteMainWindow::on_actionAbout_triggered()
 {
     PopupWindow aboutPopup;
@@ -195,7 +199,7 @@ void SpriteMainWindow::on_actionAbout_triggered()
     aboutPopup.exec();
 }
 
-
+//Slot for when the walkthrough option is selected from the menu.
 void SpriteMainWindow::on_actionWalkthrough_triggered()
 {
     PopupWindow walkthroughPopup;
@@ -203,20 +207,65 @@ void SpriteMainWindow::on_actionWalkthrough_triggered()
     walkthroughPopup.exec();
 }
 
+//Override the closeEvent for the window so that a warning popup may be displayed if there are unsaved changes.
 void SpriteMainWindow::closeEvent(QCloseEvent *e){
-    stillContinue = true;
-    if(isModified){
-        PopupWindow saveWarningPopup;
-        saveWarningPopup.setText("There are unsaved changes are you sure you want to continue?");
-        saveWarningPopup.addCancelButton();
-        saveWarningPopup.exec();
-    }
-    if(stillContinue){
-        std::cout << "Success" << std::endl;
+    if (maybeSave()) {
+        e->accept();
+    } else {
+        e->ignore();
     }
 }
 
-void SpriteMainWindow::rejected(PopupWindow *window){
-    stillContinue = false;
-    window->close();
+//Called when the window wants to close, to determine if there are any necessary changes to save.
+bool SpriteMainWindow::maybeSave(){
+    if (isModified) {
+       isModified = false;
+       QMessageBox::StandardButton ret;
+       ret = QMessageBox::warning(this, tr("Warning"),
+                          tr("The sprite has been modified.\n"
+                             "Do you want to save your changes?"),
+                          QMessageBox::Save | QMessageBox::Discard
+                          | QMessageBox::Cancel);
+        if (ret == QMessageBox::Save) {
+            //Call the Save method here...
+            on_actionSave_triggered();
+            return true;
+        } else if (ret == QMessageBox::Cancel) {
+            isModified = true;
+            return false;
+        }
+    }
+    return true;
+}
+
+//Toggles the Activity Indicators for the Tools, also ensures that only one tool is marked as active at a time.
+void SpriteMainWindow::toggleTools(QString newTool){
+    penIsActive = false;
+    eraserIsActive = false;
+    stampIsActive = false;
+    lineToolIsAtive = false;
+    rectToolIsActive = false;
+    ellipseToolIsActive = false;
+
+    if(newTool == "eraser"){
+        eraserIsActive = true;
+    }
+    else if(newTool == "stamp"){
+        stampIsActive = true;
+    }
+    else if(newTool == "line"){
+        lineToolIsAtive = true;
+    }
+    else if(newTool == "rect"){
+        rectToolIsActive = true;
+    }
+    else if(newTool == "ellipse"){
+        ellipseToolIsActive = true;
+    }
+    else{
+        penIsActive = true;
+    }
+
+    std::cout << penIsActive << " " << eraserIsActive << " " << stampIsActive << " " << lineToolIsAtive << " " << rectToolIsActive
+              << " " << ellipseToolIsActive << std::endl;
 }

@@ -448,7 +448,6 @@
     <addaction name="menuSave_As"/>
     <addaction name="separator"/>
     <addaction name="actionExport_as_gif"/>
-    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">

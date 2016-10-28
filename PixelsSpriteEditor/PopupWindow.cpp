@@ -21,15 +21,3 @@ PopupWindow::~PopupWindow()
 void PopupWindow::setText(const QString& text){
     ui->popupLabel->setText(text);
 }
-
-//Add a cancel button to the bottom of the PopupWindow.
-void PopupWindow::addCancelButton(){
-    ui->buttonBox->addButton(QDialogButtonBox::Cancel);
-    std::cout << "addedbutton" << std::endl;
-}
-
-//Override the reject slot for when the cancel button is clicked.
-void PopupWindow::reject(){
-    emit rejected();
-}
-

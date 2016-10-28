@@ -52,8 +52,6 @@ private slots:
 
     void on_actionStamp_triggered();
 
-    void on_actionQuit_triggered();
-
     void on_actionSprite_Sheet_triggered();
 
     void on_actionExport_as_gif_triggered();
@@ -84,16 +82,22 @@ private slots:
 
     void on_actionWalkthrough_triggered();
 
-    //Miscellaneous
-
-    void rejected(PopupWindow*);
-
 private:
     Ui::SpriteMainWindow *ui;
     QPen pen;
     QColor penColor;
     bool isModified;
-    bool stillContinue;
+    bool maybeSave();
+    QString filename;
+    void toggleTools(QString);
+
+    //Tools Activity Indicators
+    bool penIsActive;
+    bool eraserIsActive;
+    bool stampIsActive;
+    bool lineToolIsAtive;
+    bool rectToolIsActive;
+    bool ellipseToolIsActive;
 
 protected:
     void closeEvent(QCloseEvent*);
