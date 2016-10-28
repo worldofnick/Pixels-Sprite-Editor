@@ -9,20 +9,55 @@ Sprite::Sprite(int w, int h, int s, QString file)
     frames.append(new Frame());
 }
 
+Sprite::Sprite(){
+
+}
+
+Sprite::Sprite(const Sprite &other){
+    this->width = other.width;
+    this->height = other.height;
+    this->fps = other.fps;
+    this->filename = other.filename;
+    QVector<Frame*> temp;
+    this->frames = temp;
+
+    for (int i = 0; i < other.frames.length(); i++){
+        this->frames.append(other.frames[i]);
+    }
+
+
+
+}
+
+Sprite& Sprite::operator=(Sprite other){
+    std::swap(this->width, other.width);
+    std::swap(this->height, other.height);
+    std::swap(this->fps, other.fps);
+    std::swap(this->filename, other.filename);
+    std::swap(this->frames, other.frames);
+
+    return *this;
+
+
+}
+
 Sprite::~Sprite()
 {
 
 }
 
+const QVector<Frame*> Sprite::getFrames(){
+    return this->frames;
+}
+
 void Sprite::addFrame()
 {
     frames.append(new Frame());
-    //Emit a signal here to the Gui
 }
 
 Frame& Sprite::getFrame(int index)
 {
-    return *frames[index];
+    return *(frames[index]);
 }
 
 void Sprite::setFps(int speed)

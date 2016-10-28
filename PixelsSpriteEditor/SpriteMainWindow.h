@@ -7,6 +7,7 @@
 #include "PopupWindow.h"
 #include <QPainter>
 
+#include "Sprite.h"
 namespace Ui {
 class SpriteMainWindow;
 }
@@ -26,6 +27,9 @@ private:
     bool mousePressed;
     bool maybeSave();
     QString filename;
+
+    //Sprite
+    Sprite currentSprite;
 
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);

@@ -11,6 +11,9 @@ class Sprite : public QWidget
 
 public:
     Sprite(int, int, int, QString);
+    Sprite();
+    Sprite(const Sprite& other);
+    Sprite& operator=(Sprite other);
     ~Sprite();
     void setFps(int);
     void addFrame();
@@ -19,6 +22,8 @@ public:
     void saveFile();
     void loadFile(QString);
     void exportToGif(QString);
+    const QVector<Frame*> getFrames();
+
 private:
     QVector<Frame*> frames;
     QString filename;

@@ -11,12 +11,20 @@ private:
     bool isVisible;
     int height;
     int width;
-    QPixmap pix;
+    //QPixmap pix;
 
 public:
     Frame();
     //void setSize(int, int);
     ~Frame();
+
+    // QWidget interface
+protected:
+    void mousePressEvent(QMouseEvent *event);
+
+    // QWidget interface
+public:
+    QSize sizeHint() const;
 };
 
 #endif // FRAME_H

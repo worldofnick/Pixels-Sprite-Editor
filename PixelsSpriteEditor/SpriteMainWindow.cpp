@@ -27,6 +27,19 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     mousePressed = false;
+
+
+    //create the sprite
+    Sprite temp(32, 32, 0, tr("MySprite"));
+    currentSprite = temp;
+    QVBoxLayout* layout = new QVBoxLayout;
+    //Frame* something = &currentSprite.getFrame(0);
+    layout->addWidget(&currentSprite.getFrame(0));
+    ui->scrollAreaWidgetContents->setLayout(layout);
+
+   // Frame* something = new Frame();
+    //ui->scrollAreaWidgetContents->layout()->
+
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -115,9 +128,11 @@ void SpriteMainWindow::on_penTool_clicked()
 
 }
 
+//Add a Frame
 void SpriteMainWindow::on_addFrameButton_clicked()
 {
-
+    currentSprite.addFrame();
+    ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
 }
 
 void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
