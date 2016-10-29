@@ -5,18 +5,19 @@
 Frame::Frame()
 {
 
-    height = 32;
-    width = 32;
+    height = 100;
+    width = 172;
 
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    this->setAlignment(Qt::AlignTop);
 
     QPixmap temp(width, height);
-    temp.fill(Qt::cyan);
+    temp.fill(Qt::gray);
     this->setScaledContents(true);
     this->setPixmap(temp);
 
 
-    this->setGeometry(0, 0, 80, 80);
+    this->setGeometry(0, 0, 172, 100);
 }
 
 //Destructs the current Frame.
@@ -26,7 +27,7 @@ Frame::~Frame(){
 
 
 QSize Frame::sizeHint() const{
-    return QSize(80,80);
+    return QSize(172,100);
 }
 
 
