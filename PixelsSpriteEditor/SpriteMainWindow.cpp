@@ -19,7 +19,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     penColor = Qt:: blue;
     pen.setColor(penColor);
     pen.setWidth(10);
-    clickedInsideWorkspace = false;
+    clickedInsideWorkspace = false;     //TODO: keep or remove later
 
     filename = "";
     isModified = true;
@@ -42,7 +42,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     layout->addWidget(&currentSprite.getFrame(0));
     ui->scrollAreaWidgetContents->setLayout(layout);
 
-   // Frame* something = new Frame();
+    // Frame* something = new Frame();
     //ui->scrollAreaWidgetContents->layout()->
 
 }
@@ -61,85 +61,56 @@ SpriteMainWindow::~SpriteMainWindow()
 // Can add more stuff (like for tools, etc). Much cleaner than creating a custom
 // class and making it inherit from QLabel (and overide the mouse events).
 bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
-  {
-      if (watched == ui->workspaceLabel) {
-          clickedInsideWorkspace = true;
-          if (event->type() == QEvent::MouseButtonPress) {
-              QMouseEvent *mousePressEvent = static_cast<QMouseEvent*>(event);
-              qDebug() << "Left mouse pressed inside workspace";
-              drawPoint.setX(mousePressEvent->pos().x());
-              drawPoint.setY(mousePressEvent->pos().y());
-              mousePressed = true;
-              //updateWorkspace();
-              return true;
-          }
-          if(event->type() == QEvent::MouseMove) {
-              QMouseEvent *mouseMoveEvent = static_cast<QMouseEvent*>(event);
-              qDebug() << "mouse being moved";
-              drawPoint.setX(mouseMoveEvent->pos().x());
-              drawPoint.setY(mouseMoveEvent->pos().y());
-              updateWorkspace();
-              return true;
-          }
-          if(event->type() == QEvent::MouseButtonRelease) {
-              mousePressed = false;
-              updateWorkspace();
-          }
-          else {
-              return false;
-          }
-      } else {
-          // pass the event on to the parent class
-          return QMainWindow::eventFilter(watched, event);
-      }
-  }
+{
+    if (watched == ui->workspaceLabel) {
+        clickedInsideWorkspace = true;
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *mousePressEvent = static_cast<QMouseEvent*>(event);
+            qDebug() << "Left mouse pressed inside workspace";
+            drawPoint.setX(mousePressEvent->pos().x());
+            drawPoint.setY(mousePressEvent->pos().y());
+            mousePressed = true;
+            return true;
+        }
+        if(event->type() == QEvent::MouseMove) {
+            QMouseEvent *mouseMoveEvent = static_cast<QMouseEvent*>(event);
+            qDebug() << "mouse is being moved inside workspace";
+            drawPoint.setX(mouseMoveEvent->pos().x());
+            drawPoint.setY(mouseMoveEvent->pos().y());
+            updateWorkspace();
+            return true;
+        }
+        if(event->type() == QEvent::MouseButtonRelease) {
+            qDebug() << "mouse left click released inside workspace";
+            mousePressed = false;
+            updateWorkspace();
+            return true;
+        }
+        else {
+            return false;
+        }
+    } else {
+        // pass the event on to the parent class
+        return QMainWindow::eventFilter(watched, event);
+    }
+}
 
 // Nofity when the mouse is clicked
 void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
 
-
     // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
-    //Pen tool (add conditionals as per new tools)
-//    if(!clickedInsideWorkspace && event->button() == Qt::LeftButton) {
-//        drawPoint.setX(event->pos().x() - (ui->workspaceLabel->geometry().x()));
-//        drawPoint.setY(event->pos().y() - (ui->workspaceLabel->geometry().y()));
-//        drawPoint.setX(event->pos().x() - this->x());
-//        drawPoint.setY(event->pos().y() - this->y());
-//        drawPoint.setX(event->pos().x());
-//        drawPoint.setY(event->pos().y());
-//        mousePressed = true;
-//    }
-
-//    //updateWorkspace();
 }
 
 // Track mouse moving events
 void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
 
     // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
-    //As mouse is moving set the second point again and again
-    // and update continuously
-    //if(event->type() == QEvent::MouseMove){
-
-    //}
-    //updateWorkspace();
-//    if(!clickedInsideWorkspace && mousePressed) {
-//        drawPoint.setX(event->pos().x() - (ui->workspaceLabel->geometry().x()));
-//        drawPoint.setY(event->pos().y() - (ui->workspaceLabel->geometry().y()));
-//        drawPoint.setX(event->pos().x() - this->x());
-//        drawPoint.setY(event->pos().y() - this->y());
-
-//        drawPoint.setX(event->pos().x());
-//        drawPoint.setY(event->pos().y());
-//    }
-//    updateWorkspace();
-
 }
 
 // Notify when the mouse ie released
 void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-//    mousePressed = false;
-//    updateWorkspace();
+
+    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
 }
 
 // Draws on the workspace's pixmap and reassigns it. All the tools will
@@ -340,13 +311,13 @@ void SpriteMainWindow::closeEvent(QCloseEvent *e){
 //Called when the window wants to close, to determine if there are any necessary changes to save.
 bool SpriteMainWindow::maybeSave(){
     if (isModified) {
-       isModified = false;
-       QMessageBox::StandardButton ret;
-       ret = QMessageBox::warning(this, tr("Warning"),
-                          tr("The sprite has been modified.\n"
-                             "Do you want to save your changes?"),
-                          QMessageBox::Save | QMessageBox::Discard
-                          | QMessageBox::Cancel);
+        isModified = false;
+        QMessageBox::StandardButton ret;
+        ret = QMessageBox::warning(this, tr("Warning"),
+                                   tr("The sprite has been modified.\n"
+                                      "Do you want to save your changes?"),
+                                   QMessageBox::Save | QMessageBox::Discard
+                                   | QMessageBox::Cancel);
         if (ret == QMessageBox::Save) {
             //Call the Save method here...
             on_actionSave_triggered();

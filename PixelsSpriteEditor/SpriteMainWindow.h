@@ -18,19 +18,25 @@ class SpriteMainWindow : public QMainWindow
 
 private:
     Ui::SpriteMainWindow *ui;
+    QString filename;
+
+    // Drawing resources
     QPen pen;
     QPoint drawPoint;
     QColor penColor;
     QPixmap workspacePixMap;
     QPainter painter;
+
+    // Flags
     bool isModified;
     bool mousePressed;
     bool maybeSave();
-    bool clickedInsideWorkspace;
-    QString filename;
-    void updateWorkspace();
+    bool clickedInsideWorkspace;     //TODO: keep or remove later
 
-    //Sprite
+    // Helper methods
+    void updateWorkspace();         // paints on the workspaceLabel's pixmap and updates it
+
+    // Sprite
     Sprite currentSprite;
 
 public:
@@ -38,7 +44,7 @@ public:
     ~SpriteMainWindow();
 
 protected:
-    bool eventFilter(QObject *watched, QEvent *event);
+    bool eventFilter(QObject *watched, QEvent *event);      // Handles the QLabel events
     void closeEvent(QCloseEvent*);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
