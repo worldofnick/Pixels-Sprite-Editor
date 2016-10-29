@@ -6,6 +6,7 @@
 #include "ui_SpriteMainWindow.h"
 #include <iostream>
 #include <QPoint>
+#include <QDebug>
 
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,16 +19,20 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     penColor = Qt:: blue;
     pen.setColor(penColor);
     pen.setWidth(10);
+    clickedInsideWorkspace = false;
 
     filename = "";
     isModified = true;
 
     // Set pixmap's resolution, color and set it to the workspace.
-    workspacePixMap = QPixmap(536, 408);
+    workspacePixMap = QPixmap(588, 455);
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
     mousePressed = false;
 
+    // Install SpriteMainWindow as an event handler for the workspaceLabel
+    ui->workspaceLabel->installEventFilter(this);
 
     //create the sprite
     Sprite temp(32, 32, 0, tr("MySprite"));
@@ -47,40 +52,94 @@ SpriteMainWindow::~SpriteMainWindow()
     delete ui;
 }
 
+// Handles the events inside a QLabel. QLabel unlike QWidget cant emit signals
+// for events like mouse click, etc. Thus, clicking and dragging anywhere on our
+// SpriteMainWindow would draw on workspace (since it inherit from QWidget). But,
+// this overidden method handles QLabel events, and if the event didnt occur in
+// QLabel, then will pass it to the SpriteMainWindow.
+//
+// Can add more stuff (like for tools, etc). Much cleaner than creating a custom
+// class and making it inherit from QLabel (and overide the mouse events).
+bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
+  {
+      if (watched == ui->workspaceLabel) {
+          clickedInsideWorkspace = true;
+          if (event->type() == QEvent::MouseButtonPress) {
+              QMouseEvent *mousePressEvent = static_cast<QMouseEvent*>(event);
+              qDebug() << "Left mouse pressed inside workspace";
+              drawPoint.setX(mousePressEvent->pos().x());
+              drawPoint.setY(mousePressEvent->pos().y());
+              mousePressed = true;
+              //updateWorkspace();
+              return true;
+          }
+          if(event->type() == QEvent::MouseMove) {
+              QMouseEvent *mouseMoveEvent = static_cast<QMouseEvent*>(event);
+              qDebug() << "mouse being moved";
+              drawPoint.setX(mouseMoveEvent->pos().x());
+              drawPoint.setY(mouseMoveEvent->pos().y());
+              updateWorkspace();
+              return true;
+          }
+          if(event->type() == QEvent::MouseButtonRelease) {
+              mousePressed = false;
+              updateWorkspace();
+          }
+          else {
+              return false;
+          }
+      } else {
+          // pass the event on to the parent class
+          return QMainWindow::eventFilter(watched, event);
+      }
+  }
+
 // Nofity when the mouse is clicked
 void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
 
-    //Pen tool (add conditionals as per new tools)
-    if(event->button() == Qt::LeftButton) {
-        drawPoint.setX(event->pos().x() - 242);
-        drawPoint.setY(event->pos().y() - 50);
-        mousePressed = true;
-    }
 
-    //updateWorkspace();
+    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
+    //Pen tool (add conditionals as per new tools)
+//    if(!clickedInsideWorkspace && event->button() == Qt::LeftButton) {
+//        drawPoint.setX(event->pos().x() - (ui->workspaceLabel->geometry().x()));
+//        drawPoint.setY(event->pos().y() - (ui->workspaceLabel->geometry().y()));
+//        drawPoint.setX(event->pos().x() - this->x());
+//        drawPoint.setY(event->pos().y() - this->y());
+//        drawPoint.setX(event->pos().x());
+//        drawPoint.setY(event->pos().y());
+//        mousePressed = true;
+//    }
+
+//    //updateWorkspace();
 }
 
 // Track mouse moving events
 void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
 
+    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
     //As mouse is moving set the second point again and again
     // and update continuously
     //if(event->type() == QEvent::MouseMove){
 
     //}
     //updateWorkspace();
-    if(mousePressed) {
-        drawPoint.setX(event->pos().x() -242);
-        drawPoint.setY(event->pos().y() - 50);
-    }
-    updateWorkspace();
+//    if(!clickedInsideWorkspace && mousePressed) {
+//        drawPoint.setX(event->pos().x() - (ui->workspaceLabel->geometry().x()));
+//        drawPoint.setY(event->pos().y() - (ui->workspaceLabel->geometry().y()));
+//        drawPoint.setX(event->pos().x() - this->x());
+//        drawPoint.setY(event->pos().y() - this->y());
+
+//        drawPoint.setX(event->pos().x());
+//        drawPoint.setY(event->pos().y());
+//    }
+//    updateWorkspace();
 
 }
 
 // Notify when the mouse ie released
 void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-    mousePressed = false;
-    updateWorkspace();
+//    mousePressed = false;
+//    updateWorkspace();
 }
 
 // Draws on the workspace's pixmap and reassigns it. All the tools will

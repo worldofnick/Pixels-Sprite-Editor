@@ -6,7 +6,7 @@
 #include <QCloseEvent>
 #include "PopupWindow.h"
 #include <QPainter>
-
+#include "qevent.h"
 #include "Sprite.h"
 namespace Ui {
 class SpriteMainWindow;
@@ -26,6 +26,7 @@ private:
     bool isModified;
     bool mousePressed;
     bool maybeSave();
+    bool clickedInsideWorkspace;
     QString filename;
     void updateWorkspace();
 
@@ -37,6 +38,7 @@ public:
     ~SpriteMainWindow();
 
 protected:
+    bool eventFilter(QObject *watched, QEvent *event);
     void closeEvent(QCloseEvent*);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
