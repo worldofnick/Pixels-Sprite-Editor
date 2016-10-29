@@ -76,16 +76,16 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="leftMargin">
-        <number>0</number>
+        <number>10</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>10</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>10</number>
        </property>
        <property name="bottomMargin">
-        <number>0</number>
+        <number>10</number>
        </property>
        <item>
         <widget class="QScrollArea" name="framesScrollArea">
@@ -130,8 +130,8 @@
            <rect>
             <x>8</x>
             <y>0</y>
-            <width>172</width>
-            <height>344</height>
+            <width>164</width>
+            <height>304</height>
            </rect>
           </property>
          </widget>
@@ -146,6 +146,22 @@
           <string>Ctrl+=</string>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="previewLabelMap">
@@ -238,7 +254,7 @@
      </widget>
     </item>
     <item row="0" column="4">
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="toolsContainer">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
         <horstretch>0</horstretch>
@@ -258,10 +274,13 @@
        </size>
       </property>
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
       </property>
       <widget class="QPushButton" name="penTool">
        <property name="geometry">
@@ -920,7 +939,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>420</y>
+         <y>480</y>
          <width>100</width>
          <height>100</height>
         </rect>

@@ -13,6 +13,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui(new Ui::SpriteMainWindow)
 {
     ui->setupUi(this);
+    //this->setWindowFlags(Qt::FramelessWindowHint);
 
     //penColor is recorded so that when a color picker is selected,
     //the beginning color will be the current penColor.
