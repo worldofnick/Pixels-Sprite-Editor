@@ -36,6 +36,10 @@ private:
     QPixmap workspacePixMap;
     QPainter painter;
 
+    // Brush types, add more as we go
+    enum Brushes { pencil, eraser };
+    Brushes brush;
+
     // Flags
     bool isModified;
     bool mousePressed;

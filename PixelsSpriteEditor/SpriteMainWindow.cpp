@@ -21,6 +21,9 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui->setupUi(this);
     //this->setWindowFlags(Qt::FramelessWindowHint);
 
+    // default to pen
+    brush = pencil;
+
     //penColor is recorded so that when a color picker is selected,
     //the beginning color will be the current penColor.
     penColor = qRgb(255, 198, 6);
@@ -218,12 +221,19 @@ void SpriteMainWindow::on_lineTool_clicked()
 
 void SpriteMainWindow::on_eraserTool_clicked()
 {
+    if(brush == eraser) {
+        on_penTool_clicked();
+    } else {
+        pen.setColor(Qt::white);
+        brush = eraser;
+    }
 
 }
 
 void SpriteMainWindow::on_penTool_clicked()
 {
-
+    pen.setColor(penColor);
+    brush = pencil;
 }
 
 //Add a Frame
