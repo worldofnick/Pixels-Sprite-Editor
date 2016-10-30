@@ -37,9 +37,6 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     layout->addWidget(&currentSprite.getFrame(0));
     ui->scrollAreaWidgetContents->setLayout(layout);
 
-   // Frame* something = new Frame();
-    //ui->scrollAreaWidgetContents->layout()->
-
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -62,13 +59,6 @@ void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
 
 // Track mouse moving events
 void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
-
-    //As mouse is moving set the second point again and again
-    // and update continuously
-    //if(event->type() == QEvent::MouseMove){
-
-    //}
-    //updateWorkspace();
     if(mousePressed) {
         drawPoint.setX(event->pos().x() -242);
         drawPoint.setY(event->pos().y() - 50);
@@ -296,4 +286,26 @@ bool SpriteMainWindow::maybeSave(){
         }
     }
     return true;
+}
+
+
+//Change Brush Size Slots
+void SpriteMainWindow::on_brushSize1Button_clicked()
+{
+    pen.setWidth(10);
+}
+
+void SpriteMainWindow::on_brushSize2Button_clicked()
+{
+    pen.setWidth(20);
+}
+
+void SpriteMainWindow::on_brushSize3Button_clicked()
+{
+    pen.setWidth(30);
+}
+
+void SpriteMainWindow::on_brushSize4Button_clicked()
+{
+    pen.setWidth(40);
 }

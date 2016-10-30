@@ -106,6 +106,10 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionWalkthrough_triggered();
+    void on_brushSize1Button_clicked();
+    void on_brushSize2Button_clicked();
+    void on_brushSize3Button_clicked();
+    void on_brushSize4Button_clicked();
 };
 
 #endif // SPRITEMAINWINDOW_H
