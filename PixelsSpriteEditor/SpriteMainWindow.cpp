@@ -21,6 +21,8 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     pen.setColor(penColor);
     pen.setWidth(10);
     clickedInsideWorkspace = false;     //TODO: keep or remove later
+    scaleFactor = 1;
+    mainWindowOriginalGeometry = this->saveGeometry();
 
     filename = "";
     isModified = true;
@@ -54,6 +56,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     // Set pixmap's resolution, color and set it to the workspace.
     workspacePixMap = QPixmap(400, 300);
+
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
@@ -152,6 +155,7 @@ void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
 void SpriteMainWindow::updateWorkspace() {
     painter.begin(&workspacePixMap);
     painter.setPen(pen);
+
     painter.drawPoint(drawPoint);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     painter.end();
@@ -375,4 +379,28 @@ bool SpriteMainWindow::maybeSave(){
         }
     }
     return true;
+}
+
+void SpriteMainWindow::on_action2x_Workspace_triggered()
+{
+    scaleFactor++;
+    int wspWidth = workspacePixMap.width() * scaleFactor;
+    int wspHeight = workspacePixMap.height() * scaleFactor;
+
+    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight, Qt::KeepAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    if(scaleFactor != 1) {
+        pen.setWidth(10 * scaleFactor);      //TODO: replace 10 by the current brush size.
+    }
+
+    update();
+
+//    if(wspWidth > this->width()) {
+//        this->resize(this->width() + wspWidth, this->height());
+//        if(wspHeight > this->height()) {
+//            this->resize(this->width(), this->height() + wspHeight);
+//        }
+//    }
+//    update();
 }

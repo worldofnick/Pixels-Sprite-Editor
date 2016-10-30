@@ -26,6 +26,9 @@ private:
     QButtonGroup* toolsButtonsGroup;
     QButtonGroup* brushSizeButtonsGroup;
 
+    int scaleFactor;
+    QByteArray mainWindowOriginalGeometry;
+
     // Drawing resources
     QPen pen;
     QPoint drawPoint;
@@ -123,6 +126,8 @@ public slots:
     void on_actionAbout_triggered();
 
     void on_actionWalkthrough_triggered();
+private slots:
+    void on_action2x_Workspace_triggered();
 };
 
 #endif // SPRITEMAINWINDOW_H
