@@ -16,15 +16,18 @@ SOURCES += main.cpp\
         SpriteMainWindow.cpp \
     PopupWindow.cpp \
     Frame.cpp \
-    Sprite.cpp
+    Sprite.cpp \
+    GetResolutionDialog.cpp
 
 HEADERS  += SpriteMainWindow.h \
     PopupWindow.h \
     Frame.h \
-    Sprite.h
+    Sprite.h \
+    GetResolutionDialog.h
 
 FORMS    += SpriteMainWindow.ui \
-    PopupWindow.ui
+    PopupWindow.ui \
+    GetResolutionDialog.ui
 
 RESOURCES += \
     assets/ui_assets.qrc

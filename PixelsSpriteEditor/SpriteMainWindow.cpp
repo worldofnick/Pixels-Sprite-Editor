@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
+#include "GetResolutionDialog.h"
 #include <iostream>
 #include <QPoint>
 #include <QDebug>
@@ -12,6 +13,11 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SpriteMainWindow)
 {
+    GetResolutionDialog welcomeScreen;
+    connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
+    welcomeScreen.exec();
+
+
     ui->setupUi(this);
     //this->setWindowFlags(Qt::FramelessWindowHint);
 
@@ -66,15 +72,14 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui->workspaceLabel->installEventFilter(this);
 
     //create the sprite
+    //insert spriteWidth and spriteHeight in place of the 32 and 32 here...
+    std::cout << spriteWidth << " X " << spriteHeight << std::endl;
     Sprite temp(32, 32, 0, tr("MySprite"));
     currentSprite = temp;
     QVBoxLayout* layout = new QVBoxLayout;
     //Frame* something = &currentSprite.getFrame(0);
     layout->addWidget(&currentSprite.getFrame(0));
     ui->scrollAreaWidgetContents->setLayout(layout);
-
-    // Frame* something = new Frame();
-    //ui->scrollAreaWidgetContents->layout()->
 
 }
 
@@ -405,6 +410,7 @@ void SpriteMainWindow::on_brushSize3Button_clicked()
 void SpriteMainWindow::on_brushSize4Button_clicked()
 {
     pen.setWidth(40);
+}
 
 void SpriteMainWindow::on_action2x_Workspace_triggered()
 {
@@ -429,4 +435,10 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 //    }
 //    update();
 
+}
+
+
+void SpriteMainWindow::initialResolution(int width, int height){
+    this->spriteWidth = width;
+    this->spriteHeight = height;
 }

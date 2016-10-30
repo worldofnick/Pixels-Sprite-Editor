@@ -48,6 +48,9 @@ private:
     // Sprite
     Sprite currentSprite;
 
+    int spriteWidth;
+    int spriteHeight;
+
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
@@ -131,6 +134,8 @@ public slots:
     void on_brushSize2Button_clicked();
     void on_brushSize3Button_clicked();
     void on_brushSize4Button_clicked();
+
+    void initialResolution(int width, int height);
 
 private slots:
     void on_action2x_Workspace_triggered();
