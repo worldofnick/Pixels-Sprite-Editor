@@ -94,22 +94,23 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
         clickedInsideWorkspace = true;
         if (event->type() == QEvent::MouseButtonPress) {
             QMouseEvent *mousePressEvent = static_cast<QMouseEvent*>(event);
-            qDebug() << "Left mouse pressed inside workspace";
-//            drawPoint.setX(mousePressEvent->pos().x() - (300 - 200));
-//            qDebug() << mousePressEvent->pos().x() << ", " << mousePressEvent->pos().y();
-//            qDebug() << mousePressEvent->globalPos().x() << ", " << mousePressEvent->globalPos().y();
-//            drawPoint.setY(mousePressEvent->pos().y() - (300 - 150));
+            int canvasX = mousePressEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2));
+            int canvasY = mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
+            qDebug() << "Left mouse pressed in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
 
-            drawPoint.setX(mousePressEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2)));
-            drawPoint.setY(mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2)));
+            drawPoint.setX(canvasX);
+            drawPoint.setY(canvasY);
             mousePressed = true;
             return true;
         }
         if(event->type() == QEvent::MouseMove) {
             QMouseEvent *mouseMoveEvent = static_cast<QMouseEvent*>(event);
-            qDebug() << "mouse is being moved inside workspace";
-            drawPoint.setX(mouseMoveEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2)));
-            drawPoint.setY(mouseMoveEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2)));
+            int canvasX = mouseMoveEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2));
+            int canvasY = mouseMoveEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
+
+            qDebug() << "mouse is being moved in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
+            drawPoint.setX(canvasX);
+            drawPoint.setY(canvasY);
             updateWorkspace();
             return true;
         }
