@@ -25,6 +25,33 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     filename = "";
     isModified = true;
 
+    // Assign buttons to the button group (with ids). These
+    // ID's can be used to indentify which button was pressed.
+
+    toolsButtonsGroup= new QButtonGroup(this);
+    toolsButtonsGroup->addButton(ui->penTool, 0);
+    toolsButtonsGroup->addButton(ui->eraserTool, 1);
+    toolsButtonsGroup->addButton(ui->lineTool, 2);
+    toolsButtonsGroup->addButton(ui->rectangleTool, 3);
+    toolsButtonsGroup->addButton(ui->ellipseTool, 4);
+    toolsButtonsGroup->addButton(ui->stampTool, 5);
+    toolsButtonsGroup->addButton(ui->undoButton, 6);
+    toolsButtonsGroup->addButton(ui->redoButton, 7);
+    toolsButtonsGroup->addButton(ui->flipVerticalButton, 8);
+    toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
+    toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
+    toolsButtonsGroup->addButton(ui->rotateClockButton, 11);
+    toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
+    toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
+    toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);
+    toolsButtonsGroup->addButton(ui->unassignedButton_6, 15);
+
+    brushSizeButtonsGroup = new QButtonGroup(this);
+    brushSizeButtonsGroup->addButton(ui->brushSize1Button, 0);
+    brushSizeButtonsGroup->addButton(ui->brushSize2Button, 1);
+    brushSizeButtonsGroup->addButton(ui->brushSize3Button, 2);
+    brushSizeButtonsGroup->addButton(ui->brushSize4Button, 3);
+
     // Set pixmap's resolution, color and set it to the workspace.
     workspacePixMap = QPixmap(400, 300);
     workspacePixMap.fill(Qt::white);

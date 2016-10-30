@@ -277,6 +277,10 @@ border: none;
         <height>16777215</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:pad, x1:0.482, y1:0.4375, x2:0.488, y2:0.994318, stop:0 rgba(35, 37, 37, 255), stop:1 rgba(51, 53, 53, 255));
+color: rgb(239, 239, 239);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -319,8 +323,11 @@ border: none;
        <property name="text">
         <string>Pen</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="eraserTool">
@@ -356,8 +363,11 @@ border: none;
        <property name="text">
         <string>Era</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="lineTool">
@@ -393,8 +403,11 @@ border: none;
        <property name="text">
         <string>Line</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="ellipseTool">
@@ -430,8 +443,11 @@ border: none;
        <property name="text">
         <string>ellip</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="stampTool">
@@ -467,8 +483,11 @@ border: none;
        <property name="text">
         <string>stamp</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="rotateCounterClockButton">
@@ -504,8 +523,11 @@ border: none;
        <property name="text">
         <string>Rotate AC</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="rotateClockButton">
@@ -541,8 +563,11 @@ border: none;
        <property name="text">
         <string>RC</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="flipHorizontalButton">
@@ -578,8 +603,11 @@ border: none;
        <property name="text">
         <string>Flip L</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="flipVerticalButton">
@@ -615,8 +643,11 @@ border: none;
        <property name="text">
         <string>FV</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="undoButton">
@@ -652,8 +683,11 @@ border: none;
        <property name="text">
         <string>undo</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="redoButton">
@@ -689,8 +723,11 @@ border: none;
        <property name="text">
         <string>redo</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="unassignedButton_3">
@@ -726,8 +763,11 @@ border: none;
        <property name="text">
         <string>-</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="unassignedButton_4">
@@ -763,8 +803,11 @@ border: none;
        <property name="text">
         <string>-</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="brushSize1Button">
@@ -806,8 +849,11 @@ border: none;
        <property name="shortcut">
         <string>Ctrl+1</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="brushSize2Button">
@@ -849,8 +895,11 @@ border: none;
        <property name="shortcut">
         <string>Ctrl+2</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="brushSize3Button">
@@ -892,8 +941,11 @@ border: none;
        <property name="shortcut">
         <string>Ctrl+3</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="brushSize4Button">
@@ -935,8 +987,11 @@ border: none;
        <property name="shortcut">
         <string>Ctrl+4</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="colorPickButton">
@@ -967,10 +1022,26 @@ border: none;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#colorPickButton {
+background-color: rgb(254, 188, 12);
+/*border-image: url(:RGB Circle 1.png);*/
+/*background: none;*/
+border: 6px solid rgb(252, 252, 252);
+border-radius: 50px;
+background-repeat: none;
+}
+#colorPickButton:hover
+{
+background-color: rgb(254, 210, 80);
+/*background: none;*/
+border: 8px solid rgb(252, 252, 252);
+border-radius: 50px;
+background-repeat: none;
+/*border-image: url(:RGB Circle 2.png);*/
+}</string>
        </property>
        <property name="text">
-        <string>color pick</string>
+        <string/>
        </property>
        <property name="shortcut">
         <string>Ctrl+P</string>
@@ -1012,8 +1083,11 @@ border: none;
        <property name="text">
         <string>Rect</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="unassignedButton_5">
@@ -1044,13 +1118,28 @@ border: none;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#unassignedButton_5 {
+	border: 2px solid rgb(239, 239, 239);
+	border-radius: 6px;
+	background-color: rgb(179, 179, 179);
+}
+
+#unassignedButton_5:hover
+{
+background-color: rgb(236, 235, 236);
+border: 2px solid rgb(252, 252, 252);
+border-radius: 8px;
+color: rgb(76, 76, 76);
+}</string>
        </property>
        <property name="text">
         <string>-</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="unassignedButton_6">
@@ -1086,8 +1175,11 @@ border: none;
        <property name="text">
         <string>-</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <zorder>eraserTool</zorder>

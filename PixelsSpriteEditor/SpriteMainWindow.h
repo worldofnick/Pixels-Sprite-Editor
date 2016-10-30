@@ -6,8 +6,10 @@
 #include <QCloseEvent>
 #include "PopupWindow.h"
 #include <QPainter>
+#include <QButtonGroup>
 #include "qevent.h"
 #include "Sprite.h"
+
 namespace Ui {
 class SpriteMainWindow;
 }
@@ -19,6 +21,10 @@ class SpriteMainWindow : public QMainWindow
 private:
     Ui::SpriteMainWindow *ui;
     QString filename;
+
+    // Exclusive grouping of the tools buttons. Only one are be toggle and remain active at a time.
+    QButtonGroup* toolsButtonsGroup;
+    QButtonGroup* brushSizeButtonsGroup;
 
     // Drawing resources
     QPen pen;
@@ -51,7 +57,10 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
     //void paintEvent(QPaintEvent *event);
 
-private slots:
+public slots:
+
+    // Used by button group
+    //void buttonClick(QAbstractButton* button);    //TODO: stub that can be used later
 
     //Button Slots
 
