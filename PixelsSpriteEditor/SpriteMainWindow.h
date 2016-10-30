@@ -6,8 +6,10 @@
 #include <QCloseEvent>
 #include "PopupWindow.h"
 #include <QPainter>
-
+#include <QButtonGroup>
+#include "qevent.h"
 #include "Sprite.h"
+
 namespace Ui {
 class SpriteMainWindow;
 }
@@ -18,18 +20,32 @@ class SpriteMainWindow : public QMainWindow
 
 private:
     Ui::SpriteMainWindow *ui;
+    QString filename;
+
+    // Exclusive grouping of the tools buttons. Only one are be toggle and remain active at a time.
+    QButtonGroup* toolsButtonsGroup;
+    QButtonGroup* brushSizeButtonsGroup;
+
+    int scaleFactor;
+    QByteArray mainWindowOriginalGeometry;
+
+    // Drawing resources
     QPen pen;
     QPoint drawPoint;
     QColor penColor;
     QPixmap workspacePixMap;
     QPainter painter;
+
+    // Flags
     bool isModified;
     bool mousePressed;
     bool maybeSave();
-    QString filename;
-    void updateWorkspace();
+    bool clickedInsideWorkspace;     //TODO: keep or remove later
 
-    //Sprite
+    // Helper methods
+    void updateWorkspace();         // paints on the workspaceLabel's pixmap and updates it
+
+    // Sprite
     Sprite currentSprite;
 
 public:
@@ -37,13 +53,17 @@ public:
     ~SpriteMainWindow();
 
 protected:
+    bool eventFilter(QObject *watched, QEvent *event);      // Handles the QLabel events
     void closeEvent(QCloseEvent*);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     //void paintEvent(QPaintEvent *event);
 
-private slots:
+public slots:
+
+    // Used by button group
+    //void buttonClick(QAbstractButton* button);    //TODO: stub that can be used later
 
     //Button Slots
 
@@ -106,10 +126,15 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionWalkthrough_triggered();
+
     void on_brushSize1Button_clicked();
     void on_brushSize2Button_clicked();
     void on_brushSize3Button_clicked();
     void on_brushSize4Button_clicked();
+
+private slots:
+    void on_action2x_Workspace_triggered();
+
 };
 
 #endif // SPRITEMAINWINDOW_H

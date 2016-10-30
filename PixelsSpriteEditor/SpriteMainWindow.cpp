@@ -6,28 +6,64 @@
 #include "ui_SpriteMainWindow.h"
 #include <iostream>
 #include <QPoint>
+#include <QDebug>
 
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SpriteMainWindow)
 {
     ui->setupUi(this);
+    //this->setWindowFlags(Qt::FramelessWindowHint);
 
     //penColor is recorded so that when a color picker is selected,
     //the beginning color will be the current penColor.
-    penColor = Qt:: blue;
+    penColor = qRgb(255, 198, 6);
     pen.setColor(penColor);
     pen.setWidth(10);
+    clickedInsideWorkspace = false;     //TODO: keep or remove later
+    scaleFactor = 1;
+    mainWindowOriginalGeometry = this->saveGeometry();
 
     filename = "";
     isModified = true;
 
+    // Assign buttons to the button group (with ids). These
+    // ID's can be used to indentify which button was pressed.
+
+    toolsButtonsGroup= new QButtonGroup(this);
+    toolsButtonsGroup->addButton(ui->penTool, 0);
+    toolsButtonsGroup->addButton(ui->eraserTool, 1);
+    toolsButtonsGroup->addButton(ui->lineTool, 2);
+    toolsButtonsGroup->addButton(ui->rectangleTool, 3);
+    toolsButtonsGroup->addButton(ui->ellipseTool, 4);
+    toolsButtonsGroup->addButton(ui->stampTool, 5);
+    toolsButtonsGroup->addButton(ui->undoButton, 6);
+    toolsButtonsGroup->addButton(ui->redoButton, 7);
+    toolsButtonsGroup->addButton(ui->flipVerticalButton, 8);
+    toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
+    toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
+    toolsButtonsGroup->addButton(ui->rotateClockButton, 11);
+    toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
+    toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
+    toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);
+    toolsButtonsGroup->addButton(ui->unassignedButton_6, 15);
+
+    brushSizeButtonsGroup = new QButtonGroup(this);
+    brushSizeButtonsGroup->addButton(ui->brushSize1Button, 0);
+    brushSizeButtonsGroup->addButton(ui->brushSize2Button, 1);
+    brushSizeButtonsGroup->addButton(ui->brushSize3Button, 2);
+    brushSizeButtonsGroup->addButton(ui->brushSize4Button, 3);
+
     // Set pixmap's resolution, color and set it to the workspace.
-    workspacePixMap = QPixmap(536, 408);
+    workspacePixMap = QPixmap(400, 300);
+
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
     mousePressed = false;
 
+    // Install SpriteMainWindow as an event handler for the workspaceLabel
+    ui->workspaceLabel->installEventFilter(this);
 
     //create the sprite
     Sprite temp(32, 32, 0, tr("MySprite"));
@@ -37,6 +73,9 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     layout->addWidget(&currentSprite.getFrame(0));
     ui->scrollAreaWidgetContents->setLayout(layout);
 
+    // Frame* something = new Frame();
+    //ui->scrollAreaWidgetContents->layout()->
+
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -44,17 +83,59 @@ SpriteMainWindow::~SpriteMainWindow()
     delete ui;
 }
 
+// Handles the events inside a QLabel. QLabel unlike QWidget cant emit signals
+// for events like mouse click, etc. Thus, clicking and dragging anywhere on our
+// SpriteMainWindow would draw on workspace (since it inherit from QWidget). But,
+// this overidden method handles QLabel events, and if the event didnt occur in
+// QLabel, then will pass it to the SpriteMainWindow.
+//
+// Can add more stuff (like for tools, etc). Much cleaner than creating a custom
+// class and making it inherit from QLabel (and overide the mouse events).
+bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == ui->workspaceLabel) {
+        clickedInsideWorkspace = true;
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *mousePressEvent = static_cast<QMouseEvent*>(event);
+            int canvasX = mousePressEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2));
+            int canvasY = mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
+            qDebug() << "Left mouse pressed in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
+
+            drawPoint.setX(canvasX);
+            drawPoint.setY(canvasY);
+            mousePressed = true;
+            return true;
+        }
+        if(event->type() == QEvent::MouseMove) {
+            QMouseEvent *mouseMoveEvent = static_cast<QMouseEvent*>(event);
+            int canvasX = mouseMoveEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2));
+            int canvasY = mouseMoveEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
+
+            qDebug() << "mouse is being moved in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
+            drawPoint.setX(canvasX);
+            drawPoint.setY(canvasY);
+            updateWorkspace();
+            return true;
+        }
+        if(event->type() == QEvent::MouseButtonRelease) {
+            qDebug() << "mouse left click released inside workspace";
+            mousePressed = false;
+            updateWorkspace();
+            return true;
+        }
+        else {
+            return false;
+        }
+    } else {
+        // pass the event on to the parent class
+        return QMainWindow::eventFilter(watched, event);
+    }
+}
+
 // Nofity when the mouse is clicked
 void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
 
-    //Pen tool (add conditionals as per new tools)
-    if(event->button() == Qt::LeftButton) {
-        drawPoint.setX(event->pos().x() - 242);
-        drawPoint.setY(event->pos().y() - 50);
-        mousePressed = true;
-    }
-
-    //updateWorkspace();
+    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
 }
 
 // Track mouse moving events
@@ -65,20 +146,24 @@ void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
     }
     updateWorkspace();
 
-}
-
-void SpriteMainWindow::updateWorkspace() {
-    painter.begin(&workspacePixMap);
-    painter.setPen(pen);
-    painter.drawPoint(drawPoint);
-    ui->workspaceLabel->setPixmap(workspacePixMap);
-    painter.end();
+    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
 }
 
 // Notify when the mouse ie released
 void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-    mousePressed = false;
-    updateWorkspace();
+  
+    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
+}
+
+// Draws on the workspace's pixmap and reassigns it. All the tools will
+// paint in this method. (Replacement for paintEvent() method).
+void SpriteMainWindow::updateWorkspace() {
+    painter.begin(&workspacePixMap);
+    painter.setPen(pen);
+
+    painter.drawPoint(drawPoint);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    painter.end();
 }
 
 //void SpriteMainWindow::paintEvent(QPaintEvent *event) {
@@ -91,6 +176,19 @@ void SpriteMainWindow::on_colorPickButton_clicked()
 {
     penColor = QColorDialog::getColor(penColor);
     pen.setColor(penColor);
+    QString s = "#colorPickButton {background-color: rgb(";
+    int rHover = penColor.red();
+    int gHover = penColor.green();
+    int bHover = penColor.blue();
+    if(!(rHover < 40)) { rHover -= 40;}
+    if(!(gHover < 40)) { gHover -= 40;}
+    if(!(bHover < 40)) { bHover -= 40;}
+    QString color = QString::number(penColor.red()).append(",").append(QString::number(penColor.green())).append(",").append(QString::number(penColor.blue()));
+    QString hoverColor = QString::number(rHover).append(",").append(QString::number(gHover)).append(",").append(QString::number(bHover));
+
+    s.append(color).append(");border: 6px solid rgb(252, 252, 252);border-radius: 50px;background-repeat: none;}#colorPickButton:hover{");
+    s.append("background-color: rgb(").append(hoverColor).append(");border: 8px solid rgb(252, 252, 252);border-radius: 50px;}");
+    ui->colorPickButton->setStyleSheet(s.toLatin1());
 }
 
 void SpriteMainWindow::on_stampTool_clicked()
@@ -269,13 +367,13 @@ void SpriteMainWindow::closeEvent(QCloseEvent *e){
 //Called when the window wants to close, to determine if there are any necessary changes to save.
 bool SpriteMainWindow::maybeSave(){
     if (isModified) {
-       isModified = false;
-       QMessageBox::StandardButton ret;
-       ret = QMessageBox::warning(this, tr("Warning"),
-                          tr("The sprite has been modified.\n"
-                             "Do you want to save your changes?"),
-                          QMessageBox::Save | QMessageBox::Discard
-                          | QMessageBox::Cancel);
+        isModified = false;
+        QMessageBox::StandardButton ret;
+        ret = QMessageBox::warning(this, tr("Warning"),
+                                   tr("The sprite has been modified.\n"
+                                      "Do you want to save your changes?"),
+                                   QMessageBox::Save | QMessageBox::Discard
+                                   | QMessageBox::Cancel);
         if (ret == QMessageBox::Save) {
             //Call the Save method here...
             on_actionSave_triggered();
@@ -287,7 +385,6 @@ bool SpriteMainWindow::maybeSave(){
     }
     return true;
 }
-
 
 //Change Brush Size Slots
 void SpriteMainWindow::on_brushSize1Button_clicked()
@@ -308,4 +405,28 @@ void SpriteMainWindow::on_brushSize3Button_clicked()
 void SpriteMainWindow::on_brushSize4Button_clicked()
 {
     pen.setWidth(40);
+
+void SpriteMainWindow::on_action2x_Workspace_triggered()
+{
+    scaleFactor++;
+    int wspWidth = workspacePixMap.width() * scaleFactor;
+    int wspHeight = workspacePixMap.height() * scaleFactor;
+
+    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight, Qt::KeepAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    if(scaleFactor != 1) {
+        pen.setWidth(10 * scaleFactor);      //TODO: replace 10 by the current brush size.
+    }
+
+    update();
+
+//    if(wspWidth > this->width()) {
+//        this->resize(this->width() + wspWidth, this->height());
+//        if(wspHeight > this->height()) {
+//            this->resize(this->width(), this->height() + wspHeight);
+//        }
+//    }
+//    update();
+
 }
