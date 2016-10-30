@@ -25,3 +25,6 @@ HEADERS  += SpriteMainWindow.h \
 
 FORMS    += SpriteMainWindow.ui \
     PopupWindow.ui
+
+RESOURCES += \
+    assets/ui_assets.qrc

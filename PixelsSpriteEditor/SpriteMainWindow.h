@@ -5,6 +5,10 @@
 #include <QPen>
 #include <QCloseEvent>
 #include "PopupWindow.h"
+#include <QPainter>
+#include <QButtonGroup>
+#include "qevent.h"
+#include "Sprite.h"
 
 namespace Ui {
 class SpriteMainWindow;
@@ -14,11 +18,52 @@ class SpriteMainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    Ui::SpriteMainWindow *ui;
+    QString filename;
+
+    // Exclusive grouping of the tools buttons. Only one are be toggle and remain active at a time.
+    QButtonGroup* toolsButtonsGroup;
+    QButtonGroup* brushSizeButtonsGroup;
+
+    int scaleFactor;
+    QByteArray mainWindowOriginalGeometry;
+
+    // Drawing resources
+    QPen pen;
+    QPoint drawPoint;
+    QColor penColor;
+    QPixmap workspacePixMap;
+    QPainter painter;
+
+    // Flags
+    bool isModified;
+    bool mousePressed;
+    bool maybeSave();
+    bool clickedInsideWorkspace;     //TODO: keep or remove later
+
+    // Helper methods
+    void updateWorkspace();         // paints on the workspaceLabel's pixmap and updates it
+
+    // Sprite
+    Sprite currentSprite;
+
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
 
-private slots:
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);      // Handles the QLabel events
+    void closeEvent(QCloseEvent*);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    //void paintEvent(QPaintEvent *event);
+
+public slots:
+
+    // Used by button group
+    //void buttonClick(QAbstractButton* button);    //TODO: stub that can be used later
 
     //Button Slots
 
@@ -52,8 +97,6 @@ private slots:
 
     void on_actionStamp_triggered();
 
-    void on_actionQuit_triggered();
-
     void on_actionSprite_Sheet_triggered();
 
     void on_actionExport_as_gif_triggered();
@@ -83,20 +126,8 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionWalkthrough_triggered();
-
-    //Miscellaneous
-
-    void rejected(PopupWindow*);
-
-private:
-    Ui::SpriteMainWindow *ui;
-    QPen pen;
-    QColor penColor;
-    bool isModified;
-    bool stillContinue;
-
-protected:
-    void closeEvent(QCloseEvent*);
+private slots:
+    void on_action2x_Workspace_triggered();
 };
 
 #endif // SPRITEMAINWINDOW_H

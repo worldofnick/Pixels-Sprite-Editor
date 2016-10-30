@@ -4,33 +4,39 @@
 //Constructs a single Frame (derived from QLabel), which has a QPixmap associated with it of the passed resolution.
 Frame::Frame()
 {
-    height = 32;
-    width = 32;
-    this->setPixmap(QPixmap(width, height));
+
+    height = 100;
+    width = 172;
+
+    this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    this->setAlignment(Qt::AlignTop);
+
+    QPixmap temp(width, height);
+    temp.fill(Qt::gray);
+    this->setScaledContents(true);
+    this->setPixmap(temp);
+
+
+    this->setGeometry(0, 0, 172, 100);
 }
 
 //Destructs the current Frame.
 Frame::~Frame(){
-
+    ;
 }
 
-// Override the paintEvent to allow pointing
-void Frame::paintEvent(QPaintEvent *event){
 
+QSize Frame::sizeHint() const{
+    return QSize(172,100);
 }
 
-// Track mouse moving events
-void Frame::mouseMoveEvent(QMouseEvent *event) {
 
-}
+void Frame::mousePressEvent(QMouseEvent *event){
 
-// Notify when the mouse ie released
-void Frame::mouseReleaseEvent(QMouseEvent *event) {
-
-}
-
-// Nofity when the mouse is clicked
-void Frame::mousePressEvent(QMouseEvent *event) {
+    //Right now we are just setting a frame to the color white when clicked...
+    QPixmap temp(width, height);
+    temp.fill(Qt::white);
+    this->setPixmap(temp);
 
 }
 

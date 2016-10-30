@@ -16,16 +16,9 @@ public:
     explicit PopupWindow(QWidget *parent = 0);
     ~PopupWindow();
     void setText(const QString&);
-    void addCancelButton();
 
 private:
     Ui::PopupWindow *ui;
-
-protected:
-    void reject();
-
-signals:
-    void rejected();
 };
 
 #endif // POPUPWINDOW_H
