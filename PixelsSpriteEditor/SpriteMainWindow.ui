@@ -181,7 +181,9 @@
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When you click on this, a new preview window will open. It has zoom controls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
+          <string notr="true">background-color: rgb(29,29,29);
+background-image: url(:transparent pattern 3.png);
+border: none;</string>
          </property>
          <property name="text">
           <string/>
@@ -293,7 +295,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="penTool">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>10</y>
          <width>50</width>
          <height>50</height>
@@ -333,7 +335,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="eraserTool">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>62</x>
          <y>10</y>
          <width>50</width>
          <height>50</height>
@@ -373,7 +375,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="lineTool">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>60</y>
          <width>50</width>
          <height>50</height>
@@ -413,7 +415,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="ellipseTool">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>110</y>
          <width>50</width>
          <height>50</height>
@@ -453,7 +455,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="stampTool">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>62</x>
          <y>110</y>
          <width>50</width>
          <height>50</height>
@@ -493,7 +495,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="rotateCounterClockButton">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>260</y>
          <width>50</width>
          <height>50</height>
@@ -533,7 +535,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="rotateClockButton">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>62</x>
          <y>260</y>
          <width>50</width>
          <height>50</height>
@@ -573,7 +575,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="flipHorizontalButton">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>62</x>
          <y>210</y>
          <width>50</width>
          <height>50</height>
@@ -613,7 +615,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="flipVerticalButton">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>210</y>
          <width>50</width>
          <height>50</height>
@@ -653,7 +655,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="undoButton">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>160</y>
          <width>50</width>
          <height>50</height>
@@ -693,7 +695,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="redoButton">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>62</x>
          <y>160</y>
          <width>50</width>
          <height>50</height>
@@ -733,7 +735,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="unassignedButton_3">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>310</y>
          <width>50</width>
          <height>50</height>
@@ -758,7 +760,33 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#unassignedButton_3 {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}
+
+#unassignedButton_3:hover
+{
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_3:checked
+{
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_3:unchecked {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}</string>
        </property>
        <property name="text">
         <string>-</string>
@@ -773,7 +801,7 @@ color: rgb(239, 239, 239);</string>
       <widget class="QPushButton" name="unassignedButton_4">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>62</x>
          <y>310</y>
          <width>50</width>
          <height>50</height>
@@ -798,7 +826,33 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#unassignedButton_4 {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}
+
+#unassignedButton_4:hover
+{
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_4:checked
+{
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_4:unchecked {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}</string>
        </property>
        <property name="text">
         <string>-</string>
@@ -1053,7 +1107,7 @@ background-repeat: none;
       <widget class="QPushButton" name="rectangleTool">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>62</x>
          <y>60</y>
          <width>50</width>
          <height>50</height>
@@ -1093,8 +1147,8 @@ background-repeat: none;
       <widget class="QPushButton" name="unassignedButton_5">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>360</y>
+         <x>8</x>
+         <y>362</y>
          <width>50</width>
          <height>50</height>
         </rect>
@@ -1119,17 +1173,31 @@ background-repeat: none;
        </property>
        <property name="styleSheet">
         <string notr="true">#unassignedButton_5 {
-	border: 2px solid rgb(239, 239, 239);
-	border-radius: 6px;
-	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
 }
 
 #unassignedButton_5:hover
 {
-background-color: rgb(236, 235, 236);
-border: 2px solid rgb(252, 252, 252);
-border-radius: 8px;
-color: rgb(76, 76, 76);
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_5:checked
+{
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_5:unchecked {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
 }</string>
        </property>
        <property name="text">
@@ -1145,8 +1213,8 @@ color: rgb(76, 76, 76);
       <widget class="QPushButton" name="unassignedButton_6">
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>360</y>
+         <x>62</x>
+         <y>362</y>
          <width>50</width>
          <height>50</height>
         </rect>
@@ -1170,7 +1238,33 @@ color: rgb(76, 76, 76);
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#unassignedButton_6 {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}
+
+#unassignedButton_6:hover
+{
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_6:checked
+{
+	background-color: rgb(179, 179, 179);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#unassignedButton_6:unchecked {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}</string>
        </property>
        <property name="text">
         <string>-</string>
