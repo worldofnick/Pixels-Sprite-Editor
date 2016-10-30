@@ -1,1 +1,10 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>RGB Circle 2.png</file>
+        <file>RGB Circle 1.png</file>
+        <file>transparent pattern 4.png</file>
+        <file>transparent pattern 3.png</file>
+        <file>transparent pattern 2.png</file>
+        <file>transparent pattern 1.png</file>
+    </qresource>
+</RCC>

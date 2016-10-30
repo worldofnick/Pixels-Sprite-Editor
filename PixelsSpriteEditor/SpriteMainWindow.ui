@@ -234,7 +234,11 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Will display the current selected frame. The size is dependent on the resolution of the image selected. Should scale without changing the resolution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(52, 55, 70);</string>
+       <string notr="true">background-color: rgb(29,29,29);
+background-image: url(:transparent pattern 3.png);
+border: none;
+
+</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>

@@ -26,7 +26,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     isModified = true;
 
     // Set pixmap's resolution, color and set it to the workspace.
-    workspacePixMap = QPixmap(588, 455);
+    workspacePixMap = QPixmap(400, 300);
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
@@ -68,16 +68,21 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
         if (event->type() == QEvent::MouseButtonPress) {
             QMouseEvent *mousePressEvent = static_cast<QMouseEvent*>(event);
             qDebug() << "Left mouse pressed inside workspace";
-            drawPoint.setX(mousePressEvent->pos().x());
-            drawPoint.setY(mousePressEvent->pos().y());
+//            drawPoint.setX(mousePressEvent->pos().x() - (300 - 200));
+//            qDebug() << mousePressEvent->pos().x() << ", " << mousePressEvent->pos().y();
+//            qDebug() << mousePressEvent->globalPos().x() << ", " << mousePressEvent->globalPos().y();
+//            drawPoint.setY(mousePressEvent->pos().y() - (300 - 150));
+
+            drawPoint.setX(mousePressEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2)));
+            drawPoint.setY(mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2)));
             mousePressed = true;
             return true;
         }
         if(event->type() == QEvent::MouseMove) {
             QMouseEvent *mouseMoveEvent = static_cast<QMouseEvent*>(event);
             qDebug() << "mouse is being moved inside workspace";
-            drawPoint.setX(mouseMoveEvent->pos().x());
-            drawPoint.setY(mouseMoveEvent->pos().y());
+            drawPoint.setX(mouseMoveEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2)));
+            drawPoint.setY(mouseMoveEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2)));
             updateWorkspace();
             return true;
         }
