@@ -17,7 +17,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     //penColor is recorded so that when a color picker is selected,
     //the beginning color will be the current penColor.
-    penColor = Qt:: blue;
+    penColor = qRgb(255, 198, 6);
     pen.setColor(penColor);
     pen.setWidth(10);
     clickedInsideWorkspace = false;     //TODO: keep or remove later
