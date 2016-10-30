@@ -166,6 +166,19 @@ void SpriteMainWindow::on_colorPickButton_clicked()
 {
     penColor = QColorDialog::getColor(penColor);
     pen.setColor(penColor);
+    QString s = "#colorPickButton {background-color: rgb(";
+    int rHover = penColor.red();
+    int gHover = penColor.green();
+    int bHover = penColor.blue();
+    if(!(rHover < 40)) { rHover -= 40;}
+    if(!(gHover < 40)) { gHover -= 40;}
+    if(!(bHover < 40)) { bHover -= 40;}
+    QString color = QString::number(penColor.red()).append(",").append(QString::number(penColor.green())).append(",").append(QString::number(penColor.blue()));
+    QString hoverColor = QString::number(rHover).append(",").append(QString::number(gHover)).append(",").append(QString::number(bHover));
+
+    s.append(color).append(");border: 6px solid rgb(252, 252, 252);border-radius: 50px;background-repeat: none;}#colorPickButton:hover{");
+    s.append("background-color: rgb(").append(hoverColor).append(");border: 8px solid rgb(252, 252, 252);border-radius: 50px;}");
+    ui->colorPickButton->setStyleSheet(s.toLatin1());
 }
 
 void SpriteMainWindow::on_stampTool_clicked()
