@@ -325,10 +325,7 @@ void SpriteMainWindow::on_actionRedo_triggered()
 //Slot for when the reset option is selected from the menu.
 void SpriteMainWindow::on_actionReset_triggered()
 {
-    //Do we want the reset function to reset the workspace, or reset the entire sprite (esentially making it a new project)?
-    //currentSprite.reset();
     workspacePixMap = QPixmap(400, 300);
-
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 

@@ -1471,7 +1471,7 @@ background-repeat: none;
   </action>
   <action name="actionReset">
    <property name="text">
-    <string>Reset</string>
+    <string>Reset Current Frame</string>
    </property>
   </action>
   <action name="actionFlip_Horizontally">
