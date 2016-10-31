@@ -23,6 +23,7 @@ public:
     void loadFile(QString);
     void exportToGif(QString);
     const QVector<Frame*> getFrames();
+    void reset();
 
 private:
     QVector<Frame*> frames;

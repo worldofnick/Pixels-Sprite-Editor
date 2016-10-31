@@ -95,3 +95,7 @@ void Sprite::exportToGif(QString file)
 {
     // Call to GifExport class
 }
+
+void Sprite::reset(){
+    this->frames.clear();
+}

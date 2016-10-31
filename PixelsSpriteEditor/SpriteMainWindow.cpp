@@ -257,15 +257,23 @@ void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
 
 void SpriteMainWindow::on_actionNew_triggered()
 {
-
+    //Check if the user wants to save any changes first, then trigger the reset action.
+    if(maybeSave()){
+        GetResolutionDialog welcomeScreen;
+        connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
+        welcomeScreen.exec();
+        this->on_actionReset_triggered();
+    }
 }
 
 //Open a file
 void SpriteMainWindow::on_actionOpen_triggered()
 {
-
-    QFileDialog dialog;
-    QString filename = dialog.getOpenFileName();
+    //Check if the user wants to save any changes first, then open a new project.
+    if(maybeSave()){
+        QFileDialog dialog;
+        QString filename = dialog.getOpenFileName();
+    }
 }
 
 //Save a file
@@ -317,6 +325,12 @@ void SpriteMainWindow::on_actionRedo_triggered()
 //Slot for when the reset option is selected from the menu.
 void SpriteMainWindow::on_actionReset_triggered()
 {
+    //Do we want the reset function to reset the workspace, or reset the entire sprite (esentially making it a new project)?
+    //currentSprite.reset();
+    workspacePixMap = QPixmap(400, 300);
+
+    workspacePixMap.fill(Qt::white);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 
 }
 
