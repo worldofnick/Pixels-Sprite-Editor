@@ -10,6 +10,8 @@
 #include "qevent.h"
 #include "Sprite.h"
 
+#include <stack>
+
 namespace Ui {
 class SpriteMainWindow;
 }
@@ -39,6 +41,10 @@ private:
     // Brush types, add more as we go
     enum Brushes { pencil, eraser };
     Brushes brush;
+
+    // Stacks for undo/redo
+    std::stack<QPixmap> undoStack;
+    std::stack<QPixmap> redoStack;
 
     // Flags
     bool isModified;

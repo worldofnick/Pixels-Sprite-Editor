@@ -111,6 +111,10 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             drawPoint.setX(canvasX);
             drawPoint.setY(canvasY);
             mousePressed = true;
+
+            // Save this pixmap
+            undoStack.push(workspacePixMap);
+
             return true;
         }
         if(event->type() == QEvent::MouseMove) {
@@ -293,13 +297,21 @@ void SpriteMainWindow::on_actionExport_as_gif_triggered()
 //Slot for when undo is selected from the menu.
 void SpriteMainWindow::on_actionUndo_triggered()
 {
-
+    if(!undoStack.empty()) {
+        ui->workspaceLabel->setPixmap(undoStack.top());
+        redoStack.push(undoStack.top());
+        undoStack.pop();
+    }
 }
 
 //Slot for when the redo button is selected the menu.
 void SpriteMainWindow::on_actionRedo_triggered()
 {
-
+    if(!redoStack.empty()) {
+        ui->workspaceLabel->setPixmap(redoStack.top());
+        undoStack.push(redoStack.top());
+        redoStack.pop();
+    }
 }
 
 //Slot for when the reset option is selected from the menu.
