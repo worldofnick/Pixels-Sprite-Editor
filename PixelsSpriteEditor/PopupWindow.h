@@ -16,9 +16,13 @@ public:
     explicit PopupWindow(QWidget *parent = 0);
     ~PopupWindow();
     void setText(const QString&);
+    void setTitle(const QString&);
 
 private:
     Ui::PopupWindow *ui;
+
+private slots:
+    void okClicked();
 };
 
 #endif // POPUPWINDOW_H

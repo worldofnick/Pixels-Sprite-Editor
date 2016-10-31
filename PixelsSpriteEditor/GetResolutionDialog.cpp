@@ -6,7 +6,7 @@ GetResolutionDialog::GetResolutionDialog(QWidget *parent) :
     ui(new Ui::GetResolutionDialog)
 {
     ui->setupUi(this);
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(resolution()));
+    connect(ui->okButton, SIGNAL(pressed()), this, SLOT(resolution()));
 }
 
 GetResolutionDialog::~GetResolutionDialog()
@@ -18,6 +18,7 @@ void GetResolutionDialog::resolution(){
     int width = ui->widthInputBox->text().toInt();
     int height = ui->heightInputBox->text().toInt();
     emit okClicked(width, height);
+    this->close();
 }
 
 void GetResolutionDialog::closeEvent(QCloseEvent *){

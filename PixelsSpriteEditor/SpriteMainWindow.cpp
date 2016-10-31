@@ -19,6 +19,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
 
     ui->setupUi(this);
+    this->setWindowTitle("Pixels Sprite Editor");
     //this->setWindowFlags(Qt::FramelessWindowHint);
 
     // default to pen
@@ -34,7 +35,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     mainWindowOriginalGeometry = this->saveGeometry();
 
     filename = "";
-    isModified = true;
+    isModified = false;
 
     // Assign buttons to the button group (with ids). These
     // ID's can be used to indentify which button was pressed.
@@ -75,9 +76,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui->workspaceLabel->installEventFilter(this);
 
     //create the sprite
-    //insert spriteWidth and spriteHeight in place of the 32 and 32 here...
-    std::cout << spriteWidth << " X " << spriteHeight << std::endl;
-    Sprite temp(32, 32, 0, tr("MySprite"));
+    Sprite temp(spriteWidth, spriteHeight, 0, tr("MySprite"));
     currentSprite = temp;
     QVBoxLayout* layout = new QVBoxLayout;
     //Frame* something = &currentSprite.getFrame(0);
@@ -172,6 +171,8 @@ void SpriteMainWindow::updateWorkspace() {
     painter.drawPoint(drawPoint);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     painter.end();
+
+    isModified = true;
 }
 
 //void SpriteMainWindow::paintEvent(QPaintEvent *event) {
@@ -268,6 +269,7 @@ void SpriteMainWindow::on_actionSave_triggered()
 {
     QFileDialog dialog;
     filename = dialog.getSaveFileName(NULL, "Save", filename, ".ssp");
+    isModified = false;
 }
 
 //Slot for when the stamp tool button is clicked.
@@ -309,13 +311,17 @@ void SpriteMainWindow::on_actionReset_triggered()
 //Slot for when the Flip Horizontally option is selected from the menu.
 void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
 {
-
+    QImage image = workspacePixMap.toImage().mirrored(true, false);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
 //Slot for when the flip Vertically option is selected from the menu.
 void SpriteMainWindow::on_actionFlip_Vertically_triggered()
 {
-
+    QImage image = workspacePixMap.toImage().mirrored(false, true);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
 //Slot for when the rotate Horizontally option is selected from the menu.
@@ -359,6 +365,7 @@ void SpriteMainWindow::on_actionAbout_triggered()
 {
     PopupWindow aboutPopup;
     aboutPopup.setText("This text will be replaced by a helpful about message.");
+    aboutPopup.setTitle("About Pixels Sprite Editor");
     aboutPopup.exec();
 }
 
@@ -367,6 +374,7 @@ void SpriteMainWindow::on_actionWalkthrough_triggered()
 {
     PopupWindow walkthroughPopup;
     walkthroughPopup.setText("This text will be replaced by a helpful walkthrough.");
+    walkthroughPopup.setTitle("Walkthrough");
     walkthroughPopup.exec();
 }
 
@@ -449,6 +457,21 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 
 
 void SpriteMainWindow::initialResolution(int width, int height){
+    //Enforce a range of 32-128.
+    if(width < 32){
+        width = 32;
+    }
+    else if(width > 128){
+        width = 128;
+    }
+
+    if(height < 32){
+        height = 32;
+    }
+    else if(height > 128){
+        height = 128;
+    }
+
     this->spriteWidth = width;
     this->spriteHeight = height;
 }
