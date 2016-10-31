@@ -1,6 +1,8 @@
 #include "Frame.h"
 #include <QPixmap>
 
+#include <QDebug>
+
 //Constructs a single Frame (derived from QLabel), which has a QPixmap associated with it of the passed resolution.
 Frame::Frame()
 {
@@ -12,8 +14,8 @@ Frame::Frame()
     this->setAlignment(Qt::AlignTop);
 
     QPixmap temp(width, height);
-    temp.fill(Qt::gray);
-    this->setScaledContents(true);
+    temp.fill(Qt::white);
+    //this->setScaledContents(true);
     this->setPixmap(temp);
 
 
@@ -34,9 +36,12 @@ QSize Frame::sizeHint() const{
 void Frame::mousePressEvent(QMouseEvent *event){
 
     //Right now we are just setting a frame to the color white when clicked...
-    QPixmap temp(width, height);
-    temp.fill(Qt::white);
-    this->setPixmap(temp);
+    //QPixmap temp(width, height);
+    //temp.fill(Qt::white);
+    //this->setPixmap(temp);
 
+    emit clicked(this);
+
+    qDebug() << "frame is clicked";
 }
 

@@ -78,10 +78,20 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     //create the sprite
     Sprite temp(spriteWidth, spriteHeight, 0, tr("MySprite"));
     currentSprite = temp;
+
+    connect(&currentSprite, SIGNAL(frameClicked(Frame*)), this, SLOT(frameClicked(Frame*)));
+
     QVBoxLayout* layout = new QVBoxLayout;
     //Frame* something = &currentSprite.getFrame(0);
-    layout->addWidget(&currentSprite.getFrame(0));
+    layout->addWidget(currentSprite.getFrames().last());
     ui->scrollAreaWidgetContents->setLayout(layout);
+
+    //sets the current frame to the first frame
+    currentFrame = currentSprite.getFrames().last();
+
+    connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
 }
 
@@ -132,6 +142,9 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             qDebug() << "mouse left click released inside workspace";
             mousePressed = false;
             updateWorkspace();
+
+            currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
             return true;
         }
         else {
@@ -246,6 +259,10 @@ void SpriteMainWindow::on_addFrameButton_clicked()
 {
     currentSprite.addFrame();
     ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
+
+    currentFrame = currentSprite.getFrames().last();
+    workspacePixMap = currentFrame->pixmap()->scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
 void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
@@ -337,6 +354,8 @@ void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
     QImage image = workspacePixMap.toImage().mirrored(true, false);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
 //Slot for when the flip Vertically option is selected from the menu.
@@ -345,6 +364,8 @@ void SpriteMainWindow::on_actionFlip_Vertically_triggered()
     QImage image = workspacePixMap.toImage().mirrored(false, true);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
 //Slot for when the rotate Horizontally option is selected from the menu.
@@ -481,20 +502,30 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 
 void SpriteMainWindow::initialResolution(int width, int height){
     //Enforce a range of 32-128.
-    if(width < 32){
-        width = 32;
-    }
-    else if(width > 128){
-        width = 128;
-    }
+//    if(width < 32){
+//        width = 32;
+//    }
+//    else if(width > 200){
+//        width = 200;
+//    }
 
-    if(height < 32){
-        height = 32;
-    }
-    else if(height > 128){
-        height = 128;
-    }
+//    if(height < 32){
+//        height = 32;
+//    }
+//    else if(height > 128){
+//        height = 128;
+//    }
 
-    this->spriteWidth = width;
-    this->spriteHeight = height;
+//    this->spriteWidth = width;
+//    this->spriteHeight = height;
+
+    spriteWidth = 172;
+    spriteHeight = 100;
+}
+
+void SpriteMainWindow::frameClicked(Frame* other){
+    qDebug() << "frame is clicked MainWindow";
+    currentFrame = other;
+    workspacePixMap = currentFrame->pixmap()->scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }

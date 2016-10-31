@@ -7,6 +7,7 @@
 
 class Frame : public QLabel
 {
+    Q_OBJECT
 private:
     bool isVisible;
     int height;
@@ -25,6 +26,9 @@ protected:
     // QWidget interface
 public:
     QSize sizeHint() const;
+
+signals:
+    void clicked(Frame*);
 };
 
 #endif // FRAME_H

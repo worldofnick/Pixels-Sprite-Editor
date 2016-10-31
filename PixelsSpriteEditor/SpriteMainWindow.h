@@ -61,6 +61,8 @@ private:
     int spriteWidth;
     int spriteHeight;
 
+    //contains a pointer to the current frame selected
+    Frame* currentFrame;
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
@@ -149,6 +151,8 @@ public slots:
 
 private slots:
     void on_action2x_Workspace_triggered();
+
+    void frameClicked(Frame*);
 
 };
 
