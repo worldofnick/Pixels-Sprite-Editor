@@ -7,9 +7,15 @@ Sprite::Sprite(int w, int h, int s, QString file)
     fps = s;
     filename = file;
     frames.append(new Frame());
+
 }
 
 Sprite::Sprite(){
+    width = 32;
+    height = 32;
+    fps = 30;
+    filename = "sprite1.ssp";
+    frames.append(new Frame());
 
 }
 
@@ -24,8 +30,6 @@ Sprite::Sprite(const Sprite &other){
     for (int i = 0; i < other.frames.length(); i++){
         this->frames.append(other.frames[i]);
     }
-
-
 
 }
 
@@ -43,7 +47,7 @@ Sprite& Sprite::operator=(Sprite other){
 
 Sprite::~Sprite()
 {
-
+    //delete timer;
 }
 
 const QVector<Frame*> Sprite::getFrames(){
@@ -63,6 +67,11 @@ Frame& Sprite::getFrame(int index)
 void Sprite::setFps(int speed)
 {
     fps = speed;
+}
+
+int Sprite::getFps()
+{
+    return fps;
 }
 
 void Sprite::loadFile(QString file)
@@ -95,3 +104,5 @@ void Sprite::exportToGif(QString file)
 {
     // Call to GifExport class
 }
+
+

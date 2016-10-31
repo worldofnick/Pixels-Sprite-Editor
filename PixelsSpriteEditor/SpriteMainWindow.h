@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPen>
 #include <QCloseEvent>
+#include <QTimer>
 #include "PopupWindow.h"
 #include <QPainter>
 #include <QButtonGroup>
@@ -47,6 +48,11 @@ private:
 
     // Sprite
     Sprite currentSprite;
+
+
+    // Preview window resources
+    QTimer *timer;
+    int it;
 
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
@@ -126,6 +132,9 @@ public slots:
     void on_actionAbout_triggered();
 
     void on_actionWalkthrough_triggered();
+
+    // Timer slot
+    void on_timer_update();
 private slots:
     void on_action2x_Workspace_triggered();
 };

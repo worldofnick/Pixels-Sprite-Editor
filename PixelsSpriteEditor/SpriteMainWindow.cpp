@@ -2,6 +2,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QPixmap>
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
 #include <iostream>
@@ -66,7 +67,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui->workspaceLabel->installEventFilter(this);
 
     //create the sprite
-    Sprite temp(32, 32, 0, tr("MySprite"));
+    Sprite temp(32, 32, 1, tr("MySprite"));
     currentSprite = temp;
     QVBoxLayout* layout = new QVBoxLayout;
     //Frame* something = &currentSprite.getFrame(0);
@@ -76,6 +77,16 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     // Frame* something = new Frame();
     //ui->scrollAreaWidgetContents->layout()->
 
+    // Set up the timer
+    currentSprite.addFrame();
+    QPixmap p(32, 32);
+    p.fill(Qt::black);
+    currentSprite.getFrame(0).setPixmap(p);
+    currentSprite.addFrame();
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(on_timer_update()));
+    it = 0;
+    timer->start(1000/currentSprite.getFps());
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -225,7 +236,11 @@ void SpriteMainWindow::on_addFrameButton_clicked()
 
 void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
 {
-
+    currentSprite.setFps(value);
+    if(value == 0)
+        timer->stop();
+    else
+        timer->start(1000/currentSprite.getFps());
 }
 
 //Menu Item Slots
@@ -403,4 +418,13 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 //        }
 //    }
 //    update();
+}
+
+void SpriteMainWindow::on_timer_update()
+{
+    it++;
+    if(it == currentSprite.getFrames().size() -1)
+        it = 0;
+
+    ui->previewLabelMap->setPixmap(*currentSprite.getFrame(it).pixmap());
 }

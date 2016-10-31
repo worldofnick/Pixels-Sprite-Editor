@@ -17,7 +17,7 @@ Frame::Frame()
     this->setPixmap(temp);
 
 
-    this->setGeometry(0, 0, 172, 100);
+    this->setGeometry(0, 0, 32, 32);
 }
 
 //Destructs the current Frame.

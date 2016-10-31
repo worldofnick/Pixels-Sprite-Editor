@@ -16,6 +16,7 @@ public:
     Sprite& operator=(Sprite other);
     ~Sprite();
     void setFps(int);
+    int getFps();
     void addFrame();
     Frame& getFrame(int);
 
