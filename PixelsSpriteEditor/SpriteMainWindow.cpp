@@ -598,3 +598,21 @@ void SpriteMainWindow::on_rotateClockwiseButton_clicked()
     ui->workspaceLabel->setPixmap(workspacePixMap);
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
+
+void SpriteMainWindow::on_flipVerticalButton_clicked()
+{
+    QImage image = workspacePixMap.toImage().mirrored(false, true);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+}
+
+void SpriteMainWindow::on_flipHorizontalButton_clicked()
+{
+    QImage image = workspacePixMap.toImage().mirrored(true, false);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+}
