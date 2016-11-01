@@ -15,7 +15,7 @@ private:
     //QPixmap pix;
 
 public:
-    Frame();
+    Frame(int width = 32, int height = 32);
     //void setSize(int, int);
     ~Frame();
 

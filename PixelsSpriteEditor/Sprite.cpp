@@ -8,7 +8,7 @@ Sprite::Sprite(int w, int h, int s, QString file)
     fps = s;
     filename = file;
 
-    Frame* f = new Frame();
+    Frame* f = new Frame(width,height);
 
     frames.append(f);
 }
@@ -56,7 +56,7 @@ const QVector<Frame*> Sprite::getFrames(){
 
 void Sprite::addFrame()
 {
-    Frame* f = new Frame();
+    Frame* f = new Frame(width, height);
 
     frames.append(f);
     connect(f, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));

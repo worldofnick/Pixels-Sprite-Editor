@@ -280,7 +280,26 @@ void SpriteMainWindow::on_actionNew_triggered()
         connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
         welcomeScreen.exec();
         this->on_actionReset_triggered();
-    }
+    }   
+    //Clear the workspacePixMap
+    workspacePixMap.fill(Qt::white);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    //Clear out the current Sprite
+    Sprite newSprite(this->spriteWidth, this->spriteHeight, 0, "IDK");
+
+    currentSprite = newSprite;
+
+    //sets the current frame to the first frame
+    currentFrame = currentSprite.getFrames().last();
+
+    connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
+    //Reset the frames display on the left
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(currentFrame);
+    ui->scrollAreaWidgetContents->setLayout(layout);
 }
 
 //Open a file
@@ -296,9 +315,17 @@ void SpriteMainWindow::on_actionOpen_triggered()
 //Save a file
 void SpriteMainWindow::on_actionSave_triggered()
 {
+    //This saves the pixmap to a png
+
     QFileDialog dialog;
-    filename = dialog.getSaveFileName(NULL, "Save", filename, ".ssp");
+    filename = dialog.getSaveFileName(this, tr("Save File"), "/untitled.png", tr("Images (*.png)"));
     isModified = false;
+
+
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly);
+    QPixmap map = workspacePixMap.scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    map.save(&file, "PNG");
 }
 
 //Slot for when the stamp tool button is clicked.
@@ -345,6 +372,7 @@ void SpriteMainWindow::on_actionReset_triggered()
     workspacePixMap = QPixmap(400, 300);
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
 }
 
@@ -480,7 +508,7 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
     int wspWidth = workspacePixMap.width() * scaleFactor;
     int wspHeight = workspacePixMap.height() * scaleFactor;
 
-    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight, Qt::KeepAspectRatio, Qt::FastTransformation);
+    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     if(scaleFactor != 1) {
@@ -502,25 +530,25 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 
 void SpriteMainWindow::initialResolution(int width, int height){
     //Enforce a range of 32-128.
-//    if(width < 32){
-//        width = 32;
-//    }
-//    else if(width > 200){
-//        width = 200;
-//    }
+    if(width < 32){
+        width = 32;
+    }
+    else if(width > 200){
+        width = 200;
+    }
 
-//    if(height < 32){
-//        height = 32;
-//    }
-//    else if(height > 128){
-//        height = 128;
-//    }
+    if(height < 32){
+        height = 32;
+    }
+    else if(height > 128){
+        height = 128;
+    }
 
-//    this->spriteWidth = width;
-//    this->spriteHeight = height;
+    this->spriteWidth = width;
+    this->spriteHeight = height;
 
-    spriteWidth = 172;
-    spriteHeight = 100;
+//    spriteWidth = 172;
+//    spriteHeight = 100;
 }
 
 void SpriteMainWindow::frameClicked(Frame* other){

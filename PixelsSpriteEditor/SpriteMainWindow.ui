@@ -330,7 +330,13 @@ color: rgb(239, 239, 239);</string>
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Pen</string>
+        <string>pen</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>2</width>
+         <height>2</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>true</bool>
