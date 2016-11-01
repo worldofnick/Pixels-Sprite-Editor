@@ -154,6 +154,8 @@ private slots:
 
     void frameClicked(Frame*);
 
+    void on_rotateCounterClockButton_clicked();
+    void on_rotateClockwiseButton_clicked();
 };
 
 #endif // SPRITEMAINWINDOW_H

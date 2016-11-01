@@ -2,6 +2,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTransform>
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
 #include "GetResolutionDialog.h"
@@ -52,7 +53,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     toolsButtonsGroup->addButton(ui->flipVerticalButton, 8);
     toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
     toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
-    toolsButtonsGroup->addButton(ui->rotateClockButton, 11);
+    toolsButtonsGroup->addButton(ui->rotateClockwiseButton, 11);
     toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
     toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
     toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);
@@ -399,13 +400,28 @@ void SpriteMainWindow::on_actionFlip_Vertically_triggered()
 //Slot for when the rotate Horizontally option is selected from the menu.
 void SpriteMainWindow::on_actionRotate_Horizontally_triggered()
 {
+    QTransform tran;
+    tran.rotate(90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
+
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
 }
 
 //Slot for when the rotate Counterclockwise option is selected from the menu.
 void SpriteMainWindow::on_actionRotate_Counterclockwise_triggered()
 {
+    QTransform tran;
+    tran.rotate(-90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
 
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
 //Slot for when the Show/Hide option is selected from the menu.
@@ -556,4 +572,29 @@ void SpriteMainWindow::frameClicked(Frame* other){
     currentFrame = other;
     workspacePixMap = currentFrame->pixmap()->scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+}
+
+void SpriteMainWindow::on_rotateCounterClockButton_clicked()
+{
+    QTransform tran;
+    tran.rotate(-90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
+
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+}
+
+
+void SpriteMainWindow::on_rotateClockwiseButton_clicked()
+{
+    QTransform tran;
+    tran.rotate(90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
+
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
