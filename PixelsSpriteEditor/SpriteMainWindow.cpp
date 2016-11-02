@@ -70,7 +70,8 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     brushSizeButtonsGroup->addButton(ui->brushSize4Button, 3);
 
     // Set pixmap's resolution, color and set it to the workspace.
-    workspacePixMap = QPixmap(400, 300);
+    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);        //TODO: initialize to input size
+
 
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
@@ -565,25 +566,22 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 
 void SpriteMainWindow::initialResolution(int width, int height){
     //Enforce a range of 32-128.
-    if(width < 32){
-        width = 32;
+    if(width != height) {
+        if(width >= height) {
+            this->spriteWidth = width;
+            this->spriteHeight = width;
+        }
+        else {
+            this->spriteWidth = height;
+            this->spriteHeight = height;
+        }
     }
-    else if(width > 200){
-        width = 200;
+    else {
+        this->spriteWidth = width;
+        this->spriteHeight = width;
     }
 
-    if(height < 32){
-        height = 32;
-    }
-    else if(height > 128){
-        height = 128;
-    }
-
-    this->spriteWidth = width;
-    this->spriteHeight = height;
-
-//    spriteWidth = 172;
-//    spriteHeight = 100;
+    // TODO: scale the image to worksapce
 }
 
 void SpriteMainWindow::frameClicked(Frame* other){
