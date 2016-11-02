@@ -93,8 +93,9 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     // Frame* something = new Frame();
     //ui->scrollAreaWidgetContents->layout()->
 
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(on_timer_update()));
+
+
+
     //sets the current frame to the first frame
     currentFrame = currentSprite.getFrames().last();
 
@@ -102,6 +103,12 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
+    ui->previewLabelMap->setPixmap(*currentSprite.getFrame(0).pixmap());
+
+    // Setup and start the preview timer
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(on_timer_update()));
+    timer->start(ui->fpsSlider->value());
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -278,7 +285,7 @@ void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
 {
     currentSprite.setFps(value);
     if(value == 0)
-        timer->stop();
+        timer->start(10);
     else
         timer->start(1000/currentSprite.getFps());
 }
@@ -631,8 +638,9 @@ void SpriteMainWindow::on_flipHorizontalButton_clicked()
 
 void SpriteMainWindow::on_timer_update()
 {
-    it++;
-    if(it == currentSprite.getFrames().size() -1)
+    if(currentSprite.getFps() > 0)
+        it++;
+    if(it >= currentSprite.getFrames().size())
         it = 0;
 
     ui->previewLabelMap->setPixmap(*currentSprite.getFrame(it).pixmap());

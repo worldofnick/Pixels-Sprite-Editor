@@ -68,7 +68,7 @@ void Sprite::addFrame()
 
 Frame& Sprite::getFrame(int index)
 {
-    return *(frames[index]);
+    return *(frames.at(index));
 }
 
 void Sprite::setFps(int speed)
