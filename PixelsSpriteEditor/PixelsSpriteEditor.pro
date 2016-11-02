@@ -31,3 +31,5 @@ FORMS    += SpriteMainWindow.ui \
 
 RESOURCES += \
     assets/ui_assets.qrc
+
+DISTFILES +=

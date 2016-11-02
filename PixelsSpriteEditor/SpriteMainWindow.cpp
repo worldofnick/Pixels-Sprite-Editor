@@ -6,9 +6,13 @@
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
 #include "GetResolutionDialog.h"
+#include <QTransform>
 #include <iostream>
 #include <QPoint>
 #include <QDebug>
+#include "SpriteMainWindow.h"
+#include "ui_SpriteMainWindow.h"
+#include "GetResolutionDialog.h"
 
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -53,7 +57,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     toolsButtonsGroup->addButton(ui->flipVerticalButton, 8);
     toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
     toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
-    toolsButtonsGroup->addButton(ui->rotateClockButton, 11);
+    toolsButtonsGroup->addButton(ui->rotateClockwiseButton, 11);
     toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
     toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
     toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);
@@ -79,16 +83,25 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     //create the sprite
     Sprite temp(spriteWidth, spriteHeight, 0, tr("MySprite"));
     currentSprite = temp;
+
+    connect(&currentSprite, SIGNAL(frameClicked(Frame*)), this, SLOT(frameClicked(Frame*)));
+
     QVBoxLayout* layout = new QVBoxLayout;
     //Frame* something = &currentSprite.getFrame(0);
-    layout->addWidget(&currentSprite.getFrame(0));
+    layout->addWidget(currentSprite.getFrames().last());
     ui->scrollAreaWidgetContents->setLayout(layout);
-
     // Frame* something = new Frame();
     //ui->scrollAreaWidgetContents->layout()->
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(on_timer_update()));
+    //sets the current frame to the first frame
+    currentFrame = currentSprite.getFrames().last();
+
+    connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -138,6 +151,9 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             qDebug() << "mouse left click released inside workspace";
             mousePressed = false;
             updateWorkspace();
+
+            currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
             return true;
         }
         else {
@@ -252,6 +268,10 @@ void SpriteMainWindow::on_addFrameButton_clicked()
 {
     currentSprite.addFrame();
     ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
+
+    currentFrame = currentSprite.getFrames().last();
+    workspacePixMap = currentFrame->pixmap()->scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
 void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
@@ -273,7 +293,26 @@ void SpriteMainWindow::on_actionNew_triggered()
         connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
         welcomeScreen.exec();
         this->on_actionReset_triggered();
-    }
+    }   
+    //Clear the workspacePixMap
+    workspacePixMap.fill(Qt::white);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    //Clear out the current Sprite
+    Sprite newSprite(this->spriteWidth, this->spriteHeight, 0, "IDK");
+
+    currentSprite = newSprite;
+
+    //sets the current frame to the first frame
+    currentFrame = currentSprite.getFrames().last();
+
+    connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
+    //Reset the frames display on the left
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(currentFrame);
+    ui->scrollAreaWidgetContents->setLayout(layout);
 }
 
 //Open a file
@@ -289,9 +328,17 @@ void SpriteMainWindow::on_actionOpen_triggered()
 //Save a file
 void SpriteMainWindow::on_actionSave_triggered()
 {
+    //This saves the pixmap to a png
+
     QFileDialog dialog;
-    filename = dialog.getSaveFileName(NULL, "Save", filename, ".ssp");
+    filename = dialog.getSaveFileName(this, tr("Save File"), "/untitled.png", tr("Images (*.png)"));
     isModified = false;
+
+
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly);
+    QPixmap map = workspacePixMap.scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    map.save(&file, "PNG");
 }
 
 //Slot for when the stamp tool button is clicked.
@@ -338,6 +385,7 @@ void SpriteMainWindow::on_actionReset_triggered()
     workspacePixMap = QPixmap(400, 300);
     workspacePixMap.fill(Qt::white);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
 }
 
@@ -347,6 +395,8 @@ void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
     QImage image = workspacePixMap.toImage().mirrored(true, false);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
 //Slot for when the flip Vertically option is selected from the menu.
@@ -355,18 +405,35 @@ void SpriteMainWindow::on_actionFlip_Vertically_triggered()
     QImage image = workspacePixMap.toImage().mirrored(false, true);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
 //Slot for when the rotate Horizontally option is selected from the menu.
 void SpriteMainWindow::on_actionRotate_Horizontally_triggered()
 {
+    QTransform tran;
+    tran.rotate(90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
+
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
 }
 
 //Slot for when the rotate Counterclockwise option is selected from the menu.
 void SpriteMainWindow::on_actionRotate_Counterclockwise_triggered()
 {
+    QTransform tran;
+    tran.rotate(-90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
 
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
 //Slot for when the Show/Hide option is selected from the menu.
@@ -469,7 +536,7 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
     int wspWidth = workspacePixMap.width() * scaleFactor;
     int wspHeight = workspacePixMap.height() * scaleFactor;
 
-    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight, Qt::KeepAspectRatio, Qt::FastTransformation);
+    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     if(scaleFactor != 1) {
@@ -494,8 +561,8 @@ void SpriteMainWindow::initialResolution(int width, int height){
     if(width < 32){
         width = 32;
     }
-    else if(width > 128){
-        width = 128;
+    else if(width > 200){
+        width = 200;
     }
 
     if(height < 32){
@@ -507,6 +574,59 @@ void SpriteMainWindow::initialResolution(int width, int height){
 
     this->spriteWidth = width;
     this->spriteHeight = height;
+
+//    spriteWidth = 172;
+//    spriteHeight = 100;
+}
+
+void SpriteMainWindow::frameClicked(Frame* other){
+    qDebug() << "frame is clicked MainWindow";
+    currentFrame = other;
+    workspacePixMap = currentFrame->pixmap()->scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+}
+
+void SpriteMainWindow::on_rotateCounterClockButton_clicked()
+{
+    QTransform tran;
+    tran.rotate(-90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
+
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+}
+
+
+void SpriteMainWindow::on_rotateClockwiseButton_clicked()
+{
+    QTransform tran;
+    tran.rotate(90);
+    QImage img = workspacePixMap.toImage();
+    img = img.transformed(tran);
+
+    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+}
+
+void SpriteMainWindow::on_flipVerticalButton_clicked()
+{
+    QImage image = workspacePixMap.toImage().mirrored(false, true);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+}
+
+void SpriteMainWindow::on_flipHorizontalButton_clicked()
+{
+    QImage image = workspacePixMap.toImage().mirrored(true, false);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
 void SpriteMainWindow::on_timer_update()

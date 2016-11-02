@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include <QDebug>
 
 Sprite::Sprite(int w, int h, int s, QString file)
 {
@@ -6,8 +7,10 @@ Sprite::Sprite(int w, int h, int s, QString file)
     height = h;
     fps = s;
     filename = file;
-    frames.append(new Frame());
 
+    Frame* f = new Frame(width,height);
+
+    frames.append(f);
 }
 
 Sprite::Sprite(){
@@ -56,7 +59,11 @@ const QVector<Frame*> Sprite::getFrames(){
 
 void Sprite::addFrame()
 {
-    frames.append(new Frame());
+    Frame* f = new Frame(width, height);
+
+    frames.append(f);
+    connect(f, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
+    qDebug() << frames.length();
 }
 
 Frame& Sprite::getFrame(int index)
@@ -105,4 +112,7 @@ void Sprite::exportToGif(QString file)
     // Call to GifExport class
 }
 
-
+void Sprite::frameSelected(Frame* other){
+    emit frameClicked(other);
+    qDebug() << "frame is selected in Sprite.cpp";
+}

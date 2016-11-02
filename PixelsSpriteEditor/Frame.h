@@ -7,6 +7,7 @@
 
 class Frame : public QLabel
 {
+    Q_OBJECT
 private:
     bool isVisible;
     int height;
@@ -14,7 +15,7 @@ private:
     //QPixmap pix;
 
 public:
-    Frame();
+    Frame(int width = 32, int height = 32);
     //void setSize(int, int);
     ~Frame();
 
@@ -25,6 +26,9 @@ protected:
     // QWidget interface
 public:
     QSize sizeHint() const;
+
+signals:
+    void clicked(Frame*);
 };
 
 #endif // FRAME_H

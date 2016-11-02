@@ -8,10 +8,10 @@
 #include "PopupWindow.h"
 #include <QPainter>
 #include <QButtonGroup>
+#include <stack>
 #include "qevent.h"
 #include "Sprite.h"
-
-#include <stack>
+#include "PopupWindow.h"
 
 namespace Ui {
 class SpriteMainWindow;
@@ -65,6 +65,8 @@ private:
     int spriteWidth;
     int spriteHeight;
 
+    //contains a pointer to the current frame selected
+    Frame* currentFrame;
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
@@ -157,6 +159,12 @@ public slots:
 private slots:
     void on_action2x_Workspace_triggered();
 
+    void frameClicked(Frame*);
+
+    void on_rotateCounterClockButton_clicked();
+    void on_rotateClockwiseButton_clicked();
+    void on_flipVerticalButton_clicked();
+    void on_flipHorizontalButton_clicked();
 };
 
 #endif // SPRITEMAINWINDOW_H

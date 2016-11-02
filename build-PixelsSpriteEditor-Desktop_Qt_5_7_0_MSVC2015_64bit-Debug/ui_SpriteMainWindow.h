@@ -74,7 +74,7 @@ public:
     QPushButton *ellipseTool;
     QPushButton *stampTool;
     QPushButton *rotateCounterClockButton;
-    QPushButton *rotateClockButton;
+    QPushButton *rotateClockwiseButton;
     QPushButton *flipHorizontalButton;
     QPushButton *flipVerticalButton;
     QPushButton *undoButton;
@@ -288,6 +288,7 @@ public:
         penTool->setMinimumSize(QSize(50, 50));
         penTool->setMaximumSize(QSize(50, 50));
         penTool->setStyleSheet(QStringLiteral(""));
+        penTool->setIconSize(QSize(2, 2));
         penTool->setCheckable(true);
         penTool->setFlat(true);
         eraserTool = new QPushButton(toolsContainer);
@@ -343,16 +344,16 @@ public:
         rotateCounterClockButton->setStyleSheet(QStringLiteral(""));
         rotateCounterClockButton->setCheckable(true);
         rotateCounterClockButton->setFlat(true);
-        rotateClockButton = new QPushButton(toolsContainer);
-        rotateClockButton->setObjectName(QStringLiteral("rotateClockButton"));
-        rotateClockButton->setGeometry(QRect(62, 260, 50, 50));
-        sizePolicy3.setHeightForWidth(rotateClockButton->sizePolicy().hasHeightForWidth());
-        rotateClockButton->setSizePolicy(sizePolicy3);
-        rotateClockButton->setMinimumSize(QSize(50, 50));
-        rotateClockButton->setMaximumSize(QSize(50, 50));
-        rotateClockButton->setStyleSheet(QStringLiteral(""));
-        rotateClockButton->setCheckable(true);
-        rotateClockButton->setFlat(true);
+        rotateClockwiseButton = new QPushButton(toolsContainer);
+        rotateClockwiseButton->setObjectName(QStringLiteral("rotateClockwiseButton"));
+        rotateClockwiseButton->setGeometry(QRect(62, 260, 50, 50));
+        sizePolicy3.setHeightForWidth(rotateClockwiseButton->sizePolicy().hasHeightForWidth());
+        rotateClockwiseButton->setSizePolicy(sizePolicy3);
+        rotateClockwiseButton->setMinimumSize(QSize(50, 50));
+        rotateClockwiseButton->setMaximumSize(QSize(50, 50));
+        rotateClockwiseButton->setStyleSheet(QStringLiteral(""));
+        rotateClockwiseButton->setCheckable(true);
+        rotateClockwiseButton->setFlat(true);
         flipHorizontalButton = new QPushButton(toolsContainer);
         flipHorizontalButton->setObjectName(QStringLiteral("flipHorizontalButton"));
         flipHorizontalButton->setGeometry(QRect(62, 210, 50, 50));
@@ -617,7 +618,7 @@ public:
         ellipseTool->raise();
         stampTool->raise();
         rotateCounterClockButton->raise();
-        rotateClockButton->raise();
+        rotateClockwiseButton->raise();
         flipHorizontalButton->raise();
         flipVerticalButton->raise();
         undoButton->raise();
@@ -737,13 +738,13 @@ public:
         workspaceLabel->setToolTip(QApplication::translate("SpriteMainWindow", "<html><head/><body><p>Will display the current selected frame. The size is dependent on the resolution of the image selected. Should scale without changing the resolution.</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
         workspaceLabel->setText(QString());
-        penTool->setText(QApplication::translate("SpriteMainWindow", "Pen", 0));
+        penTool->setText(QApplication::translate("SpriteMainWindow", "pen", 0));
         eraserTool->setText(QApplication::translate("SpriteMainWindow", "Era", 0));
         lineTool->setText(QApplication::translate("SpriteMainWindow", "Line", 0));
         ellipseTool->setText(QApplication::translate("SpriteMainWindow", "ellip", 0));
         stampTool->setText(QApplication::translate("SpriteMainWindow", "stamp", 0));
         rotateCounterClockButton->setText(QApplication::translate("SpriteMainWindow", "Rotate AC", 0));
-        rotateClockButton->setText(QApplication::translate("SpriteMainWindow", "RC", 0));
+        rotateClockwiseButton->setText(QApplication::translate("SpriteMainWindow", "RC", 0));
         flipHorizontalButton->setText(QApplication::translate("SpriteMainWindow", "Flip L", 0));
         flipVerticalButton->setText(QApplication::translate("SpriteMainWindow", "FV", 0));
         undoButton->setText(QApplication::translate("SpriteMainWindow", "undo", 0));

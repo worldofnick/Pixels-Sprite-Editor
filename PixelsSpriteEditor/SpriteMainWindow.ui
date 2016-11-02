@@ -330,7 +330,13 @@ color: rgb(239, 239, 239);</string>
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Pen</string>
+        <string>pen</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>2</width>
+         <height>2</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -539,7 +545,7 @@ color: rgb(239, 239, 239);</string>
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="rotateClockButton">
+      <widget class="QPushButton" name="rotateClockwiseButton">
        <property name="geometry">
         <rect>
          <x>62</x>
@@ -1288,7 +1294,7 @@ background-repeat: none;
       <zorder>ellipseTool</zorder>
       <zorder>stampTool</zorder>
       <zorder>rotateCounterClockButton</zorder>
-      <zorder>rotateClockButton</zorder>
+      <zorder>rotateClockwiseButton</zorder>
       <zorder>flipHorizontalButton</zorder>
       <zorder>flipVerticalButton</zorder>
       <zorder>undoButton</zorder>
