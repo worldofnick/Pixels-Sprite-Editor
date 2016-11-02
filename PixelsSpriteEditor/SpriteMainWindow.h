@@ -8,7 +8,7 @@
 #include "PopupWindow.h"
 #include <QPainter>
 #include <QButtonGroup>
-#include <stack>
+#include <list>
 #include "qevent.h"
 #include "Sprite.h"
 #include "PopupWindow.h"
@@ -43,9 +43,9 @@ private:
     enum Brushes { pencil, eraser };
     Brushes brush;
 
-    // Stacks for undo/redo
-    std::stack<QPixmap> undoStack;
-    std::stack<QPixmap> redoStack;
+    // Lists for undo/redo
+    std::list<QPixmap> undoStack;
+    std::list<QPixmap> redoStack;
 
     // Flags
     bool isModified;

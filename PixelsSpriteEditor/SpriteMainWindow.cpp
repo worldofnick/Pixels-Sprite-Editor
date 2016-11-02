@@ -28,7 +28,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     //this->setWindowFlags(Qt::FramelessWindowHint);
 
     // default to pen
-    brush = pencil;
+    on_penTool_clicked();
 
     //penColor is recorded so that when a color picker is selected,
     //the beginning color will be the current penColor.
@@ -139,8 +139,11 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             drawPoint.setY(canvasY);
             mousePressed = true;
 
-            // Save this pixmap
-            undoStack.push(workspacePixMap);
+            // Save this pixmap, cap at 20 frames
+            if(undoStack.size() >= 20) {
+                undoStack.pop_front();
+            }
+            undoStack.push_back(workspacePixMap);
 
             return true;
         }
@@ -269,6 +272,7 @@ void SpriteMainWindow::on_penTool_clicked()
 {
     pen.setColor(penColor);
     brush = pencil;
+    this->cursor().setShape(Qt::CrossCursor);
 }
 
 //Add a Frame
@@ -371,9 +375,9 @@ void SpriteMainWindow::on_actionExport_as_gif_triggered()
 void SpriteMainWindow::on_actionUndo_triggered()
 {
     if(!undoStack.empty()) {
-        ui->workspaceLabel->setPixmap(undoStack.top());
-        redoStack.push(undoStack.top());
-        undoStack.pop();
+        ui->workspaceLabel->setPixmap(undoStack.back());
+        redoStack.push_back(undoStack.back());
+        undoStack.pop_back();
     }
 }
 
@@ -381,9 +385,10 @@ void SpriteMainWindow::on_actionUndo_triggered()
 void SpriteMainWindow::on_actionRedo_triggered()
 {
     if(!redoStack.empty()) {
-        ui->workspaceLabel->setPixmap(redoStack.top());
-        undoStack.push(redoStack.top());
-        redoStack.pop();
+        ui->workspaceLabel->setPixmap(redoStack.back());
+
+        undoStack.push_back(redoStack.back());
+        redoStack.pop_back();
     }
 }
 
