@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
+#include "GetResolutionDialog.h"
 #include <iostream>
 #include <QPoint>
 #include <QDebug>
@@ -13,8 +14,17 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SpriteMainWindow)
 {
+    GetResolutionDialog welcomeScreen;
+    connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
+    welcomeScreen.exec();
+
+
     ui->setupUi(this);
+    this->setWindowTitle("Pixels Sprite Editor");
     //this->setWindowFlags(Qt::FramelessWindowHint);
+
+    // default to pen
+    brush = pencil;
 
     //penColor is recorded so that when a color picker is selected,
     //the beginning color will be the current penColor.
@@ -26,7 +36,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     mainWindowOriginalGeometry = this->saveGeometry();
 
     filename = "";
-    isModified = true;
+    isModified = false;
 
     // Assign buttons to the button group (with ids). These
     // ID's can be used to indentify which button was pressed.
@@ -67,7 +77,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui->workspaceLabel->installEventFilter(this);
 
     //create the sprite
-    Sprite temp(32, 32, 1, tr("MySprite"));
+    Sprite temp(spriteWidth, spriteHeight, 0, tr("MySprite"));
     currentSprite = temp;
     QVBoxLayout* layout = new QVBoxLayout;
     //Frame* something = &currentSprite.getFrame(0);
@@ -77,16 +87,8 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     // Frame* something = new Frame();
     //ui->scrollAreaWidgetContents->layout()->
 
-    // Set up the timer
-    currentSprite.addFrame();
-    QPixmap p(32, 32);
-    p.fill(Qt::black);
-    currentSprite.getFrame(0).setPixmap(p);
-    currentSprite.addFrame();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(on_timer_update()));
-    it = 0;
-    timer->start(1000/currentSprite.getFps());
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -115,6 +117,10 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             drawPoint.setX(canvasX);
             drawPoint.setY(canvasY);
             mousePressed = true;
+
+            // Save this pixmap
+            undoStack.push(workspacePixMap);
+
             return true;
         }
         if(event->type() == QEvent::MouseMove) {
@@ -151,13 +157,18 @@ void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
 
 // Track mouse moving events
 void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
+    if(mousePressed) {
+        drawPoint.setX(event->pos().x() -242);
+        drawPoint.setY(event->pos().y() - 50);
+    }
+    updateWorkspace();
 
     // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
 }
 
 // Notify when the mouse ie released
 void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-
+  
     // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
 }
 
@@ -170,6 +181,8 @@ void SpriteMainWindow::updateWorkspace() {
     painter.drawPoint(drawPoint);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     painter.end();
+
+    isModified = true;
 }
 
 //void SpriteMainWindow::paintEvent(QPaintEvent *event) {
@@ -219,12 +232,19 @@ void SpriteMainWindow::on_lineTool_clicked()
 
 void SpriteMainWindow::on_eraserTool_clicked()
 {
+    if(brush == eraser) {
+        on_penTool_clicked();
+    } else {
+        pen.setColor(Qt::white);
+        brush = eraser;
+    }
 
 }
 
 void SpriteMainWindow::on_penTool_clicked()
 {
-
+    pen.setColor(penColor);
+    brush = pencil;
 }
 
 //Add a Frame
@@ -247,15 +267,23 @@ void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
 
 void SpriteMainWindow::on_actionNew_triggered()
 {
-
+    //Check if the user wants to save any changes first, then trigger the reset action.
+    if(maybeSave()){
+        GetResolutionDialog welcomeScreen;
+        connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
+        welcomeScreen.exec();
+        this->on_actionReset_triggered();
+    }
 }
 
 //Open a file
 void SpriteMainWindow::on_actionOpen_triggered()
 {
-
-    QFileDialog dialog;
-    QString filename = dialog.getOpenFileName();
+    //Check if the user wants to save any changes first, then open a new project.
+    if(maybeSave()){
+        QFileDialog dialog;
+        QString filename = dialog.getOpenFileName();
+    }
 }
 
 //Save a file
@@ -263,6 +291,7 @@ void SpriteMainWindow::on_actionSave_triggered()
 {
     QFileDialog dialog;
     filename = dialog.getSaveFileName(NULL, "Save", filename, ".ssp");
+    isModified = false;
 }
 
 //Slot for when the stamp tool button is clicked.
@@ -286,31 +315,46 @@ void SpriteMainWindow::on_actionExport_as_gif_triggered()
 //Slot for when undo is selected from the menu.
 void SpriteMainWindow::on_actionUndo_triggered()
 {
-
+    if(!undoStack.empty()) {
+        ui->workspaceLabel->setPixmap(undoStack.top());
+        redoStack.push(undoStack.top());
+        undoStack.pop();
+    }
 }
 
 //Slot for when the redo button is selected the menu.
 void SpriteMainWindow::on_actionRedo_triggered()
 {
-
+    if(!redoStack.empty()) {
+        ui->workspaceLabel->setPixmap(redoStack.top());
+        undoStack.push(redoStack.top());
+        redoStack.pop();
+    }
 }
 
 //Slot for when the reset option is selected from the menu.
 void SpriteMainWindow::on_actionReset_triggered()
 {
+    workspacePixMap = QPixmap(400, 300);
+    workspacePixMap.fill(Qt::white);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 
 }
 
 //Slot for when the Flip Horizontally option is selected from the menu.
 void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
 {
-
+    QImage image = workspacePixMap.toImage().mirrored(true, false);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
 //Slot for when the flip Vertically option is selected from the menu.
 void SpriteMainWindow::on_actionFlip_Vertically_triggered()
 {
-
+    QImage image = workspacePixMap.toImage().mirrored(false, true);
+    workspacePixMap = QPixmap::fromImage(image);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
 //Slot for when the rotate Horizontally option is selected from the menu.
@@ -354,6 +398,7 @@ void SpriteMainWindow::on_actionAbout_triggered()
 {
     PopupWindow aboutPopup;
     aboutPopup.setText("This text will be replaced by a helpful about message.");
+    aboutPopup.setTitle("About Pixels Sprite Editor");
     aboutPopup.exec();
 }
 
@@ -362,6 +407,7 @@ void SpriteMainWindow::on_actionWalkthrough_triggered()
 {
     PopupWindow walkthroughPopup;
     walkthroughPopup.setText("This text will be replaced by a helpful walkthrough.");
+    walkthroughPopup.setTitle("Walkthrough");
     walkthroughPopup.exec();
 }
 
@@ -396,6 +442,27 @@ bool SpriteMainWindow::maybeSave(){
     return true;
 }
 
+//Change Brush Size Slots
+void SpriteMainWindow::on_brushSize1Button_clicked()
+{
+    pen.setWidth(10);
+}
+
+void SpriteMainWindow::on_brushSize2Button_clicked()
+{
+    pen.setWidth(20);
+}
+
+void SpriteMainWindow::on_brushSize3Button_clicked()
+{
+    pen.setWidth(30);
+}
+
+void SpriteMainWindow::on_brushSize4Button_clicked()
+{
+    pen.setWidth(40);
+}
+
 void SpriteMainWindow::on_action2x_Workspace_triggered()
 {
     scaleFactor++;
@@ -418,6 +485,28 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 //        }
 //    }
 //    update();
+
+}
+
+
+void SpriteMainWindow::initialResolution(int width, int height){
+    //Enforce a range of 32-128.
+    if(width < 32){
+        width = 32;
+    }
+    else if(width > 128){
+        width = 128;
+    }
+
+    if(height < 32){
+        height = 32;
+    }
+    else if(height > 128){
+        height = 128;
+    }
+
+    this->spriteWidth = width;
+    this->spriteHeight = height;
 }
 
 void SpriteMainWindow::on_timer_update()

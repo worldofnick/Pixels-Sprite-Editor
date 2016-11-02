@@ -201,13 +201,21 @@ public:
         framesScrollArea->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(8, 0, 164, 304));
+        scrollAreaWidgetContents->setGeometry(QRect(8, 0, 164, 308));
         framesScrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(framesScrollArea);
 
         addFrameButton = new QPushButton(framesContainer);
         addFrameButton->setObjectName(QStringLiteral("addFrameButton"));
+        addFrameButton->setStyleSheet(QLatin1String("#addFrameButton{\n"
+"	border-radius: 4px;\n"
+"	background-color: rgb(100, 100, 100);\n"
+"}\n"
+"\n"
+"#addFrameButton:hover{	\n"
+"	background-color: rgb(183, 183, 183);\n"
+"}"));
 
         verticalLayout->addWidget(addFrameButton);
 
@@ -699,7 +707,7 @@ public:
         actionUndo->setShortcut(QApplication::translate("SpriteMainWindow", "Ctrl+Z", 0));
         actionRedo->setText(QApplication::translate("SpriteMainWindow", "Redo", 0));
         actionRedo->setShortcut(QApplication::translate("SpriteMainWindow", "Ctrl+Shift+Z", 0));
-        actionReset->setText(QApplication::translate("SpriteMainWindow", "Reset", 0));
+        actionReset->setText(QApplication::translate("SpriteMainWindow", "Reset Current Frame", 0));
         actionFlip_Horizontally->setText(QApplication::translate("SpriteMainWindow", "Flip Horizontally", 0));
         actionFlip_Vertically->setText(QApplication::translate("SpriteMainWindow", "Flip Vertically", 0));
         actionRotate_Horizontally->setText(QApplication::translate("SpriteMainWindow", "Rotate Clockwise", 0));

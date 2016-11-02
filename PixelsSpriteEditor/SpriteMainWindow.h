@@ -11,6 +11,8 @@
 #include "qevent.h"
 #include "Sprite.h"
 
+#include <stack>
+
 namespace Ui {
 class SpriteMainWindow;
 }
@@ -37,6 +39,14 @@ private:
     QPixmap workspacePixMap;
     QPainter painter;
 
+    // Brush types, add more as we go
+    enum Brushes { pencil, eraser };
+    Brushes brush;
+
+    // Stacks for undo/redo
+    std::stack<QPixmap> undoStack;
+    std::stack<QPixmap> redoStack;
+
     // Flags
     bool isModified;
     bool mousePressed;
@@ -49,10 +59,11 @@ private:
     // Sprite
     Sprite currentSprite;
 
-
     // Preview window resources
     QTimer *timer;
     int it;
+    int spriteWidth;
+    int spriteHeight;
 
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
@@ -135,8 +146,17 @@ public slots:
 
     // Timer slot
     void on_timer_update();
+
+    void on_brushSize1Button_clicked();
+    void on_brushSize2Button_clicked();
+    void on_brushSize3Button_clicked();
+    void on_brushSize4Button_clicked();
+
+    void initialResolution(int width, int height);
+
 private slots:
     void on_action2x_Workspace_triggered();
+
 };
 
 #endif // SPRITEMAINWINDOW_H
