@@ -203,7 +203,9 @@ void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
 // paint in this method. (Replacement for paintEvent() method).
 void SpriteMainWindow::updateWorkspace() {
     painter.begin(&workspacePixMap);
+    painter.setCompositionMode(QPainter::CompositionMode_Source);
     painter.setPen(pen);
+
 
     painter.drawPoint(drawPoint);
     ui->workspaceLabel->setPixmap(workspacePixMap);
@@ -262,7 +264,7 @@ void SpriteMainWindow::on_eraserTool_clicked()
     if(brush == eraser) {
         on_penTool_clicked();
     } else {
-        pen.setColor(Qt::white);
+        pen.setColor(QColor(255,255,255,6));    // TODO: change to user selected background
         brush = eraser;
     }
 
