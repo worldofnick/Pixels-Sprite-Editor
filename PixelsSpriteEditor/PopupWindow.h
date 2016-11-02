@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QAbstractButton>
-#include <QButtonGroup>
 
 namespace Ui {
 class PopupWindow;
