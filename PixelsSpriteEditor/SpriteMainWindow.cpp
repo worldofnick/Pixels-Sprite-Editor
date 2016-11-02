@@ -643,5 +643,5 @@ void SpriteMainWindow::on_timer_update()
     if(it >= currentSprite.getFrames().size())
         it = 0;
 
-    ui->previewLabelMap->setPixmap(*currentSprite.getFrame(it).pixmap());
+    ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }

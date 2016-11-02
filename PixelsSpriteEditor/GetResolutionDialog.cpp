@@ -7,6 +7,10 @@ GetResolutionDialog::GetResolutionDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->okButton, SIGNAL(pressed()), this, SLOT(resolution()));
+
+    resButtonsGroup->addButton(ui->blackBackgroundButton, 2);
+    resButtonsGroup->addButton(ui->whiteBackgroundButton, 1);
+    resButtonsGroup->addButton(ui->transparentBackgroundButton, 0);
 }
 
 GetResolutionDialog::~GetResolutionDialog()

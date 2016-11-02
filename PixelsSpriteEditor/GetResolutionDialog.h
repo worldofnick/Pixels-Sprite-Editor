@@ -2,6 +2,7 @@
 #define GETRESOLUTIONDIALOG_H
 
 #include <QDialog>
+#include <QButtonGroup>
 
 namespace Ui {
 class GetResolutionDialog;
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::GetResolutionDialog *ui;
+    QButtonGroup* resButtonsGroup;
 
 protected:
     void closeEvent(QCloseEvent*);
