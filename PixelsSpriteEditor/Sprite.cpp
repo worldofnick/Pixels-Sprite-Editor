@@ -1,5 +1,7 @@
 #include "Sprite.h"
 #include <QDebug>
+#include <QFile>
+#include <QRgb>
 
 Sprite::Sprite(int w, int h, int s, QString file)
 {
@@ -171,14 +173,13 @@ void Sprite::saveFile()
             // Get RGBA from each pixel
             // Write frame to file
             qDebug() << spriteImage.size();
-            for(int j = 0; j < spriteImage.height(); j++) {
-                for(int k = 0; k < spriteImage.width(); k++) {
-                    QRgb temp = spriteImage.pixel(j, k);
-                    QColor colorValue;
-                    colorValue.setRgba(temp);
-                    out << colorValue.red() << " " << colorValue.green() << " " << colorValue.blue() << " " << colorValue.alpha() << " ";
+
+            for (int y = 0; y < spriteImage.height(); y++) {
+                QRgb *line = (QRgb *) spriteImage.scanLine(y);
+                for (int x = 0; x < spriteImage.width(); x++) {
+                    // line[x] has an individual pixel
+                    line[x] = QColor(255, 128, 0).rgb();
                 }
-                out << '\n';
             }
         }
 
