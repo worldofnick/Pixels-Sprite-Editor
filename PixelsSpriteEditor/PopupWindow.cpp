@@ -1,7 +1,7 @@
-#include "PopupWindow.h"
-#include "ui_PopupWindow.h"
 #include <QPushButton>
 #include <iostream>
+#include "PopupWindow.h"
+#include "ui_PopupWindow.h"
 
 //Creates a general purpose PopupWindow.
 PopupWindow::PopupWindow(QWidget *parent) :

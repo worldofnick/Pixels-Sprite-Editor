@@ -4,7 +4,6 @@
 #include <QVector>
 #include "Frame.h"
 
-
 class Sprite : public QWidget
 {
     Q_OBJECT

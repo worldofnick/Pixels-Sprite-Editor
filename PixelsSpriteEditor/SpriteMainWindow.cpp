@@ -3,12 +3,12 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTransform>
-#include "SpriteMainWindow.h"
-#include "ui_SpriteMainWindow.h"
-#include "GetResolutionDialog.h"
 #include <iostream>
 #include <QPoint>
 #include <QDebug>
+#include "SpriteMainWindow.h"
+#include "ui_SpriteMainWindow.h"
+#include "GetResolutionDialog.h"
 
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),

@@ -4,13 +4,12 @@
 #include <QMainWindow>
 #include <QPen>
 #include <QCloseEvent>
-#include "PopupWindow.h"
 #include <QPainter>
 #include <QButtonGroup>
+#include <stack>
 #include "qevent.h"
 #include "Sprite.h"
-
-#include <stack>
+#include "PopupWindow.h"
 
 namespace Ui {
 class SpriteMainWindow;

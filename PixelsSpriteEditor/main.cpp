@@ -1,5 +1,5 @@
-#include "SpriteMainWindow.h"
 #include <QApplication>
+#include "SpriteMainWindow.h"
 
 int main(int argc, char *argv[])
 {
