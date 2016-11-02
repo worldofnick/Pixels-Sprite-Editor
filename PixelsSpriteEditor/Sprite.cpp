@@ -85,26 +85,106 @@ void Sprite::loadFile(QString file)
 {
     frames.clear();
     filename = file;
+    int framesCount;
+    int i = 0;
+    int j = 0;
+    int fnumber = 0;
+    QImage spriteImage;
 
+    addFrame();
     // Open file
     // Read file header and initialize variables
+    QFile fileLoad(filename);
+    if(!fileLoad.open(QIODevice::ReadOnly)) {
+        return;
+    }
+
+    QTextStream in(&fileLoad);
     // Parse lines and create frames
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList lineSegments = line.split(" ");
+        if (lineSegments.size() == 1) {
+            framesCount = lineSegments.at(0).toInt();
+        }
+        else if (lineSegments.size() == 2) {
+            height = lineSegments.at(0).toInt();
+            width = lineSegments.at(1).toInt();
+        }
+        else {
+            j = 0;
+            if(i < height){
+                for(int k = 0; k < lineSegments.size(); k += 4) {
+                    QColor temp;
+                    temp.setRed(lineSegments.at(k).toInt());
+                    temp.setGreen(lineSegments.at(k+1).toInt());
+                    temp.setBlue(lineSegments.at(k+2).toInt());
+                    temp.setAlpha(lineSegments.at(k+3).toInt());
+                    spriteImage.setPixelColor(i, j++, temp);
+                }
+                i++;
+            }
+            else {
+                // make a new frame
+                frames.at(fnumber++)->pixmap()->fromImage(spriteImage);
+                addFrame();
+                i = 0;
+                for(int k = 0; k < lineSegments.size(); k += 4) {
+                    QColor temp;
+                    temp.setRed(lineSegments.at(k).toInt());
+                    temp.setGreen(lineSegments.at(k+1).toInt());
+                    temp.setBlue(lineSegments.at(k+2).toInt());
+                    temp.setAlpha(lineSegments.at(k+3).toInt());
+                    spriteImage.setPixelColor(i, j++, temp);
+                }
+                i++;
+            }
+        }
+    }
     // Close file
+    fileLoad.close();
 }
 
 void Sprite::saveFile()
 {
     // Open file
     // Save variables to header
-
-    for(auto i = frames.begin(); i != frames.end(); i++)
-    {
-        // Convert to image
-        // Get RGBA from each pixel
-        // Write frame to file
+    if(filename.isEmpty()){
+        return;
     }
+    else {
+        QFile fileSave(filename);
+        if(!fileSave.open(QIODevice::WriteOnly)) {
+            return;
+        }
 
-    // Close file
+        QDataStream out(&fileSave);
+        out << height << " ";
+        out << width << '\n';
+        out << frames.size() << '\n';
+
+
+        for(int i = 0; i < frames.size(); i++)
+        {
+            // Convert to image
+            QImage spriteImage = frames.at(i)->pixmap()->toImage();
+            // Get RGBA from each pixel
+            // Write frame to file
+            qDebug() << spriteImage.size();
+            for(int j = 0; j < spriteImage.height(); j++) {
+                for(int k = 0; k < spriteImage.width(); k++) {
+                    QRgb temp = spriteImage.pixel(j, k);
+                    QColor colorValue;
+                    colorValue.setRgba(temp);
+                    out << colorValue.red() << " " << colorValue.green() << " " << colorValue.blue() << " " << colorValue.alpha() << " ";
+                }
+                out << '\n';
+            }
+        }
+
+        // Close file
+        fileSave.close();
+    }
 }
 
 void Sprite::exportToGif(QString file)
