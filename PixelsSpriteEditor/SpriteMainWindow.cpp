@@ -73,7 +73,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);        //TODO: initialize to input size
 
 
-    workspacePixMap.fill(Qt::white);
+    workspacePixMap.fill(QColor(255,255,255,6));
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     mousePressed = false;
