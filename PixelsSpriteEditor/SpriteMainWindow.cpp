@@ -94,9 +94,6 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     // Frame* something = new Frame();
     //ui->scrollAreaWidgetContents->layout()->
 
-
-
-
     //sets the current frame to the first frame
     currentFrame = currentSprite.getFrames().last();
 
@@ -376,9 +373,14 @@ void SpriteMainWindow::on_actionExport_as_gif_triggered()
 //Slot for when undo is selected from the menu.
 void SpriteMainWindow::on_actionUndo_triggered()
 {
+
     if(!undoStack.empty()) {
-        ui->workspaceLabel->setPixmap(undoStack.back());
-        redoStack.push_back(undoStack.back());
+        // Save the current frame
+        redoStack.push_back(workspacePixMap);
+        workspacePixMap = undoStack.back();
+        ui->workspaceLabel->setPixmap(workspacePixMap);
+        currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
         undoStack.pop_back();
     }
 }
@@ -387,10 +389,11 @@ void SpriteMainWindow::on_actionUndo_triggered()
 void SpriteMainWindow::on_actionRedo_triggered()
 {
     if(!redoStack.empty()) {
-        ui->workspaceLabel->setPixmap(redoStack.back());
-
+        workspacePixMap = redoStack.back();
+        ui->workspaceLabel->setPixmap(workspacePixMap);
         undoStack.push_back(redoStack.back());
         redoStack.pop_back();
+        currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
     }
 }
 
