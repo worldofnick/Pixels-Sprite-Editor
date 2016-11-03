@@ -143,7 +143,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             int canvasY = mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
             qDebug() << "Left mouse pressed in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
 
-            if (brush == pencil){
+            if (brush == pencil || brush == eraser){
                 drawPoint.setX(canvasX);
                 drawPoint.setY(canvasY);
                 //mousePressed = true;
@@ -170,7 +170,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
             qDebug() << "mouse is being moved in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
 
-            if (brush == pencil){
+            if (brush == pencil || brush == eraser){
                 drawPoint.setX(canvasX);
                 drawPoint.setY(canvasY);
             }
@@ -229,14 +229,14 @@ void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
 // Draws on the workspace's pixmap and reassigns it. All the tools will
 // paint in this method. (Replacement for paintEvent() method).
 void SpriteMainWindow::updateWorkspace() {
-   if (brush == pencil || lineShouldNowBeDrawn){
+   if (brush == pencil || brush == eraser || lineShouldNowBeDrawn){
     painter.begin(&workspacePixMap);
     painter.setCompositionMode(QPainter::CompositionMode_Source);
 
 
     painter.setPen(pen);
 
-    if (brush == pencil){
+    if (brush == pencil || brush == eraser){
         painter.drawPoint(drawPoint);
     }
     else if (brush == line){
@@ -255,6 +255,13 @@ void SpriteMainWindow::updateWorkspace() {
 
            QPixmap temp = QPixmap(workspacePixMap);
            QPainter tempPainter(&temp);
+
+           //alternate way based off of link on Slack; I don't know how to make it work
+           //painter.begin(&workspacePixMap);
+           // painter.drawPixmap(canvasX,canvasY, workspacePixMap);
+           //painter.drawLine(mLine);
+           //painter.end();
+
            tempPainter.setPen(pen);
 
            tempPainter.drawLine(mLine);
@@ -308,6 +315,7 @@ void SpriteMainWindow::on_rectangleTool_clicked()
 
 void SpriteMainWindow::on_lineTool_clicked()
 {
+    pen.setColor(penColor);
     brush = line;
 
 
@@ -315,14 +323,14 @@ void SpriteMainWindow::on_lineTool_clicked()
 
 void SpriteMainWindow::on_eraserTool_clicked()
 {
-    if(brush == eraser) {
-        on_penTool_clicked();
-    } else {
-        pen.setColor(this->backgroundColor);    // TODO: change to user selected background
-        brush = eraser;
-    }
-
+    //if(brush == eraser) {
+    //on_penTool_clicked();
+    //} else {
+    pen.setColor(this->backgroundColor);    // TODO: change to user selected background
+    brush = eraser;
 }
+
+
 
 void SpriteMainWindow::on_penTool_clicked()
 {
