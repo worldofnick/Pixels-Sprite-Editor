@@ -85,6 +85,9 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     lineShouldNowBeDrawn = false;
 
+    // Connections for undo/redo buttons
+    connect(ui->undoButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionUndo_triggered);
+    connect(ui->redoButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionRedo_triggered);
 
     // Install SpriteMainWindow as an event handler for the workspaceLabel
     ui->workspaceLabel->installEventFilter(this);
