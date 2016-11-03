@@ -2,6 +2,7 @@
 #define SPRITE_H
 
 #include <QVector>
+#include <QFile>
 #include "Frame.h"
 
 class Sprite : public QWidget

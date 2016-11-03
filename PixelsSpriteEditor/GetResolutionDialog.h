@@ -27,7 +27,7 @@ public slots:
     void resolution();
 
 signals:
-    void okClicked(int width, int height);
+    void okClicked(int width, int height, int backColor);
 };
 
 #endif // GETRESOLUTIONDIALOG_H

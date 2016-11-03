@@ -91,6 +91,12 @@ color: rgb(239, 239, 239);</string>
      <height>21</height>
     </rect>
    </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>128</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="heightInputBox">
    <property name="geometry">
@@ -100,6 +106,9 @@ color: rgb(239, 239, 239);</string>
      <width>41</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="placeholderText">
+    <string>128</string>
    </property>
   </widget>
   <widget class="QPushButton" name="okButton">

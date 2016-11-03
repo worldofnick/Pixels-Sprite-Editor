@@ -32,15 +32,21 @@ private:
     int scaleFactor;
     QByteArray mainWindowOriginalGeometry;
 
+    QColor backgroundColor;
+
     // Drawing resources
     QPen pen;
     QPoint drawPoint;
     QColor penColor;
     QPixmap workspacePixMap;
     QPainter painter;
+    QLine mLine;
+    QRect mRect;
+
+    bool drawStarted;
 
     // Brush types, add more as we go
-    enum Brushes { pencil, eraser };
+    enum Brushes { pencil, eraser, line, rect, ellipse };
     Brushes brush;
 
     // Lists for undo/redo
@@ -154,7 +160,7 @@ public slots:
     void on_brushSize3Button_clicked();
     void on_brushSize4Button_clicked();
 
-    void initialResolution(int width, int height);
+    void initialResolution(int width, int height, int backColor);
 
 private slots:
     void on_action2x_Workspace_triggered();

@@ -19,7 +19,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui(new Ui::SpriteMainWindow)
 {
     GetResolutionDialog welcomeScreen;
-    connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
+    connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int,int)));
     welcomeScreen.exec();
 
 
@@ -38,6 +38,11 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     clickedInsideWorkspace = false;     //TODO: keep or remove later
     scaleFactor = 1;
     mainWindowOriginalGeometry = this->saveGeometry();
+
+
+    mousePressed = false;
+    drawStarted = false;
+
 
     filename = "";
     isModified = false;
@@ -70,10 +75,10 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     brushSizeButtonsGroup->addButton(ui->brushSize4Button, 3);
 
     // Set pixmap's resolution, color and set it to the workspace.
-    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);        //TODO: initialize to input size
+    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
 
 
-    workspacePixMap.fill(QColor(255,255,255,6));
+    workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     mousePressed = false;
@@ -152,6 +157,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             qDebug() << "mouse is being moved in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
             drawPoint.setX(canvasX);
             drawPoint.setY(canvasY);
+
             updateWorkspace();
             return true;
         }
@@ -192,7 +198,7 @@ void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
 
 // Notify when the mouse ie released
 void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-  
+
     // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
 }
 
@@ -243,17 +249,17 @@ void SpriteMainWindow::on_stampTool_clicked()
 
 void SpriteMainWindow::on_ellipseTool_clicked()
 {
-
+    brush = ellipse;
 }
 
 void SpriteMainWindow::on_rectangleTool_clicked()
 {
-
+    brush = rect;
 }
 
 void SpriteMainWindow::on_lineTool_clicked()
 {
-
+    brush = line;
 }
 
 void SpriteMainWindow::on_eraserTool_clicked()
@@ -261,7 +267,7 @@ void SpriteMainWindow::on_eraserTool_clicked()
     if(brush == eraser) {
         on_penTool_clicked();
     } else {
-        pen.setColor(QColor(255,255,255,6));    // TODO: change to user selected background
+        pen.setColor(this->backgroundColor);    // TODO: change to user selected background
         brush = eraser;
     }
 
@@ -281,7 +287,12 @@ void SpriteMainWindow::on_addFrameButton_clicked()
     ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
 
     currentFrame = currentSprite.getFrames().last();
-    workspacePixMap = currentFrame->pixmap()->scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+
+    QPixmap map(172,100);
+    map.fill(this->backgroundColor);
+    currentFrame->setPixmap(map);
+
+    workspacePixMap = currentFrame->pixmap()->scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
@@ -301,12 +312,12 @@ void SpriteMainWindow::on_actionNew_triggered()
     //Check if the user wants to save any changes first, then trigger the reset action.
     if(maybeSave()){
         GetResolutionDialog welcomeScreen;
-        connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
+        connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int,int)));
         welcomeScreen.exec();
         this->on_actionReset_triggered();
     }   
     //Clear the workspacePixMap
-    workspacePixMap.fill(Qt::white);
+    workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     //Clear out the current Sprite
@@ -400,11 +411,10 @@ void SpriteMainWindow::on_actionRedo_triggered()
 //Slot for when the reset option is selected from the menu.
 void SpriteMainWindow::on_actionReset_triggered()
 {
-    workspacePixMap = QPixmap(400, 300);
-    workspacePixMap.fill(Qt::white);
+    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
+    workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
-
 }
 
 //Slot for when the Flip Horizontally option is selected from the menu.
@@ -413,7 +423,6 @@ void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
     QImage image = workspacePixMap.toImage().mirrored(true, false);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
@@ -423,7 +432,6 @@ void SpriteMainWindow::on_actionFlip_Vertically_triggered()
     QImage image = workspacePixMap.toImage().mirrored(false, true);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
 
@@ -435,7 +443,7 @@ void SpriteMainWindow::on_actionRotate_Horizontally_triggered()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
@@ -449,7 +457,7 @@ void SpriteMainWindow::on_actionRotate_Counterclockwise_triggered()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
@@ -574,8 +582,29 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 }
 
 
-void SpriteMainWindow::initialResolution(int width, int height){
-    //Enforce a range of 32-128.
+void SpriteMainWindow::initialResolution(int width, int height, int backColor){
+    //See which color the user selected for the background
+    if(backColor == 0){
+        //Set Transparent Background
+        this->backgroundColor = QColor(255,255,255,6);
+    }
+    else if(backColor == 1){
+        //Set White Background
+        this->backgroundColor = QColor(255,255,255);
+    }
+    else{
+        //Set Black Background
+        this->backgroundColor = QColor(0,0,0);
+    }
+
+
+    if(width < 32){
+        this->spriteWidth = 32;
+    }
+    if(height < 32){
+        this->spriteHeight = 32;
+    }
+
     if(width != height) {
         if(width >= height) {
             this->spriteWidth = width;
@@ -597,7 +626,7 @@ void SpriteMainWindow::initialResolution(int width, int height){
 void SpriteMainWindow::frameClicked(Frame* other){
     qDebug() << "frame is clicked MainWindow";
     currentFrame = other;
-    workspacePixMap = currentFrame->pixmap()->scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    workspacePixMap = currentFrame->pixmap()->scaled(this->spriteWidth,this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
@@ -608,7 +637,7 @@ void SpriteMainWindow::on_rotateCounterClockButton_clicked()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }
@@ -621,7 +650,7 @@ void SpriteMainWindow::on_rotateClockwiseButton_clicked()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(400,300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     currentFrame->setPixmap(workspacePixMap.scaled(172, 100, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 }

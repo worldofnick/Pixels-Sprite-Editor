@@ -1,5 +1,6 @@
 #include "GetResolutionDialog.h"
 #include "ui_GetResolutionDialog.h"
+#include <QDebug>
 
 GetResolutionDialog::GetResolutionDialog(QWidget *parent) :
     QDialog(parent),
@@ -22,12 +23,44 @@ GetResolutionDialog::~GetResolutionDialog()
 void GetResolutionDialog::resolution(){
     int width = ui->widthInputBox->text().toInt();
     int height = ui->heightInputBox->text().toInt();
-    emit okClicked(width, height);
+
+    if(width == 0){
+        width = 128;
+    }
+    if(height == 0){
+        height = 128;
+    }
+
+    //Get Selected Color
+    int backColor = 0;
+    if(resButtonsGroup->checkedButton() == ui->whiteBackgroundButton){
+        backColor = 1;
+    }
+    else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton){
+        backColor = 2;
+    }
+    emit okClicked(width, height, backColor);
     this->close();
 }
 
 void GetResolutionDialog::closeEvent(QCloseEvent *){
-    int width = ui->widthInputBox->text().toInt();
+    int width = ui->widthInputBox->text().toInt();   
     int height = ui->heightInputBox->text().toInt();
-    emit okClicked(width, height);
+
+    if(width == 0){
+        width = 128;
+    }
+    if(height == 0){
+        height = 128;
+    }
+
+    //Get Selected Color
+    int backColor = 0;
+    if(resButtonsGroup->checkedButton() == ui->whiteBackgroundButton){
+        backColor = 1;
+    }
+    else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton){
+        backColor = 2;
+    }
+    emit okClicked(width, height, backColor);
 }
