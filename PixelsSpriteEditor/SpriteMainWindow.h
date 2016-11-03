@@ -45,6 +45,8 @@ private:
 
     bool drawStarted;
 
+    bool lineShouldNowBeDrawn;
+
     // Brush types, add more as we go
     enum Brushes { pencil, eraser, line, rect, ellipse };
     Brushes brush;

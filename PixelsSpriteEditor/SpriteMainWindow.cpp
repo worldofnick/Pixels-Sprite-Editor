@@ -83,6 +83,9 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     mousePressed = false;
 
+    lineShouldNowBeDrawn = false;
+
+
     // Install SpriteMainWindow as an event handler for the workspaceLabel
     ui->workspaceLabel->installEventFilter(this);
 
@@ -140,8 +143,16 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             int canvasY = mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
             qDebug() << "Left mouse pressed in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
 
-            drawPoint.setX(canvasX);
-            drawPoint.setY(canvasY);
+            if (brush == pencil){
+                drawPoint.setX(canvasX);
+                drawPoint.setY(canvasY);
+                //mousePressed = true;
+            }
+            else if (brush == line) {
+                mLine.setP1(QPoint(canvasX, canvasY));
+                mLine.setP2(QPoint(canvasX, canvasY));
+            }
+
             mousePressed = true;
 
             // Save this pixmap, cap at 20 frames
@@ -158,15 +169,25 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             int canvasY = mouseMoveEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
 
             qDebug() << "mouse is being moved in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
-            drawPoint.setX(canvasX);
-            drawPoint.setY(canvasY);
 
+            if (brush == pencil){
+                drawPoint.setX(canvasX);
+                drawPoint.setY(canvasY);
+            }
+            else if (brush == line){
+                mLine.setP2(QPoint(canvasX, canvasY));
+            }
             updateWorkspace();
             return true;
         }
         if(event->type() == QEvent::MouseButtonRelease) {
             qDebug() << "mouse left click released inside workspace";
+
             mousePressed = false;
+
+            if (brush == line){
+                lineShouldNowBeDrawn = true;
+            }
             updateWorkspace();
 
             currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation));
@@ -208,14 +229,39 @@ void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
 // Draws on the workspace's pixmap and reassigns it. All the tools will
 // paint in this method. (Replacement for paintEvent() method).
 void SpriteMainWindow::updateWorkspace() {
+   if (brush == pencil || lineShouldNowBeDrawn){
     painter.begin(&workspacePixMap);
     painter.setCompositionMode(QPainter::CompositionMode_Source);
+
+
     painter.setPen(pen);
 
+    if (brush == pencil){
+        painter.drawPoint(drawPoint);
+    }
+    else if (brush == line){
+        //draw the line once mouse is actually released
+        painter.drawLine(mLine);
+        lineShouldNowBeDrawn = false;
+    }
 
-    painter.drawPoint(drawPoint);
-    ui->workspaceLabel->setPixmap(workspacePixMap);
-    painter.end();
+
+     painter.end();
+
+     ui->workspaceLabel->setPixmap(workspacePixMap);
+    }
+   //this is updating a temporary pixmap to the line before the mouse is released
+   else if (brush == line){
+
+           QPixmap temp = QPixmap(workspacePixMap);
+           QPainter tempPainter(&temp);
+           tempPainter.setPen(pen);
+
+           tempPainter.drawLine(mLine);
+
+           ui->workspaceLabel->setPixmap(temp);
+   }
+
 
     isModified = true;
 }
@@ -263,6 +309,8 @@ void SpriteMainWindow::on_rectangleTool_clicked()
 void SpriteMainWindow::on_lineTool_clicked()
 {
     brush = line;
+
+
 }
 
 void SpriteMainWindow::on_eraserTool_clicked()
