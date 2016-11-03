@@ -81,7 +81,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event);      // Handles the QLabel events
     void closeEvent(QCloseEvent*);
     void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
+    //void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     //void paintEvent(QPaintEvent *event);
 
