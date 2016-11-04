@@ -32,12 +32,16 @@ public:
     QLineEdit *widthInputBox;
     QLineEdit *heightInputBox;
     QPushButton *okButton;
+    QLabel *label_6;
+    QPushButton *transparentBackgroundButton;
+    QPushButton *whiteBackgroundButton;
+    QPushButton *blackBackgroundButton;
 
     void setupUi(QDialog *GetResolutionDialog)
     {
         if (GetResolutionDialog->objectName().isEmpty())
             GetResolutionDialog->setObjectName(QStringLiteral("GetResolutionDialog"));
-        GetResolutionDialog->resize(339, 170);
+        GetResolutionDialog->resize(339, 255);
         GetResolutionDialog->setStyleSheet(QLatin1String("background-color: qlineargradient(spread:pad, x1:0.482, y1:0.4375, x2:0.488, y2:0.994318, stop:0 rgba(35, 37, 37, 255), stop:1 rgba(51, 53, 53, 255));\n"
 "color: rgb(239, 239, 239);"));
         label = new QLabel(GetResolutionDialog);
@@ -63,7 +67,7 @@ public:
         heightInputBox->setGeometry(QRect(90, 80, 41, 21));
         okButton = new QPushButton(GetResolutionDialog);
         okButton->setObjectName(QStringLiteral("okButton"));
-        okButton->setGeometry(QRect(230, 130, 71, 32));
+        okButton->setGeometry(QRect(230, 210, 71, 32));
         okButton->setStyleSheet(QLatin1String("#okButton{\n"
 "	border-radius: 8px;\n"
 "	border: 2px solid #FFFFFF;\n"
@@ -72,6 +76,22 @@ public:
 "#okButton:hover{	\n"
 "	background-color: rgb(181, 183, 183);\n"
 "}"));
+        label_6 = new QLabel(GetResolutionDialog);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(10, 130, 121, 16));
+        transparentBackgroundButton = new QPushButton(GetResolutionDialog);
+        transparentBackgroundButton->setObjectName(QStringLiteral("transparentBackgroundButton"));
+        transparentBackgroundButton->setGeometry(QRect(10, 160, 61, 32));
+        transparentBackgroundButton->setCheckable(true);
+        transparentBackgroundButton->setChecked(true);
+        whiteBackgroundButton = new QPushButton(GetResolutionDialog);
+        whiteBackgroundButton->setObjectName(QStringLiteral("whiteBackgroundButton"));
+        whiteBackgroundButton->setGeometry(QRect(90, 160, 61, 32));
+        whiteBackgroundButton->setCheckable(true);
+        blackBackgroundButton = new QPushButton(GetResolutionDialog);
+        blackBackgroundButton->setObjectName(QStringLiteral("blackBackgroundButton"));
+        blackBackgroundButton->setGeometry(QRect(170, 160, 61, 32));
+        blackBackgroundButton->setCheckable(true);
 
         retranslateUi(GetResolutionDialog);
 
@@ -86,7 +106,14 @@ public:
         label_3->setText(QApplication::translate("GetResolutionDialog", "pixels", 0));
         label_4->setText(QApplication::translate("GetResolutionDialog", "Width", 0));
         label_5->setText(QApplication::translate("GetResolutionDialog", "Height", 0));
+        widthInputBox->setText(QString());
+        widthInputBox->setPlaceholderText(QApplication::translate("GetResolutionDialog", "128", 0));
+        heightInputBox->setPlaceholderText(QApplication::translate("GetResolutionDialog", "128", 0));
         okButton->setText(QApplication::translate("GetResolutionDialog", "OK", 0));
+        label_6->setText(QApplication::translate("GetResolutionDialog", "Background Color:", 0));
+        transparentBackgroundButton->setText(QApplication::translate("GetResolutionDialog", "Transparent", 0));
+        whiteBackgroundButton->setText(QApplication::translate("GetResolutionDialog", "White", 0));
+        blackBackgroundButton->setText(QApplication::translate("GetResolutionDialog", "Black", 0));
     } // retranslateUi
 
 };

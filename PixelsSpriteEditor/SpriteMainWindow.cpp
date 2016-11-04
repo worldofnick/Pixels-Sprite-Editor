@@ -420,15 +420,17 @@ void SpriteMainWindow::on_actionSave_triggered()
 {
     //This saves the pixmap to a png
 
-    QFileDialog dialog;
-    filename = dialog.getSaveFileName(this, tr("Save File"), "/untitled.png", tr("Images (*.png)"));
-    isModified = false;
+    currentSprite.saveFile();
+
+//    QFileDialog dialog;
+//    filename = dialog.getSaveFileName(this, tr("Save File"), "/untitled.png", tr("Images (*.png)"));
+//    isModified = false;
 
 
-    QFile file(filename);
-    file.open(QIODevice::WriteOnly);
-    QPixmap map = workspacePixMap.scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
-    map.save(&file, "PNG");
+//    QFile file(filename);
+//    file.open(QIODevice::WriteOnly);
+//    QPixmap map = workspacePixMap.scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+//    map.save(&file, "PNG");
 }
 
 //Slot for when the stamp tool button is clicked.
@@ -452,7 +454,6 @@ void SpriteMainWindow::on_actionExport_as_gif_triggered()
 //Slot for when undo is selected from the menu.
 void SpriteMainWindow::on_actionUndo_triggered()
 {
-
     if(!undoStack.empty()) {
         // Save the current frame
         redoStack.push_back(workspacePixMap);

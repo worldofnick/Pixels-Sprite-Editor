@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../PixelsSpriteEditor/GetResolutionDialog.h"
+#include "../PixelsSpriteEditor/GetResolutionDialog.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_GetResolutionDialog_t {
-    QByteArrayData data[6];
-    char stringdata0[55];
+    QByteArrayData data[7];
+    char stringdata0[65];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,11 +34,12 @@ QT_MOC_LITERAL(1, 20, 9), // "okClicked"
 QT_MOC_LITERAL(2, 30, 0), // ""
 QT_MOC_LITERAL(3, 31, 5), // "width"
 QT_MOC_LITERAL(4, 37, 6), // "height"
-QT_MOC_LITERAL(5, 44, 10) // "resolution"
+QT_MOC_LITERAL(5, 44, 9), // "backColor"
+QT_MOC_LITERAL(6, 54, 10) // "resolution"
 
     },
     "GetResolutionDialog\0okClicked\0\0width\0"
-    "height\0resolution"
+    "height\0backColor\0resolution"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,13 +57,13 @@ static const uint qt_meta_data_GetResolutionDialog[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   24,    2, 0x06 /* Public */,
+       1,    3,   24,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   29,    2, 0x0a /* Public */,
+       6,    0,   31,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    4,    5,
 
  // slots: parameters
     QMetaType::Void,
@@ -76,7 +77,7 @@ void GetResolutionDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         GetResolutionDialog *_t = static_cast<GetResolutionDialog *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->okClicked((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 0: _t->okClicked((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         case 1: _t->resolution(); break;
         default: ;
         }
@@ -84,7 +85,7 @@ void GetResolutionDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (GetResolutionDialog::*_t)(int , int );
+            typedef void (GetResolutionDialog::*_t)(int , int , int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&GetResolutionDialog::okClicked)) {
                 *result = 0;
                 return;
@@ -130,9 +131,9 @@ int GetResolutionDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void GetResolutionDialog::okClicked(int _t1, int _t2)
+void GetResolutionDialog::okClicked(int _t1, int _t2, int _t3)
 {
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

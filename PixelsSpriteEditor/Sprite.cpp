@@ -169,18 +169,21 @@ void Sprite::saveFile()
         for(int i = 0; i < frames.size(); i++)
         {
             // Convert to image
-            QImage spriteImage = frames.at(i)->pixmap()->toImage();
+            QImage img = frames.at(i)->pixmap()->toImage();
             // Get RGBA from each pixel
             // Write frame to file
-            qDebug() << spriteImage.size();
+            for ( int row = 1; row < img.height() + 1; ++row ) {
+                for ( int col = 1; col < img.width() + 1; ++col )
+                {
+                    QColor clrCurrent( img.pixel( row, col ) );
 
-            for (int y = 0; y < spriteImage.height(); y++) {
-                QRgb *line = (QRgb *) spriteImage.scanLine(y);
-                for (int x = 0; x < spriteImage.width(); x++) {
-                    // line[x] has an individual pixel
-                    line[x] = QColor(255, 128, 0).rgb();
+                    qDebug() << "Pixel at [" << row << "," << col << "] contains color ("
+                              << clrCurrent.red() << ", "
+                              << clrCurrent.green() << ", "
+                              << clrCurrent.blue() << ", "
+                              << clrCurrent.alpha() << ").";
                 }
-            }
+           }
         }
 
         // Close file

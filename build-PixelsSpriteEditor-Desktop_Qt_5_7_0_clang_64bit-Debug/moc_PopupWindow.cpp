@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_PopupWindow_t {
     QByteArrayData data[3];
-    char stringdata0[22];
+    char stringdata0[23];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,11 +30,11 @@ struct qt_meta_stringdata_PopupWindow_t {
 static const qt_meta_stringdata_PopupWindow_t qt_meta_stringdata_PopupWindow = {
     {
 QT_MOC_LITERAL(0, 0, 11), // "PopupWindow"
-QT_MOC_LITERAL(1, 12, 8), // "rejected"
-QT_MOC_LITERAL(2, 21, 0) // ""
+QT_MOC_LITERAL(1, 12, 9), // "okClicked"
+QT_MOC_LITERAL(2, 22, 0) // ""
 
     },
-    "PopupWindow\0rejected\0"
+    "PopupWindow\0okClicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,12 +49,12 @@ static const uint qt_meta_data_PopupWindow[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       0,       // signalCount
 
- // signals: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x06 /* Public */,
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   19,    2, 0x08 /* Private */,
 
- // signals: parameters
+ // slots: parameters
     QMetaType::Void,
 
        0        // eod
@@ -66,18 +66,8 @@ void PopupWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         PopupWindow *_t = static_cast<PopupWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->rejected(); break;
+        case 0: _t->okClicked(); break;
         default: ;
-        }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        void **func = reinterpret_cast<void **>(_a[1]);
-        {
-            typedef void (PopupWindow::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&PopupWindow::rejected)) {
-                *result = 0;
-                return;
-            }
         }
     }
     Q_UNUSED(_a);
@@ -117,11 +107,5 @@ int PopupWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 1;
     }
     return _id;
-}
-
-// SIGNAL 0
-void PopupWindow::rejected()
-{
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE
