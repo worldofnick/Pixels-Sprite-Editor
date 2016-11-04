@@ -14,36 +14,54 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_PopupWindow
 {
 public:
-    QDialogButtonBox *buttonBox;
+    QGridLayout *gridLayout;
     QLabel *popupLabel;
+    QPushButton *okButton;
 
     void setupUi(QDialog *PopupWindow)
     {
         if (PopupWindow->objectName().isEmpty())
             PopupWindow->setObjectName(QStringLiteral("PopupWindow"));
-        PopupWindow->resize(400, 300);
-        buttonBox = new QDialogButtonBox(PopupWindow);
-        buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(30, 240, 341, 32));
-        buttonBox->setOrientation(Qt::Horizontal);
-        buttonBox->setStandardButtons(QDialogButtonBox::Ok);
-        buttonBox->setCenterButtons(true);
+        PopupWindow->resize(414, 306);
+        PopupWindow->setStyleSheet(QLatin1String("background-color: qlineargradient(spread:pad, x1:0.482, y1:0.4375, x2:0.488, y2:0.994318, stop:0 rgba(35, 37, 37, 255), stop:1 rgba(51, 53, 53, 255));\n"
+"color: rgb(239, 239, 239);"));
+        gridLayout = new QGridLayout(PopupWindow);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         popupLabel = new QLabel(PopupWindow);
         popupLabel->setObjectName(QStringLiteral("popupLabel"));
-        popupLabel->setGeometry(QRect(10, 10, 381, 221));
+        popupLabel->setEnabled(true);
+        popupLabel->setMinimumSize(QSize(390, 250));
+
+        gridLayout->addWidget(popupLabel, 0, 0, 1, 1);
+
+        okButton = new QPushButton(PopupWindow);
+        okButton->setObjectName(QStringLiteral("okButton"));
+        okButton->setMinimumSize(QSize(100, 30));
+        okButton->setMaximumSize(QSize(100, 30));
+        okButton->setLayoutDirection(Qt::RightToLeft);
+        okButton->setStyleSheet(QLatin1String("#okButton{\n"
+"	border-radius: 8px;\n"
+"	border: 2px solid #FFFFFF;\n"
+"}\n"
+"\n"
+"#okButton:hover{	\n"
+"	background-color: rgb(181, 183, 183);\n"
+"}"));
+
+        gridLayout->addWidget(okButton, 2, 0, 1, 1);
+
 
         retranslateUi(PopupWindow);
-        QObject::connect(buttonBox, SIGNAL(accepted()), PopupWindow, SLOT(accept()));
-        QObject::connect(buttonBox, SIGNAL(rejected()), PopupWindow, SLOT(reject()));
 
         QMetaObject::connectSlotsByName(PopupWindow);
     } // setupUi
@@ -52,6 +70,7 @@ public:
     {
         PopupWindow->setWindowTitle(QApplication::translate("PopupWindow", "Dialog", 0));
         popupLabel->setText(QApplication::translate("PopupWindow", "This text can be changed depending on the popup.", 0));
+        okButton->setText(QApplication::translate("PopupWindow", "OK", 0));
     } // retranslateUi
 
 };
