@@ -156,6 +156,9 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             else if (brush == line) {
                 mLine.setP1(QPoint(canvasX, canvasY));
                 mLine.setP2(QPoint(canvasX, canvasY));
+            } else if (brush == rect || brush == ellipse) {
+                mRect.setTopLeft(QPoint(canvasX, canvasY));
+                mRect.setBottomRight(QPoint(canvasX, canvasY));
             }
 
             mousePressed = true;
@@ -181,6 +184,8 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             }
             else if (brush == line){
                 mLine.setP2(QPoint(canvasX, canvasY));
+            } else if (brush == rect || brush == ellipse) {
+                mRect.setBottomRight(QPoint(canvasX, canvasY));
             }
             updateWorkspace();
             return true;
@@ -190,7 +195,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
             mousePressed = false;
 
-            if (brush == line){
+            if (brush == line || brush == rect || brush == ellipse){
                 lineShouldNowBeDrawn = true;
             }
             updateWorkspace();
@@ -248,6 +253,12 @@ void SpriteMainWindow::updateWorkspace() {
         //draw the line once mouse is actually released
         painter.drawLine(mLine);
         lineShouldNowBeDrawn = false;
+    } else if (brush == rect) {
+        painter.drawRect(mRect);
+        lineShouldNowBeDrawn = false;
+    }else if (brush == ellipse) {
+        painter.drawEllipse(mRect);
+        lineShouldNowBeDrawn = false;
     }
 
 
@@ -256,7 +267,7 @@ void SpriteMainWindow::updateWorkspace() {
      ui->workspaceLabel->setPixmap(workspacePixMap);
     }
    //this is updating a temporary pixmap to the line before the mouse is released
-   else if (brush == line){
+   else if (brush == line || brush == rect || brush == ellipse){
 
            QPixmap temp = QPixmap(workspacePixMap);
            QPainter tempPainter(&temp);
@@ -269,7 +280,13 @@ void SpriteMainWindow::updateWorkspace() {
 
            tempPainter.setPen(pen);
 
-           tempPainter.drawLine(mLine);
+           if(brush == line) {
+               tempPainter.drawLine(mLine);
+           } else if(brush == rect) {
+               tempPainter.drawRect(mRect);
+           } else if(brush == ellipse) {
+               tempPainter.drawEllipse(mRect);
+           }
 
            ui->workspaceLabel->setPixmap(temp);
    }
