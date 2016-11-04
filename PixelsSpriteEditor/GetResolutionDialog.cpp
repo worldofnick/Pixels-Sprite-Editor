@@ -1,6 +1,7 @@
 #include "GetResolutionDialog.h"
 #include "ui_GetResolutionDialog.h"
 #include <QDebug>
+#include <QMessageBox>
 
 GetResolutionDialog::GetResolutionDialog(QWidget *parent) :
     QDialog(parent),
@@ -47,10 +48,16 @@ void GetResolutionDialog::closeEvent(QCloseEvent *){
     int width = ui->widthInputBox->text().toInt();   
     int height = ui->heightInputBox->text().toInt();
 
-    if(width == 0){
+
+    if(height <= 0 || width <= 0) {
+        QMessageBox::StandardButton warning;
+        warning = QMessageBox::warning(this, "Invalid size", "Invalid size: Defaulting to 128x128", QMessageBox::Ok);
+    }
+
+    if(width <= 0){
         width = 128;
     }
-    if(height == 0){
+    if(height <= 0){
         height = 128;
     }
 
