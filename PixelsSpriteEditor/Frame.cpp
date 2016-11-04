@@ -19,12 +19,31 @@ Frame::Frame(int width, int height)
     this->setPixmap(temp);
 
 
+
     this->setGeometry(0, 0, 32, 32);
 }
 
 //Destructs the current Frame.
 Frame::~Frame(){
     ;
+}
+
+
+void Frame::makeFrameActive(){
+
+    this->setFrameStyle(QFrame::Panel | QFrame::Plain);
+    this->setLineWidth(2);
+    this->setMidLineWidth(0);
+
+}
+
+
+void Frame::makeFrameUnactive(){
+
+    this->setFrameStyle(QFrame::StyledPanel | QFrame::Plain);
+    this->setLineWidth(1);
+    this->setMidLineWidth(0);
+
 }
 
 

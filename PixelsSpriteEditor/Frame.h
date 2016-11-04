@@ -19,6 +19,10 @@ public:
     //void setSize(int, int);
     ~Frame();
 
+    void makeFrameActive();
+
+    void makeFrameUnactive();
+
     // QWidget interface
 protected:
     void mousePressEvent(QMouseEvent *event);

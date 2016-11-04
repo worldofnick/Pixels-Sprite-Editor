@@ -107,6 +107,8 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     //sets the current frame to the first frame
     currentFrame = currentSprite.getFrames().last();
+    currentFrame->makeFrameActive();
+
 
     connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
 
@@ -345,10 +347,14 @@ void SpriteMainWindow::on_penTool_clicked()
 //Add a Frame
 void SpriteMainWindow::on_addFrameButton_clicked()
 {
+    currentFrame->makeFrameUnactive();
+
     currentSprite.addFrame();
     ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
 
     currentFrame = currentSprite.getFrames().last();
+
+    currentFrame->makeFrameActive();
 
     QPixmap map(spriteWidth, spriteHeight);
     map.fill(this->backgroundColor);
@@ -687,7 +693,10 @@ void SpriteMainWindow::initialResolution(int width, int height, int backColor){
 
 void SpriteMainWindow::frameClicked(Frame* other){
     qDebug() << "frame is clicked MainWindow";
+    currentFrame->makeFrameUnactive();
     currentFrame = other;
+    currentFrame->makeFrameActive();
+
     workspacePixMap = currentFrame->pixmap()->scaled(this->spriteWidth,this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 }
