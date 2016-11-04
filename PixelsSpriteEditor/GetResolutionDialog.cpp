@@ -51,7 +51,7 @@ void GetResolutionDialog::closeEvent(QCloseEvent *){
 
     if(height <= 0 && width <= 0) {
         QMessageBox::StandardButton warning;
-        warning = QMessageBox::warning(this, "Invalid size", "Defaulting to 128x128", QMessageBox::Ok);
+        warning = QMessageBox::warning(this, "Invalid size", "Invalid size: Defaulting to 128x128", QMessageBox::Ok);
     }
 
     if(width == 0){
