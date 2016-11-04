@@ -408,27 +408,28 @@ void SpriteMainWindow::on_actionNew_triggered()
 //Open a file
 void SpriteMainWindow::on_actionOpen_triggered()
 {
-    //Check if the user wants to save any changes first, then open a new project.
+    /*//Check if the user wants to save any changes first, then open a new project.
     if(maybeSave()){
         QFileDialog dialog;
         QString filename = dialog.getOpenFileName();
-    }
+
+    }*/
+    QFileDialog dialog;
+    currentSprite.loadFile(dialog.getOpenFileName());
 }
 
 //Save a file
 void SpriteMainWindow::on_actionSave_triggered()
 {
-    //This saves the pixmap to a png
-
     QFileDialog dialog;
-    filename = dialog.getSaveFileName(this, tr("Save File"), "/untitled.png", tr("Images (*.png)"));
     isModified = false;
+    currentSprite.saveFile(dialog.getSaveFileName(this, tr("Save File"), "/untitled.ssp", tr("Images (*.ssp)")));
 
-
-    QFile file(filename);
+    //This saves the pixmap to a png
+    /*QFile file(filename);
     file.open(QIODevice::WriteOnly);
     QPixmap map = workspacePixMap.scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
-    map.save(&file, "PNG");
+    map.save(&file, "PNG");*/
 }
 
 //Slot for when the stamp tool button is clicked.

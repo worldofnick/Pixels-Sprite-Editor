@@ -20,7 +20,7 @@ public:
     void addFrame();
     Frame& getFrame(int);
 
-    void saveFile();
+    void saveFile(QString);
     void loadFile(QString);
     void exportToGif(QString);
     const QVector<Frame*> getFrames();

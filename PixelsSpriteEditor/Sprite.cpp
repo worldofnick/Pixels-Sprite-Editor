@@ -147,8 +147,9 @@ void Sprite::loadFile(QString file)
     fileLoad.close();
 }
 
-void Sprite::saveFile()
+void Sprite::saveFile(QString file)
 {
+    filename = file;
     // Open file
     // Save variables to header
     if(filename.isEmpty()){
@@ -160,29 +161,35 @@ void Sprite::saveFile()
             return;
         }
 
-        QDataStream out(&fileSave);
+        QTextStream out(&fileSave);
         out << height << " ";
-        out << width << '\n';
-        out << frames.size() << '\n';
+        out << width << "\n";
+        int fs = frames.size();
+        out << fs << "\n";
 
 
         for(int i = 0; i < frames.size(); i++)
         {
             // Convert to image
-            QImage img = frames.at(i)->pixmap()->toImage();
+            QImage spriteImage = frames.at(i)->pixmap()->toImage();
             // Get RGBA from each pixel
             // Write frame to file
-            for ( int row = 1; row < img.height() + 1; ++row ) {
-                for ( int col = 1; col < img.width() + 1; ++col )
-                {
-                    QColor clrCurrent( img.pixel( row, col ) );
+            qDebug() << spriteImage.size();
 
-                    qDebug() << "Pixel at [" << row << "," << col << "] contains color ("
-                                          << clrCurrent.red() << ", "
-                                          << clrCurrent.green() << ", "
-                                          << clrCurrent.blue() << ", "
-                                          << clrCurrent.alpha() << ").";
+            for (int y = 0; y < spriteImage.height(); y++) {
+                QRgb *line = (QRgb *) spriteImage.scanLine(y);
+                for (int x = 0; x < spriteImage.width(); x++) {
+                    // line[x] has an individual pixel
+                    // line[x] = QColor(255, 128, 0).rgb();
+                    line += x;
+                    QColor colorValue = *line;
+                    qDebug() << colorValue.red();
+                    qDebug() << colorValue.green();
+                    qDebug() << colorValue.blue();
+                    qDebug() << colorValue.alpha();
+                    out << colorValue.red() << " " << colorValue.green() << " " << colorValue.blue() << " " << colorValue.alpha() << " ";
                 }
+                out << '\n';
             }
         }
 
