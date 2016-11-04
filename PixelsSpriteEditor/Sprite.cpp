@@ -88,12 +88,6 @@ void Sprite::loadFile(QString file)
     frames.clear();
     filename = file;
     int framesCount;
-    int i = 0;
-    int j = 0;
-    int fnumber = 0;
-    QImage spriteImage;
-
-    addFrame();
     // Open file
     // Read file header and initialize variables
     QFile fileLoad(filename);
@@ -103,45 +97,30 @@ void Sprite::loadFile(QString file)
 
     QTextStream in(&fileLoad);
     // Parse lines and create frames
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        QStringList lineSegments = line.split(" ");
-        if (lineSegments.size() == 1) {
-            framesCount = lineSegments.at(0).toInt();
-        }
-        else if (lineSegments.size() == 2) {
-            height = lineSegments.at(0).toInt();
-            width = lineSegments.at(1).toInt();
-        }
-        else {
-            j = 0;
-            if(i < height){
-                for(int k = 0; k < lineSegments.size(); k += 4) {
-                    QColor temp;
-                    temp.setRed(lineSegments.at(k).toInt());
-                    temp.setGreen(lineSegments.at(k+1).toInt());
-                    temp.setBlue(lineSegments.at(k+2).toInt());
-                    temp.setAlpha(lineSegments.at(k+3).toInt());
-                    spriteImage.setPixelColor(i, j++, temp);
-                }
-                i++;
-            }
-            else {
-                // make a new frame
-                frames.at(fnumber++)->pixmap()->fromImage(spriteImage);
-                addFrame();
-                i = 0;
-                for(int k = 0; k < lineSegments.size(); k += 4) {
-                    QColor temp;
-                    temp.setRed(lineSegments.at(k).toInt());
-                    temp.setGreen(lineSegments.at(k+1).toInt());
-                    temp.setBlue(lineSegments.at(k+2).toInt());
-                    temp.setAlpha(lineSegments.at(k+3).toInt());
-                    spriteImage.setPixelColor(i, j++, temp);
-                }
-                i++;
+    QString line = in.readLine();
+    QStringList lineSeg = line.split(" ");
+    height = lineSeg.at(0).toInt();
+    width = lineSeg.at(1).toInt();
+    QImage spriteImage(width, height, QImage::Format_RGB32);
+
+    line = in.readLine();
+    lineSeg = line.split(" ");
+    framesCount = lineSeg.at(0).toInt();
+    for(int i = 0; i < framesCount; i++) {
+        addFrame();
+        for(int j = 0; j < height; j++) {
+            line = in.readLine();
+            lineSeg = line.split(" ");
+            for(int k = 0; k < lineSeg.size(); k+=4) {
+                QColor colorVal;
+                colorVal.setRed(lineSeg.at(k).toInt());
+                colorVal.setGreen(lineSeg.at(k+1).toInt());
+                colorVal.setBlue(lineSeg.at(k+2).toInt());
+                colorVal.setAlpha(lineSeg.at(k+3).toInt());
+                spriteImage.setPixelColor(j, i, colorVal);
             }
         }
+        frames.last()->setPixmap(QPixmap::fromImage(spriteImage, 0));
     }
     // Close file
     fileLoad.close();

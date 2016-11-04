@@ -433,6 +433,13 @@ void SpriteMainWindow::on_actionOpen_triggered()
     }*/
     QFileDialog dialog;
     currentSprite.loadFile(dialog.getOpenFileName());
+
+    int tempVectorSize = currentSprite.getFrames().size();
+
+    for(int i = 0; i < tempVectorSize; i++){
+        ui->scrollAreaWidgetContents->layout()->addWidget(&currentSprite.getFrame(i));
+    }
+
 }
 
 //Save a file
