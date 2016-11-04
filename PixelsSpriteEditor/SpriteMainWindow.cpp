@@ -83,7 +83,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     mousePressed = false;
 
-    lineShouldNowBeDrawn = false;
+    shapeShouldNowBeDrawn = false;
 
     // Connections for undo/redo buttons
     connect(ui->undoButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionUndo_triggered);
@@ -156,6 +156,9 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             else if (brush == line) {
                 mLine.setP1(QPoint(canvasX, canvasY));
                 mLine.setP2(QPoint(canvasX, canvasY));
+            } else if (brush == rect || brush == ellipse) {
+                mRect.setTopLeft(QPoint(canvasX, canvasY));
+                mRect.setBottomRight(QPoint(canvasX, canvasY));
             }
 
             mousePressed = true;
@@ -181,6 +184,8 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             }
             else if (brush == line){
                 mLine.setP2(QPoint(canvasX, canvasY));
+            } else if (brush == rect || brush == ellipse) {
+                mRect.setBottomRight(QPoint(canvasX, canvasY));
             }
             updateWorkspace();
             return true;
@@ -190,8 +195,8 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
             mousePressed = false;
 
-            if (brush == line){
-                lineShouldNowBeDrawn = true;
+            if (brush == line || brush == rect || brush == ellipse){
+                shapeShouldNowBeDrawn = true;
             }
             updateWorkspace();
 
@@ -234,7 +239,7 @@ void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
 // Draws on the workspace's pixmap and reassigns it. All the tools will
 // paint in this method. (Replacement for paintEvent() method).
 void SpriteMainWindow::updateWorkspace() {
-   if (brush == pencil || brush == eraser || lineShouldNowBeDrawn){
+   if (brush == pencil || brush == eraser || shapeShouldNowBeDrawn){
     painter.begin(&workspacePixMap);
     painter.setCompositionMode(QPainter::CompositionMode_Source);
 
@@ -247,7 +252,13 @@ void SpriteMainWindow::updateWorkspace() {
     else if (brush == line){
         //draw the line once mouse is actually released
         painter.drawLine(mLine);
-        lineShouldNowBeDrawn = false;
+        shapeShouldNowBeDrawn = false;
+    } else if (brush == rect) {
+        painter.drawRect(mRect);
+        shapeShouldNowBeDrawn = false;
+    }else if (brush == ellipse) {
+        painter.drawEllipse(mRect);
+        shapeShouldNowBeDrawn = false;
     }
 
 
@@ -256,7 +267,7 @@ void SpriteMainWindow::updateWorkspace() {
      ui->workspaceLabel->setPixmap(workspacePixMap);
     }
    //this is updating a temporary pixmap to the line before the mouse is released
-   else if (brush == line){
+   else if (brush == line || brush == rect || brush == ellipse){
 
            QPixmap temp = QPixmap(workspacePixMap);
            QPainter tempPainter(&temp);
@@ -269,7 +280,13 @@ void SpriteMainWindow::updateWorkspace() {
 
            tempPainter.setPen(pen);
 
-           tempPainter.drawLine(mLine);
+           if(brush == line) {
+               tempPainter.drawLine(mLine);
+           } else if(brush == rect) {
+               tempPainter.drawRect(mRect);
+           } else if(brush == ellipse) {
+               tempPainter.drawEllipse(mRect);
+           }
 
            ui->workspaceLabel->setPixmap(temp);
    }
