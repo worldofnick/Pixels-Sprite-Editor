@@ -17,17 +17,20 @@ SOURCES += main.cpp\
     PopupWindow.cpp \
     Frame.cpp \
     Sprite.cpp \
-    GetResolutionDialog.cpp
+    GetResolutionDialog.cpp \
+    StampSelector.cpp
 
 HEADERS  += SpriteMainWindow.h \
     PopupWindow.h \
     Frame.h \
     Sprite.h \
-    GetResolutionDialog.h
+    GetResolutionDialog.h \
+    StampSelector.h
 
 FORMS    += SpriteMainWindow.ui \
     PopupWindow.ui \
-    GetResolutionDialog.ui
+    GetResolutionDialog.ui \
+    StampSelector.ui
 
 RESOURCES += \
     assets/ui_assets.qrc

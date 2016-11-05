@@ -46,14 +46,18 @@ private:
     QPainter painter;
     QLine mLine;
     QRect mRect;
+    QPixmap selectedStamp;
 
+
+    bool stampIsActive;
+    bool stampShouldBeDrawn;
 
     bool drawStarted;
     bool shapeShouldNowBeDrawn;
 
 
     // Brush types, add more as we go
-    enum Brushes { pencil, eraser, line, rect, ellipse };
+    enum Brushes { pencil, eraser, line, rect, ellipse, stamp };
     Brushes brush;
 
 
@@ -139,8 +143,6 @@ public slots:
 
     void on_actionSave_triggered();
 
-    void on_actionStamp_triggered();
-
     void on_actionSprite_Sheet_triggered();
 
     void on_actionExport_as_gif_triggered();
@@ -190,6 +192,8 @@ private slots:
     void on_rotateClockwiseButton_clicked();
     void on_flipVerticalButton_clicked();
     void on_flipHorizontalButton_clicked();
+
+    void changeStamp(int id);
 };
 
 #endif // SPRITEMAINWINDOW_H
