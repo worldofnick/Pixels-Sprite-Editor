@@ -57,12 +57,12 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     toolsButtonsGroup->addButton(ui->rectangleTool, 3);
     toolsButtonsGroup->addButton(ui->ellipseTool, 4);
     toolsButtonsGroup->addButton(ui->stampTool, 5);
-    toolsButtonsGroup->addButton(ui->undoButton, 6);
-    toolsButtonsGroup->addButton(ui->redoButton, 7);
-    toolsButtonsGroup->addButton(ui->flipVerticalButton, 8);
-    toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
-    toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
-    toolsButtonsGroup->addButton(ui->rotateClockwiseButton, 11);
+    //toolsButtonsGroup->addButton(ui->undoButton, 6);
+    //toolsButtonsGroup->addButton(ui->redoButton, 7);
+    //toolsButtonsGroup->addButton(ui->flipVerticalButton, 8);
+    //toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
+    //toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
+    //toolsButtonsGroup->addButton(ui->rotateClockwiseButton, 11);
     toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
     toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
     toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);

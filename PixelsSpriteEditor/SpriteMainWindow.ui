@@ -134,7 +134,7 @@ color: rgb(239, 239, 239);</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>164</width>
+            <width>180</width>
             <height>290</height>
            </rect>
           </property>
@@ -925,19 +925,19 @@ margin: 10px;
 }
 #rotateCounterClockButton:hover
 {
-border-image: url(:Rotate Left Filled-100.png) -5 -5 -5 -5;
+border-image: url(:Rotate Left Filled-color-100.png) -5 -5 -5 -5;
 border-top: -5px transparent;
 border-bottom: -5px transparent;
 border-right: -5px transparent;
 border-left: -5px transparent;
 margin: 2px;
 }
-#rotateCounterClockButton:checked
+#rotateCounterClockButton:pressed
 {
 border-image: url(:Rotate Left Filled-color-100.png);
 margin: 0px;
 }
-#rotateCounterClockButton:unchekced
+#rotateCounterClockButton:released
 {
 border-image: url(:Rotate Left Filled-100.png)  -5 -5 -5 -5;
 border-top: -5px transparent;
@@ -999,19 +999,19 @@ margin: 10px;
 }
 #rotateClockwiseButton:hover
 {
-border-image: url(:Rotate Right Filled-100.png) -5 -5 -5 -5;
+border-image: url(:Rotate Right Filled-color-100.png) -5 -5 -5 -5;
 border-top: -5px transparent;
 border-bottom: -5px transparent;
 border-right: -5px transparent;
 border-left: -5px transparent;
 margin: 2px;
 }
-#rotateClockwiseButton:checked
+#rotateClockwiseButton:pressed
 {
 border-image: url(:Rotate Right Filled-color-100.png);
 margin: 0px;
 }
-#rotateClockwiseButton:unchekced
+#rotateClockwiseButton:released
 {
 border-image: url(:Rotate Right Filled-100.png)  -5 -5 -5 -5;
 border-top: -5px transparent;
@@ -1073,19 +1073,19 @@ margin: 10px;
 }
 #flipHorizontalButton:hover
 {
-border-image: url(:Flip Horizontal-100.png) -5 -5 -5 -5;
+border-image: url(:Flip Horizontal-color-100.png) -5 -5 -5 -5;
 border-top: -5px transparent;
 border-bottom: -5px transparent;
 border-right: -5px transparent;
 border-left: -5px transparent;
 margin: 2px;
 }
-#flipHorizontalButton:checked
+#flipHorizontalButton:pressed
 {
 border-image: url(:Flip Horizontal Filled-color-100.png);
 margin: 0px;
 }
-#flipHorizontalButton:unchekced
+#flipHorizontalButton:released
 {
 border-image: url(:Flip Horizontal-100.png)  -5 -5 -5 -5;
 border-top: -5px transparent;
@@ -1147,19 +1147,19 @@ margin: 10px;
 }
 #flipVerticalButton:hover
 {
-border-image: url(:Flip Vertical-100.png) -5 -5 -5 -5;
+border-image: url(:Flip Vertical-color-100.png) -5 -5 -5 -5;
 border-top: -5px transparent;
 border-bottom: -5px transparent;
 border-right: -5px transparent;
 border-left: -5px transparent;
 margin: 2px;
 }
-#flipVerticalButton:checked
+#flipVerticalButton:pressed
 {
 border-image: url(:Flip Vertical Filled-color-100.png);
 margin: 0px;
 }
-#flipVerticalButton:unchekced
+#flipVerticalButton:released
 {
 border-image: url(:Flip Vertical-100.png)  -5 -5 -5 -5;
 border-top: -5px transparent;
@@ -1221,19 +1221,19 @@ margin: 10px;
 }
 #undoButton:hover
 {
-border-image: url(:Undo-96.png) -5 -5 -5 -5;
+border-image: url(:Undo-color-96.png) -5 -5 -5 -5;
 border-top: -5px transparent;
 border-bottom: -5px transparent;
 border-right: -5px transparent;
 border-left: -5px transparent;
 margin: 2px;
 }
-#undoButton:checked
+#undoButton:pressed
 {
 border-image: url(:Undo-color-96.png);
 margin: 0px;
 }
-#undoButton:unchekced
+#undoButton:released
 {
 border-image: url(:Undo-96.png)  -5 -5 -5 -5;
 border-top: -5px transparent;
@@ -1295,19 +1295,19 @@ margin: 10px;
 }
 #redoButton:hover
 {
-border-image: url(:Redo-96.png) -5 -5 -5 -5;
+border-image: url(:Redo-color-96.png) -5 -5 -5 -5;
 border-top: -5px transparent;
 border-bottom: -5px transparent;
 border-right: -5px transparent;
 border-left: -5px transparent;
 margin: 0px;
 }
-#redoButton:checked
+#redoButton:pressed
 {
 border-image: url(:Redo-color-96.png);
 margin: 0px;
 }
-#redoButton:unchekced
+#redoButton:released
 {
 border-image: url(:Redo-96.png)  -5 -5 -5 -5;
 border-top: -5px transparent;

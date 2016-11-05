@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Welcome to the Pixels Sprite Editor</string>
+   <string>Pixels Sprite Editor</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*/*background-color: rgb(242,242,242);*/

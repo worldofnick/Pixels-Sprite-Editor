@@ -75,6 +75,8 @@
         <file>Checked Filled-100-3.png</file>
         <file>Checked Filled-100-2.png</file>
         <file>okay-100-2.png</file>
+        <file>Flip Horizontal-color-100.png</file>
+        <file>Flip Vertical-color-100.png</file>
     </qresource>
     <qresource prefix="/stamps">
         <file>Retro-Mario-icon.png</file>
