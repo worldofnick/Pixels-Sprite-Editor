@@ -3,9 +3,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPixmap>
-#include "SpriteMainWindow.h"
-#include "ui_SpriteMainWindow.h"
-#include "GetResolutionDialog.h"
 #include <QTransform>
 #include <iostream>
 #include <QPoint>
@@ -13,6 +10,7 @@
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
 #include "GetResolutionDialog.h"
+#include "StampSelector.h"
 
 #include <QScrollBar>
 
@@ -151,7 +149,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             int canvasY = mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
             qDebug() << "Left mouse pressed in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
 
-            if (brush == pencil || brush == eraser){
+            if (brush == pencil || brush == eraser || brush == stamp){
                 drawPoint.setX(canvasX);
                 drawPoint.setY(canvasY);
                 //mousePressed = true;
@@ -181,7 +179,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
             qDebug() << "mouse is being moved in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
 
-            if (brush == pencil || brush == eraser){
+            if (brush == pencil || brush == eraser || brush == stamp){
                 drawPoint.setX(canvasX);
                 drawPoint.setY(canvasY);
             }
@@ -198,7 +196,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
             mousePressed = false;
 
-            if (brush == line || brush == rect || brush == ellipse){
+            if (brush == line || brush == rect || brush == ellipse || brush == stamp){
                 shapeShouldNowBeDrawn = true;
             }
             updateWorkspace();
@@ -272,6 +270,9 @@ void SpriteMainWindow::updateWorkspace() {
     }else if (brush == ellipse) {
         painter.drawEllipse(mRect);
         shapeShouldNowBeDrawn = false;
+    }else if (brush == stamp){
+        painter.drawPixmap(drawPoint, selectedStamp);
+        shapeShouldNowBeDrawn = false;
     }
 
 
@@ -280,7 +281,7 @@ void SpriteMainWindow::updateWorkspace() {
      ui->workspaceLabel->setPixmap(workspacePixMap);
     }
    //this is updating a temporary pixmap to the line before the mouse is released
-   else if (brush == line || brush == rect || brush == ellipse){
+   else if (brush == line || brush == rect || brush == ellipse || brush == stamp){
 
            QPixmap temp = QPixmap(workspacePixMap);
            QPainter tempPainter(&temp);
@@ -299,6 +300,8 @@ void SpriteMainWindow::updateWorkspace() {
                tempPainter.drawRect(mRect);
            } else if(brush == ellipse) {
                tempPainter.drawEllipse(mRect);
+           } else if(brush == stamp){
+               tempPainter.drawPixmap(drawPoint, selectedStamp);
            }
 
            ui->workspaceLabel->setPixmap(temp);
@@ -335,7 +338,23 @@ void SpriteMainWindow::on_colorPickButton_clicked()
 
 void SpriteMainWindow::on_stampTool_clicked()
 {
+    StampSelector window;
+    connect(&window, SIGNAL(selectedStamp(int)), this, SLOT(changeStamp(int)));
+    window.exec();
 
+    brush = stamp;
+}
+
+void SpriteMainWindow::changeStamp(int id){
+    if(id == 0){
+        selectedStamp.load(":/stamps/Retro-Mario-icon.png");
+    }
+    else if(id == 1){
+        selectedStamp.load(":/stamps/orange-sun.png");
+    }
+    else{
+        selectedStamp.load(":/stamps/cloud.png");
+    }
 }
 
 void SpriteMainWindow::on_ellipseTool_clicked()
@@ -472,12 +491,6 @@ void SpriteMainWindow::on_actionSave_triggered()
     file.open(QIODevice::WriteOnly);
     QPixmap map = workspacePixMap.scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
     map.save(&file, "PNG");*/
-}
-
-//Slot for when the stamp tool button is clicked.
-void SpriteMainWindow::on_actionStamp_triggered()
-{
-
 }
 
 //Slot for when the SpriteSheet menu item is selected.

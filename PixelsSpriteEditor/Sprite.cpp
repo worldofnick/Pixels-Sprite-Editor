@@ -150,21 +150,26 @@ void Sprite::saveFile(QString file)
 
             // Get RGBA from each pixel
             // Write frame to file
+            qDebug() << "sprite image size:" << spriteImage.size();
 
+            for ( int y = 0; y < spriteImage.height(); ++y) {
+                for ( int x = 0; x < spriteImage.width(); ++x)
+                {
+                    QColor clrCurrent(spriteImage.pixelColor(x, y));
 
-            for (int y = 0; y < spriteImage.height(); y++) {
-                QRgb *line = (QRgb *) spriteImage.scanLine(y);
-                for (int x = 0; x < spriteImage.width(); x++) {
-                    // line[x] has an individual pixel
-                    // line[x] = QColor(255, 128, 0).rgb();
-                    line += x;
-                    QColor colorValue = *line;
-                    out << colorValue.red() << " " << colorValue.green() << " " << colorValue.blue() << " " << colorValue.alpha() << " ";
+                    /*qDebug() << "Pixel at [" << row << "," << col << "] contains color ("
+                                         << clrCurrent.red() << ", "
+                                         << clrCurrent.green() << ", "
+                                         << clrCurrent.blue() << ", "
+                                         << clrCurrent.alpha() << ").";*/
+                    out << clrCurrent.red() << " " << clrCurrent.green() << " " << clrCurrent.blue() << " " << clrCurrent.alpha();
+                    if(x != spriteImage.width()-1){
+                        out << " ";
+                    }
                 }
-                out << '\n';
+                out << "\n";
             }
         }
-
         // Close file
         fileSave.close();
     }
