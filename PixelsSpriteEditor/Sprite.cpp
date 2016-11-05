@@ -10,14 +10,12 @@ Sprite::Sprite(int w, int h, int s, QString file)
     fps = s;
     filename = file;
 
-    Frame* f = new Frame(width,height);
-
-    frames.append(f);
+    frames.append(new Frame());
 }
 
 Sprite::Sprite(){
-    width = 32;
-    height = 32;
+    width = 128;
+    height = 128;
     fps = 30;
     filename = "sprite1.ssp";
     frames.append(new Frame());
@@ -35,7 +33,6 @@ Sprite::Sprite(const Sprite &other){
     for (int i = 0; i < other.frames.length(); i++){
         this->frames.append(other.frames[i]);
     }
-
 }
 
 Sprite& Sprite::operator=(Sprite other){
@@ -46,8 +43,6 @@ Sprite& Sprite::operator=(Sprite other){
     std::swap(this->frames, other.frames);
 
     return *this;
-
-
 }
 
 Sprite::~Sprite()
@@ -61,11 +56,10 @@ const QVector<Frame*> Sprite::getFrames(){
 
 void Sprite::addFrame()
 {
-    Frame* f = new Frame(width, height);
+    Frame* f = new Frame(this->width, this->height);
 
     frames.append(f);
     connect(f, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
-    qDebug() << frames.length();
 }
 
 Frame& Sprite::getFrame(int index)
@@ -128,6 +122,7 @@ void Sprite::loadFile(QString file)
 
 void Sprite::saveFile(QString file)
 {
+
     filename = file;
     // Open file
     // Save variables to header
@@ -150,10 +145,12 @@ void Sprite::saveFile(QString file)
         for(int i = 0; i < frames.size(); i++)
         {
             // Convert to image
-            QImage spriteImage = frames.at(i)->pixmap()->toImage();
+            //Frames are scaled to 150x150 for display, so we need to scale it to the proper height when saving
+            QImage spriteImage = frames.at(i)->pixmap()->toImage().scaled(this->width, this->height);
+
             // Get RGBA from each pixel
             // Write frame to file
-            qDebug() << spriteImage.size();
+
 
             for (int y = 0; y < spriteImage.height(); y++) {
                 QRgb *line = (QRgb *) spriteImage.scanLine(y);
@@ -162,10 +159,6 @@ void Sprite::saveFile(QString file)
                     // line[x] = QColor(255, 128, 0).rgb();
                     line += x;
                     QColor colorValue = *line;
-                    qDebug() << colorValue.red();
-                    qDebug() << colorValue.green();
-                    qDebug() << colorValue.blue();
-                    qDebug() << colorValue.alpha();
                     out << colorValue.red() << " " << colorValue.green() << " " << colorValue.blue() << " " << colorValue.alpha() << " ";
                 }
                 out << '\n';
@@ -184,5 +177,8 @@ void Sprite::exportToGif(QString file)
 
 void Sprite::frameSelected(Frame* other){
     emit frameClicked(other);
-    qDebug() << "frame is selected in Sprite.cpp";
+}
+
+void Sprite::setFilename(const QString &filename){
+    this->filename = filename;
 }

@@ -24,6 +24,7 @@ public:
     void loadFile(QString);
     void exportToGif(QString);
     const QVector<Frame*> getFrames();
+    void setFilename(const QString& filename);
 
 private:
     QVector<Frame*> frames;

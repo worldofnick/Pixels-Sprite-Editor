@@ -25,14 +25,18 @@ private:
     Ui::SpriteMainWindow *ui;
     QString filename;
 
+
     // Exclusive grouping of the tools buttons. Only one are be toggle and remain active at a time.
     QButtonGroup* toolsButtonsGroup;
     QButtonGroup* brushSizeButtonsGroup;
 
+
     int scaleFactor;
     QByteArray mainWindowOriginalGeometry;
 
+
     QColor backgroundColor;
+
 
     // Drawing resources
     QPen pen;
@@ -43,17 +47,20 @@ private:
     QLine mLine;
     QRect mRect;
 
-    bool drawStarted;
 
+    bool drawStarted;
     bool shapeShouldNowBeDrawn;
+
 
     // Brush types, add more as we go
     enum Brushes { pencil, eraser, line, rect, ellipse };
     Brushes brush;
 
+
     // Lists for undo/redo
     std::list<QPixmap> undoStack;
     std::list<QPixmap> redoStack;
+
 
     // Flags
     bool isModified;
@@ -61,17 +68,27 @@ private:
     bool maybeSave();
     bool clickedInsideWorkspace;     //TODO: keep or remove later
 
+
     // Helper methods
     void updateWorkspace();         // paints on the workspaceLabel's pixmap and updates it
 
+
     // Sprite
     Sprite currentSprite;
+
 
     // Preview window resources
     QTimer *timer;
     int it;
     int spriteWidth;
     int spriteHeight;
+
+
+    //Constants used for scaling
+    const QSize PREVIEW_DIMENSION = QSize(180, 150);
+    const QSize FRAME_VIEW_DIMENSION = QSize(150, 150);
+    const QSize WORKSPACE_DIMENSION = QSize(400, 400);
+
 
     //contains a pointer to the current frame selected
     Frame* currentFrame;

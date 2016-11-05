@@ -11,11 +11,12 @@ class Frame : public QLabel
 private:
     bool isVisible;
     int height;
-    int width;
+    int width;   
+    const QSize FRAME_VIEW_DIMENSION = QSize(150, 150);
     //QPixmap pix;
 
 public:
-    Frame(int width = 32, int height = 32);
+    Frame(int width = 150, int height = 150);
     //void setSize(int, int);
     ~Frame();
 
