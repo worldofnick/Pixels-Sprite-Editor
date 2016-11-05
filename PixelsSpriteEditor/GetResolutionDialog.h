@@ -27,7 +27,7 @@ public slots:
     void resolution();
 
 signals:
-    void okClicked(int width, int height, int backColor);
+    void okClicked(int width, int backColor);
 private slots:
     void on_widthInputBox_textChanged(const QString &arg1);
 };

@@ -20,7 +20,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui(new Ui::SpriteMainWindow)
 {
     GetResolutionDialog welcomeScreen;
-    connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int)));
+    connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
     welcomeScreen.exec();
 
 

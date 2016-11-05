@@ -40,7 +40,7 @@ void GetResolutionDialog::resolution(){
     else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton){
         backColor = 2;
     }
-    emit okClicked(width, height, backColor);
+    emit okClicked(width, backColor);
     this->close();
 }
 
@@ -67,7 +67,7 @@ void GetResolutionDialog::closeEvent(QCloseEvent *){
     else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton){
         backColor = 2;
     }
-    emit okClicked(width, height, backColor);
+    emit okClicked(width, backColor);
 }
 
 void GetResolutionDialog::on_widthInputBox_textChanged(const QString &arg1)
