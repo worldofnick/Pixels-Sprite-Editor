@@ -436,11 +436,13 @@ void SpriteMainWindow::on_actionNew_triggered()
         this->on_actionReset_triggered();
     }   
     //Clear the workspacePixMap
+    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight).scaled(this->WORKSPACE_DIMENSION);
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     //Clear out the current Sprite
     Sprite newSprite(this->spriteWidth, this->spriteHeight, 0, "IDK");
+
 
     currentSprite = newSprite;
 
@@ -448,12 +450,24 @@ void SpriteMainWindow::on_actionNew_triggered()
     currentFrame = currentSprite.getFrames().last();
 
     connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
+
+    currentFrame->makeFrameActive();
+
+    //Deletes old layout and its children
+    QLayoutItem* child;
+    while((child = ui->scrollAreaWidgetContents->layout()->takeAt(0)) != 0){
+        delete child->widget();
+        delete child;
+    }
+
+
 
     //Reset the frames display on the left
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(currentFrame);
-    ui->scrollAreaWidgetContents->setLayout(layout);
+//    QVBoxLayout* layout = new QVBoxLayout;
+//    layout->addWidget(currentFrame);
+//    ui->scrollAreaWidgetContents->setLayout(layout);
+       ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
 
 
 
@@ -471,11 +485,38 @@ void SpriteMainWindow::on_actionOpen_triggered()
     QFileDialog dialog;
     currentSprite.loadFile(dialog.getOpenFileName());
 
-    int tempVectorSize = currentSprite.getFrames().size();
 
-    for(int i = 0; i < tempVectorSize; i++){
-        ui->scrollAreaWidgetContents->layout()->addWidget(&currentSprite.getFrame(i));
+
+    //Deletes old layout and its children
+    QLayoutItem* child;
+    while((child = ui->scrollAreaWidgetContents->layout()->takeAt(0)) != 0){
+        delete child->widget();
+        delete child;
     }
+
+    //Adds all the frames that are in the vector to the GUI layout
+    for (int i = 0; i < currentSprite.getFrames().size(); i++){
+        Frame* tmp = &currentSprite.getFrame(i);
+        tmp->makeFrameUnactive();
+        ui->scrollAreaWidgetContents->layout()->addWidget(tmp);
+
+    }
+
+    currentFrame = (currentSprite.getFrames().first());
+
+    //Clear the workspacePixMap
+    workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    //workspacePixMap.fill(this->backgroundColor);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+
+    ui->framesScrollArea->verticalScrollBar()->setSliderPosition(ui->framesScrollArea->verticalScrollBar()->minimum());
+
+    //ui->workspaceLabel->setPixmap(currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION));
+
+    currentFrame->makeFrameActive();
+
+
 
 }
 
