@@ -787,7 +787,7 @@ void SpriteMainWindow::frameClicked(Frame* other){
     currentFrame = other;
     currentFrame->makeFrameActive();
 
-    workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     //If the frame you clicked on is partially cut off because it is at the top or bottom of the scroll area,
