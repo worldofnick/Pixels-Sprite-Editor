@@ -14,6 +14,8 @@
 #include "ui_SpriteMainWindow.h"
 #include "GetResolutionDialog.h"
 
+#include <QScrollBar>
+
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SpriteMainWindow)
@@ -370,6 +372,7 @@ void SpriteMainWindow::on_penTool_clicked()
 //Add a Frame
 void SpriteMainWindow::on_addFrameButton_clicked()
 {
+
     currentFrame->makeFrameUnactive();
 
     currentSprite.addFrame();
@@ -385,6 +388,12 @@ void SpriteMainWindow::on_addFrameButton_clicked()
 
     workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    //sets the scrollbar to the bottom
+    QScrollBar* verticalScrollBar = ui->framesScrollArea->verticalScrollBar();
+    verticalScrollBar->setMaximum(verticalScrollBar->maximum() + 170);
+    verticalScrollBar->setSliderPosition(verticalScrollBar->maximum());
+
 }
 
 void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
@@ -426,6 +435,9 @@ void SpriteMainWindow::on_actionNew_triggered()
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(currentFrame);
     ui->scrollAreaWidgetContents->setLayout(layout);
+
+
+
 }
 
 //Open a file
@@ -722,6 +734,11 @@ void SpriteMainWindow::frameClicked(Frame* other){
 
     workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    //If the frame you clicked on is partially cut off because it is at the top or bottom of the scroll area,
+    //then the scroll area moves so you see it.
+    ui->framesScrollArea->ensureWidgetVisible(currentFrame, 0, 0);
+
 }
 
 void SpriteMainWindow::on_rotateCounterClockButton_clicked()
