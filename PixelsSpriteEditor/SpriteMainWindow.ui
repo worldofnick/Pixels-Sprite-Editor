@@ -65,6 +65,10 @@
         <height>16777215</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(46, 46, 45);
+color: rgb(239, 239, 239);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -111,7 +115,7 @@
           <number>0</number>
          </property>
          <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOn</enum>
+          <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -131,7 +135,7 @@
             <x>0</x>
             <y>0</y>
             <width>164</width>
-            <height>278</height>
+            <height>290</height>
            </rect>
           </property>
          </widget>
@@ -139,36 +143,54 @@
        </item>
        <item>
         <widget class="QPushButton" name="addFrameButton">
+         <property name="minimumSize">
+          <size>
+           <width>180</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>180</width>
+           <height>24</height>
+          </size>
+         </property>
          <property name="styleSheet">
-          <string notr="true">#addFrameButton{
-	border-radius: 4px;
-	background-color: rgb(100, 100, 100);
+          <string notr="true">#addFrameButton {
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
+	border-radius: 10px;
+	/*background-color: rgb(232, 0, 71, 240);*/
+	/*color: rgb(46, 46, 45);*/
+	color: rgb(232, 0, 71, 240);
+	font: 75 30pt &quot;Avenir Next&quot;;
+
 }
 
-#addFrameButton:hover{	
-	background-color: rgb(183, 183, 183);
+#addFrameButton:hover
+{
+	/*background-color: rgb(232, 0, 71);*/
+	border: 0px solid rgb(252, 252, 252);
+	background-color: rgb(179, 179, 179, 30);
+	border-radius: 10px;
+	font: 75 30pt &quot;Avenir Next&quot;;
+	color: rgb(232, 0, 71, 240);
+}
+
+#addFrameButton:pressed
+{
+	/*background-color: rgb(208, 20, 33, 220);*/
+	border: 0px solid rgb(252, 252, 252);
+	background-color: rgb(179, 179, 179, 10);
+	border-radius: 10px;
+color: rgb(208, 20, 33, 220);
 }</string>
          </property>
          <property name="text">
           <string>+</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="duplicateFrameButton">
-         <property name="styleSheet">
-          <string notr="true">#duplicateFrameButton{
-	border-radius: 4px;
-	background-color: rgb(100, 100, 100);
-	color: rgb(252, 255, 255);
-}
-
-#duplicateFrameButton:hover{	
-	background-color: rgb(183, 183, 183);
-}</string>
-         </property>
-         <property name="text">
-          <string>Duplicate Last Frame</string>
+         <property name="flat">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -183,7 +205,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>10</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -343,8 +365,8 @@ color: rgb(239, 239, 239);</string>
        </property>
        <property name="minimumSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -366,23 +388,12 @@ color: rgb(239, 239, 239);</string>
            </brush>
           </colorrole>
           <colorrole role="Button">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
           <colorrole role="Text">
@@ -404,43 +415,21 @@ color: rgb(239, 239, 239);</string>
            </brush>
           </colorrole>
           <colorrole role="Base">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
           <colorrole role="Window">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
          </active>
@@ -455,23 +444,12 @@ color: rgb(239, 239, 239);</string>
            </brush>
           </colorrole>
           <colorrole role="Button">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
           <colorrole role="Text">
@@ -493,43 +471,21 @@ color: rgb(239, 239, 239);</string>
            </brush>
           </colorrole>
           <colorrole role="Base">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
           <colorrole role="Window">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
          </inactive>
@@ -544,23 +500,12 @@ color: rgb(239, 239, 239);</string>
            </brush>
           </colorrole>
           <colorrole role="Button">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
           <colorrole role="Text">
@@ -582,58 +527,59 @@ color: rgb(239, 239, 239);</string>
            </brush>
           </colorrole>
           <colorrole role="Base">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
           <colorrole role="Window">
-           <brush brushstyle="LinearGradientPattern">
-            <gradient startx="0.482000000000000" starty="0.437500000000000" endx="0.488000000000000" endy="0.994318000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-             <gradientstop position="0.000000000000000">
-              <color alpha="255">
-               <red>35</red>
-               <green>37</green>
-               <blue>37</blue>
-              </color>
-             </gradientstop>
-             <gradientstop position="1.000000000000000">
-              <color alpha="255">
-               <red>51</red>
-               <green>53</green>
-               <blue>53</blue>
-              </color>
-             </gradientstop>
-            </gradient>
+           <brush brushstyle="SolidPattern">
+            <color alpha="0">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
            </brush>
           </colorrole>
          </disabled>
         </palette>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#penTool {
+border-image: url(:Edit-100.png);
+background: transparent;
+background-repeat: none;
+margin: 6px;
+}
+#penTool:hover
+{
+border-image: url(:Edit-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#penTool:checked
+{
+border-image: url(:Edit Filled-color-100.png);
+margin: 0px;
+}
+#penTool:unchekced
+{
+border-image: url(:Edit-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 6px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/pen2.png</normaloff>
-         <normalon>:/pen1.png</normalon>:/pen2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -679,15 +625,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#eraserTool {
+border-image: url(:Erase-color-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#eraserTool:hover
+{
+border-image: url(:Erase-color-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#eraserTool:checked
+{
+border-image: url(:Erase-color-Filled-100.png);
+margin: 0px;
+}
+#eraserTool:unchekced
+{
+border-image: url(:Erase-color-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/eraser2.png</normaloff>
-         <normalon>:/eraser1.png</normalon>:/eraser2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -730,15 +699,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#lineTool {
+border-image: url(:Line Filled-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#lineTool:hover
+{
+border-image: url(:Line Filled-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#lineTool:checked
+{
+border-image: url(:Line Filled-color-100.png);
+margin: 0px;
+}
+#lineTool:unchekced
+{
+border-image: url(:Line Filled-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/line2.png</normaloff>
-         <normalon>:/line1.png</normalon>:/line2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -781,15 +773,34 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#ellipseTool {
+border-image: url(:Ellipse Stroked Filled-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#ellipseTool:hover
+{
+border-image: url(:Ellipse Stroked Filled-100.png);
+margin: 2px;
+}
+#ellipseTool:checked
+{
+border-image: url(:Ellipse Stroked Filled-color-100.png);
+margin: 0px;
+}
+#ellipseTool:unchekced
+{
+border-image: url(:Ellipse Stroked Filled-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/ellipse2.png</normaloff>
-         <normalon>:/ellipse1.png</normalon>:/ellipse2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -832,15 +843,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#stampTool {
+border-image: url(:Rubber Stamp Bottom View-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#stampTool:hover
+{
+border-image: url(:Rubber Stamp Bottom View-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#stampTool:checked
+{
+border-image: url(:Rubber Stamp Bottom View Filled-color-100.png);
+margin: 0px;
+}
+#stampTool:unchekced
+{
+border-image: url(:Rubber Stamp Bottom View-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/stamp2.png</normaloff>
-         <normalon>:/stamp1.png</normalon>:/stamp2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -883,15 +917,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#rotateCounterClockButton {
+border-image: url(:Rotate Left Filled-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#rotateCounterClockButton:hover
+{
+border-image: url(:Rotate Left Filled-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#rotateCounterClockButton:checked
+{
+border-image: url(:Rotate Left Filled-color-100.png);
+margin: 0px;
+}
+#rotateCounterClockButton:unchekced
+{
+border-image: url(:Rotate Left Filled-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/ccw2.png</normaloff>
-         <normalon>:/ccw1.png</normalon>:/ccw2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -934,15 +991,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#rotateClockwiseButton {
+border-image: url(:Rotate Right Filled-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#rotateClockwiseButton:hover
+{
+border-image: url(:Rotate Right Filled-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#rotateClockwiseButton:checked
+{
+border-image: url(:Rotate Right Filled-color-100.png);
+margin: 0px;
+}
+#rotateClockwiseButton:unchekced
+{
+border-image: url(:Rotate Right Filled-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/cw2.png</normaloff>
-         <normalon>:/cw1.png</normalon>:/cw2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -985,15 +1065,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#flipHorizontalButton {
+border-image: url(:Flip Horizontal-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#flipHorizontalButton:hover
+{
+border-image: url(:Flip Horizontal-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#flipHorizontalButton:checked
+{
+border-image: url(:Flip Horizontal Filled-color-100.png);
+margin: 0px;
+}
+#flipHorizontalButton:unchekced
+{
+border-image: url(:Flip Horizontal-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/flipl2.png</normaloff>
-         <normalon>:/flipl1.png</normalon>:/flipl2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -1036,15 +1139,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#flipVerticalButton {
+border-image: url(:Flip Vertical-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#flipVerticalButton:hover
+{
+border-image: url(:Flip Vertical-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#flipVerticalButton:checked
+{
+border-image: url(:Flip Vertical Filled-color-100.png);
+margin: 0px;
+}
+#flipVerticalButton:unchekced
+{
+border-image: url(:Flip Vertical-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/flipv2.png</normaloff>
-         <normalon>:/flipv1.png</normalon>:/flipv2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -1087,15 +1213,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#undoButton {
+border-image: url(:Undo-96.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#undoButton:hover
+{
+border-image: url(:Undo-96.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
+}
+#undoButton:checked
+{
+border-image: url(:Undo-color-96.png);
+margin: 0px;
+}
+#undoButton:unchekced
+{
+border-image: url(:Undo-96.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/undo2.png</normaloff>
-         <normalon>:/undo1.png</normalon>:/undo2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -1138,15 +1287,38 @@ color: rgb(239, 239, 239);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#redoButton {
+border-image: url(:Redo-96.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#redoButton:hover
+{
+border-image: url(:Redo-96.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 0px;
+}
+#redoButton:checked
+{
+border-image: url(:Redo-color-96.png);
+margin: 0px;
+}
+#redoButton:unchekced
+{
+border-image: url(:Redo-96.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/redo1.png</normaloff>
-         <normalon>:/redo2.png</normalon>:/redo1.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -1190,29 +1362,29 @@ color: rgb(239, 239, 239);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#unassignedButton_3 {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }
 
 #unassignedButton_3:hover
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	background-color: rgb(179, 179, 179, 30);
+	border: 0px solid rgb(252, 252, 252);
 	border-radius: 10px;
 }
 
 #unassignedButton_3:checked
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 }
 
 #unassignedButton_3:unchecked {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }</string>
@@ -1256,29 +1428,29 @@ color: rgb(239, 239, 239);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#unassignedButton_4 {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }
 
 #unassignedButton_4:hover
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	background-color: rgb(179, 179, 179, 30);
+	border: 0px solid rgb(252, 252, 252);
 	border-radius: 10px;
 }
 
 #unassignedButton_4:checked
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 }
 
 #unassignedButton_4:unchecked {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }</string>
@@ -1324,10 +1496,34 @@ color: rgb(239, 239, 239);</string>
         <string>Brush size 1</string>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#brushSize1Button {
+	background-color: rgb(179, 179, 179);
+	border: 11px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize1Button:hover
+{
+	background-color: rgb(205, 246, 104);
+	border: 7px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize1Button:checked
+{
+	background-color: rgb(205, 246, 104);
+	border: 11px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize1Button:unchecked {
+	background-color: rgb(179, 179, 179);
+	border: 11px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}</string>
        </property>
        <property name="text">
-        <string>1</string>
+        <string/>
        </property>
        <property name="shortcut">
         <string>Ctrl+1</string>
@@ -1373,10 +1569,34 @@ color: rgb(239, 239, 239);</string>
         <string>Brush size 2</string>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#brushSize2Button {
+	background-color: rgb(179, 179, 179);
+	border: 9px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize2Button:hover
+{
+	background-color: rgb(255, 191, 38);
+	border: 7px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize2Button:checked
+{
+	background-color: rgb(255, 191, 38);
+	border: 9px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize2Button:unchecked {
+	background-color: rgb(179, 179, 179);
+	border: 9px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}</string>
        </property>
        <property name="text">
-        <string>2</string>
+        <string/>
        </property>
        <property name="shortcut">
         <string>Ctrl+2</string>
@@ -1419,10 +1639,34 @@ color: rgb(239, 239, 239);</string>
         <string>Brush size 3</string>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#brushSize3Button {
+	background-color: rgb(179, 179, 179);
+	border: 7px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize3Button:hover
+{
+	background-color: rgb(255, 147, 147);
+	border: 5px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize3Button:checked
+{
+	background-color: rgb(255, 147, 147);
+	border: 7px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize3Button:unchecked {
+	background-color: rgb(179, 179, 179);
+	border: 7px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}</string>
        </property>
        <property name="text">
-        <string>3</string>
+        <string/>
        </property>
        <property name="shortcut">
         <string>Ctrl+3</string>
@@ -1465,10 +1709,34 @@ color: rgb(239, 239, 239);</string>
         <string>Brush size 4</string>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#brushSize4Button {
+	background-color: rgb(179, 179, 179);
+	border: 4px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize4Button:hover
+{
+	background-color: rgb(204, 129, 186);
+	border: 2px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize4Button:checked
+{
+	background-color: rgb(204, 129, 186);
+	border: 4px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}
+
+#brushSize4Button:unchecked {
+	background-color: rgb(179, 179, 179);
+	border: 4px solid rgb(33, 35, 35);
+	border-radius: 12px;
+}</string>
        </property>
        <property name="text">
-        <string>4</string>
+        <string/>
        </property>
        <property name="shortcut">
         <string>Ctrl+4</string>
@@ -1564,15 +1832,34 @@ background-repeat: none;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">#rectangleTool {
+border-image: url(:Rectangle Stroked Filled-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
+}
+#rectangleTool:hover
+{
+border-image: url(:Rectangle Stroked Filled-100.png);
+margin: 0px;
+}
+#rectangleTool:checked
+{
+border-image: url(:Rectangle Stroked Filled-color-100.png);
+margin: 2px;
+}
+#rectangleTool:unchekced
+{
+border-image: url(:Rectangle Stroked Filled-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
+}</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="assets/ui_assets.qrc">
-         <normaloff>:/rect2.png</normaloff>
-         <normalon>:/rect1.png</normalon>:/rect2.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -1616,29 +1903,29 @@ background-repeat: none;
        </property>
        <property name="styleSheet">
         <string notr="true">#unassignedButton_5 {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }
 
 #unassignedButton_5:hover
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	background-color: rgb(179, 179, 179, 30);
+	border: 0px solid rgb(252, 252, 252);
 	border-radius: 10px;
 }
 
 #unassignedButton_5:checked
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 }
 
 #unassignedButton_5:unchecked {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }</string>
@@ -1682,29 +1969,29 @@ background-repeat: none;
        </property>
        <property name="styleSheet">
         <string notr="true">#unassignedButton_6 {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }
 
 #unassignedButton_6:hover
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	background-color: rgb(179, 179, 179, 30);
+	border: 0px solid rgb(252, 252, 252);
 	border-radius: 10px;
 }
 
 #unassignedButton_6:checked
 {
-	background-color: rgb(179, 179, 179);
-	border: 3px solid rgb(252, 252, 252);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 }
 
 #unassignedButton_6:unchecked {
-	border: 3px solid rgb(239, 239, 239);
-	background-color: rgb(255, 147, 147);
+	border: 0px solid rgb(239, 239, 239);
+	background-color: rgb(179, 179, 179, 10);
 	border-radius: 10px;
 	color: rgb(76, 76, 76);
 }</string>
@@ -1988,8 +2275,6 @@ background-repeat: none;
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="assets/ui_assets.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
