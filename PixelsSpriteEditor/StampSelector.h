@@ -17,14 +17,16 @@ public:
 
 private:
     Ui::StampSelector *ui;
+    int whichStampSelected;
 
 protected:
     void closeEvent(QCloseEvent*);
+    bool eventFilter(QObject *watched, QEvent *event);
 
 signals:
     void selectedStamp(int id);
 private slots:
-    void on_selectButton_clicked();
+    //void on_selectButton_clicked();
 };
 
 #endif // STAMPSELECTOR_H
