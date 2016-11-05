@@ -7,5 +7,29 @@
         <file>transparent pattern 2.png</file>
         <file>transparent pattern 1.png</file>
         <file>pen.png</file>
+        <file>pen1.png</file>
+        <file>pen2.png</file>
+        <file>ellipse1.png</file>
+        <file>ellipse2.png</file>
+        <file>eraser1.png</file>
+        <file>eraser2.png</file>
+        <file>line1.png</file>
+        <file>line2.png</file>
+        <file>rect1.png</file>
+        <file>rect2.png</file>
+        <file>redo1.png</file>
+        <file>redo2.png</file>
+        <file>undo1.png</file>
+        <file>undo2.png</file>
+        <file>ccw1.png</file>
+        <file>ccw2.png</file>
+        <file>cw1.png</file>
+        <file>cw2.png</file>
+        <file>flipl1.png</file>
+        <file>flipl2.png</file>
+        <file>flipv1.png</file>
+        <file>flipv2.png</file>
+        <file>stamp1.png</file>
+        <file>stamp2.png</file>
     </qresource>
 </RCC>
