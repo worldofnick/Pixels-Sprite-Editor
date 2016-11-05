@@ -94,6 +94,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     // Install SpriteMainWindow as an event handler for the workspaceLabel
     ui->workspaceLabel->installEventFilter(this);
+    ui->previewLabelMap->installEventFilter(this);
 
     //create the sprite
     Sprite temp(spriteWidth, spriteHeight, 0, tr("MySprite"));
@@ -147,13 +148,13 @@ SpriteMainWindow::~SpriteMainWindow()
 // class and making it inherit from QLabel (and overide the mouse events).
 bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
-    if (watched == ui->previewLabelMap){
+    if (qobject_cast<QLabel*>(watched)==ui->previewLabelMap && event->type() == QEvent::MouseButtonPress){
         qDebug() << "Preview Clicked__________";
-        if(event->type() == QEvent::MouseButtonPress){
+        //if(event->type() == QEvent::MouseButtonPress){
             Preview window;
             window.setPixmap(workspacePixMap);
             window.exec();
-        }
+        //}
         return true;
     }
     if (watched == ui->workspaceLabel) {
