@@ -75,8 +75,10 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     brushSizeButtonsGroup->addButton(ui->brushSize4Button, 3);
 
     // Set pixmap's resolution, color and set it to the workspace.
-    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight).scaled(this->WORKSPACE_DIMENSION);
-
+    //workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight).scaled(this->WORKSPACE_DIMENSION);
+    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
+    qDebug() << this->spriteWidth;
+    qDebug() << this->spriteHeight;
 
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
@@ -112,13 +114,15 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
 
-    currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
+    //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
+    currentFrame->setPixmap(workspacePixMap.copy());
 
     //qDebug() << currentFrame->pixmap()->width();
     //qDebug() << currentFrame->pixmap()->height();
 
     QPixmap tempPixmap = *currentSprite.getFrame(0).pixmap();
-    ui->previewLabelMap->setPixmap(tempPixmap.scaled(PREVIEW_DIMENSION));
+    //ui->previewLabelMap->setPixmap(tempPixmap.scaled(PREVIEW_DIMENSION));
+    ui->previewLabelMap->setPixmap(tempPixmap.copy());
 
     // Setup and start the preview timer
     timer = new QTimer(this);
@@ -204,7 +208,8 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
 
             //NEED TO SCALE IT HERE FOR THE SIDE VIEW
-            currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
+            //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
+            currentFrame->setPixmap(workspacePixMap.copy());
 
 
 
@@ -253,7 +258,7 @@ void SpriteMainWindow::updateWorkspace() {
    if (brush == pencil || brush == eraser || shapeShouldNowBeDrawn){
     painter.begin(&workspacePixMap);
     painter.setCompositionMode(QPainter::CompositionMode_Source);
-    painter.setRenderHints(QPainter::Antialiasing, QPainter::SmoothPixmapTransform);
+    //painter.setRenderHints(QPainter::Antialiasing, QPainter::SmoothPixmapTransform);
 
 
     painter.setPen(pen);
@@ -404,9 +409,11 @@ void SpriteMainWindow::on_addFrameButton_clicked()
 
     QPixmap map(spriteWidth, spriteHeight);
     map.fill(this->backgroundColor);
-    currentFrame->setPixmap(map.scaled(this->FRAME_VIEW_DIMENSION));
+//    currentFrame->setPixmap(map.scaled(this->FRAME_VIEW_DIMENSION));
+    currentFrame->setPixmap(map);
 
-    workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    workspacePixMap = currentFrame->pixmap()->copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     //sets the scrollbar to the bottom
@@ -435,9 +442,10 @@ void SpriteMainWindow::on_actionNew_triggered()
         connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int,int)));
         welcomeScreen.exec();
         this->on_actionReset_triggered();
-    }   
+    }
     //Clear the workspacePixMap
-    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight).scaled(this->WORKSPACE_DIMENSION);
+//    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight).scaled(this->WORKSPACE_DIMENSION);
+    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
@@ -451,7 +459,8 @@ void SpriteMainWindow::on_actionNew_triggered()
     currentFrame = currentSprite.getFrames().last();
 
     connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
-    currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
+    //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
+    currentFrame->setPixmap(workspacePixMap);
 
     currentFrame->makeFrameActive();
 
@@ -506,7 +515,8 @@ void SpriteMainWindow::on_actionOpen_triggered()
     currentFrame = (currentSprite.getFrames().first());
 
     //Clear the workspacePixMap
-    workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    workspacePixMap = currentFrame->pixmap()->copy();
     //workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
@@ -556,7 +566,8 @@ void SpriteMainWindow::on_actionUndo_triggered()
         redoStack.push_back(workspacePixMap);
         workspacePixMap = undoStack.back();
         ui->workspaceLabel->setPixmap(workspacePixMap);
-        currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+        //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+        currentFrame->setPixmap(workspacePixMap.copy());
 
         undoStack.pop_back();
     }
@@ -570,7 +581,8 @@ void SpriteMainWindow::on_actionRedo_triggered()
         ui->workspaceLabel->setPixmap(workspacePixMap);
         undoStack.push_back(redoStack.back());
         redoStack.pop_back();
-        currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+        //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+        currentFrame->setPixmap(workspacePixMap.copy());
     }
 }
 
@@ -580,7 +592,8 @@ void SpriteMainWindow::on_actionReset_triggered()
     workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 //Slot for when the Flip Horizontally option is selected from the menu.
@@ -589,7 +602,8 @@ void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
     QImage image = workspacePixMap.toImage().mirrored(true, false);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 //Slot for when the flip Vertically option is selected from the menu.
@@ -598,7 +612,8 @@ void SpriteMainWindow::on_actionFlip_Vertically_triggered()
     QImage image = workspacePixMap.toImage().mirrored(false, true);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 //Slot for when the rotate Horizontally option is selected from the menu.
@@ -609,9 +624,11 @@ void SpriteMainWindow::on_actionRotate_Horizontally_triggered()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 
 }
 
@@ -623,9 +640,11 @@ void SpriteMainWindow::on_actionRotate_Counterclockwise_triggered()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 //Slot for when the Show/Hide option is selected from the menu.
@@ -724,18 +743,18 @@ void SpriteMainWindow::on_brushSize4Button_clicked()
 
 void SpriteMainWindow::on_action2x_Workspace_triggered()
 {
-    scaleFactor++;
-    int wspWidth = workspacePixMap.width() * scaleFactor;
-    int wspHeight = workspacePixMap.height() * scaleFactor;
+//    scaleFactor++;
+//    int wspWidth = workspacePixMap.width() * scaleFactor;
+//    int wspHeight = workspacePixMap.height() * scaleFactor;
 
-    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight);
-    ui->workspaceLabel->setPixmap(workspacePixMap);
+//    workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight);
+//    ui->workspaceLabel->setPixmap(workspacePixMap);
 
-    if(scaleFactor != 1) {
-        pen.setWidth(10 * scaleFactor);      //TODO: replace 10 by the current brush size.
-    }
+//    if(scaleFactor != 1) {
+//        pen.setWidth(10 * scaleFactor);      //TODO: replace 10 by the current brush size.
+//    }
 
-    update();
+//    update();
 
 //    if(wspWidth > this->width()) {
 //        this->resize(this->width() + wspWidth, this->height());
@@ -787,7 +806,8 @@ void SpriteMainWindow::frameClicked(Frame* other){
     currentFrame = other;
     currentFrame->makeFrameActive();
 
-    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+//    workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    workspacePixMap = currentFrame->pixmap()->copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     //If the frame you clicked on is partially cut off because it is at the top or bottom of the scroll area,
@@ -803,9 +823,11 @@ void SpriteMainWindow::on_rotateCounterClockButton_clicked()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 
@@ -816,9 +838,11 @@ void SpriteMainWindow::on_rotateClockwiseButton_clicked()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
+    workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 void SpriteMainWindow::on_flipVerticalButton_clicked()
@@ -827,7 +851,8 @@ void SpriteMainWindow::on_flipVerticalButton_clicked()
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 void SpriteMainWindow::on_flipHorizontalButton_clicked()
@@ -836,7 +861,8 @@ void SpriteMainWindow::on_flipHorizontalButton_clicked()
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
-    currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
+    currentFrame->setPixmap(workspacePixMap.copy());
 }
 
 void SpriteMainWindow::whenTimerUpdates()
@@ -846,5 +872,6 @@ void SpriteMainWindow::whenTimerUpdates()
     if(it >= currentSprite.getFrames().size())
         it = 0;
 
-    ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->scaled(PREVIEW_DIMENSION));
+    //ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->scaled(PREVIEW_DIMENSION));
+    ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->copy());
 }
