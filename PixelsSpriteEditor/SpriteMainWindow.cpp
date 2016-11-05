@@ -567,7 +567,9 @@ void SpriteMainWindow::on_actionSprite_Sheet_triggered()
 //Slot for when export as GIF is selected from the menu.
 void SpriteMainWindow::on_actionExport_as_gif_triggered()
 {
-
+    QFileDialog dialog;
+    isModified = false;
+    currentSprite.exportToGif(dialog.getSaveFileName(this, tr("Save File"), "/untitled.gif", tr("Images (*.gif)")));
 }
 
 //Slot for when undo is selected from the menu.

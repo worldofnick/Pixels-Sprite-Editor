@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "gif.h"
 #include <QDebug>
 #include <QFile>
 #include <QRgb>
@@ -190,7 +191,35 @@ void Sprite::saveFile(QString file)
 
 void Sprite::exportToGif(QString file)
 {
-    // Call to GifExport class
+
+    GifWriter *g = new GifWriter();
+    QByteArray ba = file.toLatin1();
+    //const char* buffer = ba.data();
+    const char* buffer = ba;
+    int size = width * height * 4;
+    uint8_t *fr = new uint8_t[size];
+    if(fps == 0)
+        fps = 1;
+    GifBegin(g, buffer, width, height, 100/fps, 8, true);
+    for(int i = 0; i < frames.count(); i++)
+    {
+
+        QImage spriteImage = frames.at(i)->pixmap()->toImage();
+        int index = 0;
+        for (int y = 0; y < spriteImage.height(); y++) {
+            for (int x = 0; x < spriteImage.width(); x++) {
+                QColor colorValue(spriteImage.pixelColor(x, y));
+                *(fr+index) = (uint8_t)colorValue.red(); index++;
+                *(fr+index) = (uint8_t)colorValue.green(); index++;
+                *(fr+index) = (uint8_t)colorValue.blue(); index++;
+                *(fr+index) = (uint8_t)colorValue.alpha(); index++;
+
+            }
+        }
+        const uint8_t* cfr = const_cast<const uint8_t*>(fr);
+        GifWriteFrame(g, cfr, width, height, 100/fps, 8, true);
+    }
+    GifEnd(g);
 }
 
 void Sprite::frameSelected(Frame* other){

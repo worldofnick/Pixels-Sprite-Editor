@@ -27,7 +27,8 @@ HEADERS  += SpriteMainWindow.h \
     Sprite.h \
     GetResolutionDialog.h \
     StampSelector.h \
-    Preview.h
+    Preview.h \
+    gif.h
 
 FORMS    += SpriteMainWindow.ui \
     PopupWindow.ui \

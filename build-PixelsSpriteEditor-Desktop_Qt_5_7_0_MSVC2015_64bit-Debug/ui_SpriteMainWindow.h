@@ -63,6 +63,7 @@ public:
     QScrollArea *framesScrollArea;
     QWidget *scrollAreaWidgetContents;
     QPushButton *addFrameButton;
+    QPushButton *duplicateFrameButton;
     QSpacerItem *verticalSpacer;
     QLabel *previewLabelMap;
     QSlider *fpsSlider;
@@ -196,12 +197,12 @@ public:
         framesScrollArea->setLineWidth(0);
         framesScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         framesScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        framesScrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+        framesScrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
         framesScrollArea->setWidgetResizable(true);
-        framesScrollArea->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
+        framesScrollArea->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(8, 0, 164, 308));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 164, 278));
         framesScrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(framesScrollArea);
@@ -219,6 +220,20 @@ public:
 
         verticalLayout->addWidget(addFrameButton);
 
+        duplicateFrameButton = new QPushButton(framesContainer);
+        duplicateFrameButton->setObjectName(QStringLiteral("duplicateFrameButton"));
+        duplicateFrameButton->setStyleSheet(QLatin1String("#duplicateFrameButton{\n"
+"	border-radius: 4px;\n"
+"	background-color: rgb(100, 100, 100);\n"
+"	color: rgb(252, 255, 255);\n"
+"}\n"
+"\n"
+"#duplicateFrameButton:hover{	\n"
+"	background-color: rgb(183, 183, 183);\n"
+"}"));
+
+        verticalLayout->addWidget(duplicateFrameButton);
+
         verticalSpacer = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
         verticalLayout->addItem(verticalSpacer);
@@ -231,9 +246,11 @@ public:
         sizePolicy2.setHeightForWidth(previewLabelMap->sizePolicy().hasHeightForWidth());
         previewLabelMap->setSizePolicy(sizePolicy2);
         previewLabelMap->setMinimumSize(QSize(150, 150));
+        previewLabelMap->setMouseTracking(false);
         previewLabelMap->setStyleSheet(QLatin1String("background-color: rgb(29,29,29);\n"
 "background-image: url(:transparent pattern 3.png);\n"
 "border: none;"));
+        previewLabelMap->setLineWidth(0);
 
         verticalLayout->addWidget(previewLabelMap);
 
@@ -282,14 +299,96 @@ public:
         toolsContainer->setLineWidth(0);
         penTool = new QPushButton(toolsContainer);
         penTool->setObjectName(QStringLiteral("penTool"));
+        penTool->setEnabled(true);
         penTool->setGeometry(QRect(8, 10, 50, 50));
         sizePolicy2.setHeightForWidth(penTool->sizePolicy().hasHeightForWidth());
         penTool->setSizePolicy(sizePolicy2);
         penTool->setMinimumSize(QSize(50, 50));
         penTool->setMaximumSize(QSize(50, 50));
+        QPalette palette;
+        QBrush brush(QColor(239, 239, 239, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        QLinearGradient gradient(0.482, 0.4375, 0.488, 0.994318);
+        gradient.setSpread(QGradient::PadSpread);
+        gradient.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush1(gradient);
+        palette.setBrush(QPalette::Active, QPalette::Button, brush1);
+        palette.setBrush(QPalette::Active, QPalette::Text, brush);
+        palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        QLinearGradient gradient1(0.482, 0.4375, 0.488, 0.994318);
+        gradient1.setSpread(QGradient::PadSpread);
+        gradient1.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient1.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient1.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush2(gradient1);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush2);
+        QLinearGradient gradient2(0.482, 0.4375, 0.488, 0.994318);
+        gradient2.setSpread(QGradient::PadSpread);
+        gradient2.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient2.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient2.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush3(gradient2);
+        palette.setBrush(QPalette::Active, QPalette::Window, brush3);
+        palette.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        QLinearGradient gradient3(0.482, 0.4375, 0.488, 0.994318);
+        gradient3.setSpread(QGradient::PadSpread);
+        gradient3.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient3.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient3.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush4(gradient3);
+        palette.setBrush(QPalette::Inactive, QPalette::Button, brush4);
+        palette.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        QLinearGradient gradient4(0.482, 0.4375, 0.488, 0.994318);
+        gradient4.setSpread(QGradient::PadSpread);
+        gradient4.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient4.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient4.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush5(gradient4);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush5);
+        QLinearGradient gradient5(0.482, 0.4375, 0.488, 0.994318);
+        gradient5.setSpread(QGradient::PadSpread);
+        gradient5.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient5.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient5.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush6(gradient5);
+        palette.setBrush(QPalette::Inactive, QPalette::Window, brush6);
+        palette.setBrush(QPalette::Disabled, QPalette::WindowText, brush);
+        QLinearGradient gradient6(0.482, 0.4375, 0.488, 0.994318);
+        gradient6.setSpread(QGradient::PadSpread);
+        gradient6.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient6.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient6.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush7(gradient6);
+        palette.setBrush(QPalette::Disabled, QPalette::Button, brush7);
+        palette.setBrush(QPalette::Disabled, QPalette::Text, brush);
+        palette.setBrush(QPalette::Disabled, QPalette::ButtonText, brush);
+        QLinearGradient gradient7(0.482, 0.4375, 0.488, 0.994318);
+        gradient7.setSpread(QGradient::PadSpread);
+        gradient7.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient7.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient7.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush8(gradient7);
+        palette.setBrush(QPalette::Disabled, QPalette::Base, brush8);
+        QLinearGradient gradient8(0.482, 0.4375, 0.488, 0.994318);
+        gradient8.setSpread(QGradient::PadSpread);
+        gradient8.setCoordinateMode(QGradient::ObjectBoundingMode);
+        gradient8.setColorAt(0, QColor(35, 37, 37, 255));
+        gradient8.setColorAt(1, QColor(51, 53, 53, 255));
+        QBrush brush9(gradient8);
+        palette.setBrush(QPalette::Disabled, QPalette::Window, brush9);
+        penTool->setPalette(palette);
         penTool->setStyleSheet(QStringLiteral(""));
-        penTool->setIconSize(QSize(2, 2));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/pen2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QStringLiteral(":/pen1.png"), QSize(), QIcon::Normal, QIcon::On);
+        penTool->setIcon(icon);
+        penTool->setIconSize(QSize(23, 23));
         penTool->setCheckable(true);
+        penTool->setChecked(true);
         penTool->setFlat(true);
         eraserTool = new QPushButton(toolsContainer);
         eraserTool->setObjectName(QStringLiteral("eraserTool"));
@@ -302,6 +401,11 @@ public:
         eraserTool->setMinimumSize(QSize(50, 50));
         eraserTool->setMaximumSize(QSize(50, 50));
         eraserTool->setStyleSheet(QStringLiteral(""));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/eraser2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(QStringLiteral(":/eraser1.png"), QSize(), QIcon::Normal, QIcon::On);
+        eraserTool->setIcon(icon1);
+        eraserTool->setIconSize(QSize(23, 23));
         eraserTool->setCheckable(true);
         eraserTool->setFlat(true);
         lineTool = new QPushButton(toolsContainer);
@@ -312,6 +416,11 @@ public:
         lineTool->setMinimumSize(QSize(50, 50));
         lineTool->setMaximumSize(QSize(50, 50));
         lineTool->setStyleSheet(QStringLiteral(""));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/line2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon2.addFile(QStringLiteral(":/line1.png"), QSize(), QIcon::Normal, QIcon::On);
+        lineTool->setIcon(icon2);
+        lineTool->setIconSize(QSize(23, 23));
         lineTool->setCheckable(true);
         lineTool->setFlat(true);
         ellipseTool = new QPushButton(toolsContainer);
@@ -322,6 +431,11 @@ public:
         ellipseTool->setMinimumSize(QSize(50, 50));
         ellipseTool->setMaximumSize(QSize(50, 50));
         ellipseTool->setStyleSheet(QStringLiteral(""));
+        QIcon icon3;
+        icon3.addFile(QStringLiteral(":/ellipse2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon3.addFile(QStringLiteral(":/ellipse1.png"), QSize(), QIcon::Normal, QIcon::On);
+        ellipseTool->setIcon(icon3);
+        ellipseTool->setIconSize(QSize(23, 22));
         ellipseTool->setCheckable(true);
         ellipseTool->setFlat(true);
         stampTool = new QPushButton(toolsContainer);
@@ -332,6 +446,11 @@ public:
         stampTool->setMinimumSize(QSize(50, 50));
         stampTool->setMaximumSize(QSize(50, 50));
         stampTool->setStyleSheet(QStringLiteral(""));
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/stamp2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon4.addFile(QStringLiteral(":/stamp1.png"), QSize(), QIcon::Normal, QIcon::On);
+        stampTool->setIcon(icon4);
+        stampTool->setIconSize(QSize(23, 23));
         stampTool->setCheckable(true);
         stampTool->setFlat(true);
         rotateCounterClockButton = new QPushButton(toolsContainer);
@@ -342,6 +461,11 @@ public:
         rotateCounterClockButton->setMinimumSize(QSize(50, 50));
         rotateCounterClockButton->setMaximumSize(QSize(50, 50));
         rotateCounterClockButton->setStyleSheet(QStringLiteral(""));
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/ccw2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon5.addFile(QStringLiteral(":/ccw1.png"), QSize(), QIcon::Normal, QIcon::On);
+        rotateCounterClockButton->setIcon(icon5);
+        rotateCounterClockButton->setIconSize(QSize(23, 23));
         rotateCounterClockButton->setCheckable(true);
         rotateCounterClockButton->setFlat(true);
         rotateClockwiseButton = new QPushButton(toolsContainer);
@@ -352,6 +476,11 @@ public:
         rotateClockwiseButton->setMinimumSize(QSize(50, 50));
         rotateClockwiseButton->setMaximumSize(QSize(50, 50));
         rotateClockwiseButton->setStyleSheet(QStringLiteral(""));
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/cw2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon6.addFile(QStringLiteral(":/cw1.png"), QSize(), QIcon::Normal, QIcon::On);
+        rotateClockwiseButton->setIcon(icon6);
+        rotateClockwiseButton->setIconSize(QSize(23, 23));
         rotateClockwiseButton->setCheckable(true);
         rotateClockwiseButton->setFlat(true);
         flipHorizontalButton = new QPushButton(toolsContainer);
@@ -362,6 +491,11 @@ public:
         flipHorizontalButton->setMinimumSize(QSize(50, 50));
         flipHorizontalButton->setMaximumSize(QSize(50, 50));
         flipHorizontalButton->setStyleSheet(QStringLiteral(""));
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/flipl2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon7.addFile(QStringLiteral(":/flipl1.png"), QSize(), QIcon::Normal, QIcon::On);
+        flipHorizontalButton->setIcon(icon7);
+        flipHorizontalButton->setIconSize(QSize(23, 23));
         flipHorizontalButton->setCheckable(true);
         flipHorizontalButton->setFlat(true);
         flipVerticalButton = new QPushButton(toolsContainer);
@@ -372,6 +506,11 @@ public:
         flipVerticalButton->setMinimumSize(QSize(50, 50));
         flipVerticalButton->setMaximumSize(QSize(50, 50));
         flipVerticalButton->setStyleSheet(QStringLiteral(""));
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/flipv2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon8.addFile(QStringLiteral(":/flipv1.png"), QSize(), QIcon::Normal, QIcon::On);
+        flipVerticalButton->setIcon(icon8);
+        flipVerticalButton->setIconSize(QSize(23, 23));
         flipVerticalButton->setCheckable(true);
         flipVerticalButton->setFlat(true);
         undoButton = new QPushButton(toolsContainer);
@@ -382,6 +521,11 @@ public:
         undoButton->setMinimumSize(QSize(50, 50));
         undoButton->setMaximumSize(QSize(50, 50));
         undoButton->setStyleSheet(QStringLiteral(""));
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/undo2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon9.addFile(QStringLiteral(":/undo1.png"), QSize(), QIcon::Normal, QIcon::On);
+        undoButton->setIcon(icon9);
+        undoButton->setIconSize(QSize(23, 23));
         undoButton->setCheckable(true);
         undoButton->setFlat(true);
         redoButton = new QPushButton(toolsContainer);
@@ -392,6 +536,11 @@ public:
         redoButton->setMinimumSize(QSize(50, 50));
         redoButton->setMaximumSize(QSize(50, 50));
         redoButton->setStyleSheet(QStringLiteral(""));
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/redo1.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon10.addFile(QStringLiteral(":/redo2.png"), QSize(), QIcon::Normal, QIcon::On);
+        redoButton->setIcon(icon10);
+        redoButton->setIconSize(QSize(23, 23));
         redoButton->setCheckable(true);
         redoButton->setFlat(true);
         unassignedButton_3 = new QPushButton(toolsContainer);
@@ -475,6 +624,7 @@ public:
         brushSize1Button->setMaximumSize(QSize(25, 25));
         brushSize1Button->setStyleSheet(QStringLiteral(""));
         brushSize1Button->setCheckable(true);
+        brushSize1Button->setChecked(true);
         brushSize1Button->setFlat(true);
         brushSize2Button = new QPushButton(toolsContainer);
         brushSize2Button->setObjectName(QStringLiteral("brushSize2Button"));
@@ -539,6 +689,11 @@ public:
         rectangleTool->setMinimumSize(QSize(50, 50));
         rectangleTool->setMaximumSize(QSize(50, 50));
         rectangleTool->setStyleSheet(QStringLiteral(""));
+        QIcon icon11;
+        icon11.addFile(QStringLiteral(":/rect2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon11.addFile(QStringLiteral(":/rect1.png"), QSize(), QIcon::Normal, QIcon::On);
+        rectangleTool->setIcon(icon11);
+        rectangleTool->setIconSize(QSize(23, 23));
         rectangleTool->setCheckable(true);
         rectangleTool->setFlat(true);
         unassignedButton_5 = new QPushButton(toolsContainer);
@@ -730,6 +885,7 @@ public:
         action2x_Workspace->setText(QApplication::translate("SpriteMainWindow", "2x Workspace", 0));
         action2x_Workspace->setShortcut(QApplication::translate("SpriteMainWindow", "Ctrl+=", 0));
         addFrameButton->setText(QApplication::translate("SpriteMainWindow", "+", 0));
+        duplicateFrameButton->setText(QApplication::translate("SpriteMainWindow", "Duplicate Last Frame", 0));
 #ifndef QT_NO_TOOLTIP
         previewLabelMap->setToolTip(QApplication::translate("SpriteMainWindow", "<html><head/><body><p>When you click on this, a new preview window will open. It has zoom controls</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
@@ -738,17 +894,17 @@ public:
         workspaceLabel->setToolTip(QApplication::translate("SpriteMainWindow", "<html><head/><body><p>Will display the current selected frame. The size is dependent on the resolution of the image selected. Should scale without changing the resolution.</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
         workspaceLabel->setText(QString());
-        penTool->setText(QApplication::translate("SpriteMainWindow", "pen", 0));
-        eraserTool->setText(QApplication::translate("SpriteMainWindow", "Era", 0));
-        lineTool->setText(QApplication::translate("SpriteMainWindow", "Line", 0));
-        ellipseTool->setText(QApplication::translate("SpriteMainWindow", "ellip", 0));
-        stampTool->setText(QApplication::translate("SpriteMainWindow", "stamp", 0));
-        rotateCounterClockButton->setText(QApplication::translate("SpriteMainWindow", "Rotate AC", 0));
-        rotateClockwiseButton->setText(QApplication::translate("SpriteMainWindow", "RC", 0));
-        flipHorizontalButton->setText(QApplication::translate("SpriteMainWindow", "Flip L", 0));
-        flipVerticalButton->setText(QApplication::translate("SpriteMainWindow", "FV", 0));
-        undoButton->setText(QApplication::translate("SpriteMainWindow", "undo", 0));
-        redoButton->setText(QApplication::translate("SpriteMainWindow", "redo", 0));
+        penTool->setText(QString());
+        eraserTool->setText(QString());
+        lineTool->setText(QString());
+        ellipseTool->setText(QString());
+        stampTool->setText(QString());
+        rotateCounterClockButton->setText(QString());
+        rotateClockwiseButton->setText(QString());
+        flipHorizontalButton->setText(QString());
+        flipVerticalButton->setText(QString());
+        undoButton->setText(QString());
+        redoButton->setText(QString());
         unassignedButton_3->setText(QApplication::translate("SpriteMainWindow", "-", 0));
         unassignedButton_4->setText(QApplication::translate("SpriteMainWindow", "-", 0));
 #ifndef QT_NO_TOOLTIP
@@ -773,7 +929,7 @@ public:
         brushSize4Button->setShortcut(QApplication::translate("SpriteMainWindow", "Ctrl+4", 0));
         colorPickButton->setText(QString());
         colorPickButton->setShortcut(QApplication::translate("SpriteMainWindow", "Ctrl+P", 0));
-        rectangleTool->setText(QApplication::translate("SpriteMainWindow", "Rect", 0));
+        rectangleTool->setText(QString());
         unassignedButton_5->setText(QApplication::translate("SpriteMainWindow", "-", 0));
         unassignedButton_6->setText(QApplication::translate("SpriteMainWindow", "-", 0));
         menuFile->setTitle(QApplication::translate("SpriteMainWindow", "File", 0));

@@ -55,7 +55,7 @@ public:
 "}\n"
 "\n"
 "#okButton:hover{	\n"
-"	background-color: rgb(181, 183, 183);\n"
+"	background-color: rgb(108, 108, 108);\n"
 "}"));
 
         gridLayout->addWidget(okButton, 2, 0, 1, 1);
