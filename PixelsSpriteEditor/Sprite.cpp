@@ -128,7 +128,7 @@ void Sprite::loadFile(QString file)
                 x++;
             }
         }
-        frames.last()->setPixmap(QPixmap::fromImage(spriteImage, 0).scaled(150, 150));
+        frames.last()->setPixmap(QPixmap::fromImage(spriteImage, 0));
     }
     // Close file
     fileLoad.close();
