@@ -12,6 +12,7 @@
 #include "qevent.h"
 #include "Sprite.h"
 #include "PopupWindow.h"
+#include "Preview.h"
 
 namespace Ui {
 class SpriteMainWindow;
@@ -96,6 +97,12 @@ private:
 
     //contains a pointer to the current frame selected
     Frame* currentFrame;
+
+
+    //Preview Window
+    Preview previewWindow;
+    bool previewIsActive;
+
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
@@ -194,6 +201,8 @@ private slots:
     void on_flipHorizontalButton_clicked();
 
     void changeStamp(int id);
+
+    void setFps(int fps);
 };
 
 #endif // SPRITEMAINWINDOW_H

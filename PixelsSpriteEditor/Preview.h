@@ -18,6 +18,8 @@ public:
 
     void setPixmap(const QPixmap& map);
 
+    void setFps(int fps);
+
 private slots:
     void on_zoomInButton_clicked();
 
@@ -25,8 +27,13 @@ private slots:
 
     void on_closeButton_clicked();
 
+    void on_fpsSliderPreview_valueChanged(int value);
+
 private:
     Ui::Preview *ui;
+
+signals:
+    void fpsChanged(int fps);
 };
 
 #endif // PREVIEW_H

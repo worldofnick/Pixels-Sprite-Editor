@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Sprite Preview</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: qlineargradient(spread:pad, x1:0.482, y1:0.4375, x2:0.488, y2:0.994318, stop:0 rgba(35, 37, 37, 255), stop:1 rgba(51, 53, 53, 255));
@@ -43,28 +43,6 @@ background-color: rgb(108, 108, 108);
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="previewLabel">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>30</y>
-     <width>350</width>
-     <height>350</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="lineWidth">
-    <number>2</number>
-   </property>
-   <property name="midLineWidth">
-    <number>0</number>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QPushButton" name="zoomInButton">
    <property name="geometry">
     <rect>
@@ -78,6 +56,10 @@ background-color: rgb(108, 108, 108);
     <string notr="true">#zoomInButton{
 	border-radius: 2px;
 	border: 2px solid #FFFFFF;
+}
+
+#zoomInButton:hover{
+background-color: rgb(108, 108, 108);
 }</string>
    </property>
    <property name="text">
@@ -97,10 +79,59 @@ background-color: rgb(108, 108, 108);
     <string notr="true">#zoomOutButton{
 	border-radius: 2px;
 	border: 2px solid #FFFFFF;
+}
+
+#zoomOutButton:hover{
+background-color: rgb(108, 108, 108);
 }</string>
    </property>
    <property name="text">
     <string>+</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="fpsSliderPreview">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>100</y>
+     <width>160</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>32</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksBelow</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>80</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Preview Speed</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="previewLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>361</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

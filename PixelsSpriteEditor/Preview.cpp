@@ -39,3 +39,12 @@ void Preview::on_closeButton_clicked()
 {
     this->close();
 }
+
+void Preview::setFps(int fps){
+    ui->fpsSliderPreview->setValue(fps);
+}
+
+void Preview::on_fpsSliderPreview_valueChanged(int value)
+{
+    emit fpsChanged(value);
+}

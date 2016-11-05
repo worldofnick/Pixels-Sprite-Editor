@@ -11,7 +11,6 @@
 #include "ui_SpriteMainWindow.h"
 #include "GetResolutionDialog.h"
 #include "StampSelector.h"
-#include "Preview.h"
 
 #include <QScrollBar>
 
@@ -131,6 +130,9 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(whenTimerUpdates()));
     timer->start(ui->fpsSlider->value());
 
+
+
+    connect(&(this->previewWindow), SIGNAL(fpsChanged(int)), this, SLOT(setFps(int)));
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -149,11 +151,10 @@ SpriteMainWindow::~SpriteMainWindow()
 bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
     if (qobject_cast<QLabel*>(watched)==ui->previewLabelMap && event->type() == QEvent::MouseButtonPress){
-        qDebug() << "Preview Clicked__________";
         //if(event->type() == QEvent::MouseButtonPress){
-            Preview window;
-            window.setPixmap(workspacePixMap);
-            window.exec();
+            previewWindow.setPixmap(workspacePixMap);
+            previewWindow.setFps(currentSprite.getFps());
+            previewWindow.exec();
         //}
         return true;
     }
@@ -874,4 +875,10 @@ void SpriteMainWindow::whenTimerUpdates()
 
     //ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->scaled(PREVIEW_DIMENSION));
     ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->copy());
+    previewWindow.setPixmap((currentSprite.getFrame(it).pixmap())->copy());
+}
+
+void SpriteMainWindow::setFps(int fps){
+    ui->fpsSlider->setValue(fps);
+    currentSprite.setFps(fps);
 }
