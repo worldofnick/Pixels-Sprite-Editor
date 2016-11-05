@@ -184,6 +184,9 @@
            <height>150</height>
           </size>
          </property>
+         <property name="mouseTracking">
+          <bool>false</bool>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When you click on this, a new preview window will open. It has zoom controls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -191,6 +194,9 @@
           <string notr="true">background-color: rgb(29,29,29);
 background-image: url(:transparent pattern 3.png);
 border: none;</string>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
          </property>
          <property name="text">
           <string/>

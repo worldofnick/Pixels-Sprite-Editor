@@ -45,22 +45,20 @@ void GetResolutionDialog::resolution(){
 }
 
 void GetResolutionDialog::closeEvent(QCloseEvent *){
-    int width = ui->widthInputBox->text().toInt();   
-    int height = ui->heightInputBox->text().toInt();
+    int width = ui->widthInputBox->text().toInt();
+    int height = width;
+    //int height = ui->heightInputBox->text().toInt();
 
 
-    if(height <= 0 || width <= 0) {
+    if(width <= 0) {
         QMessageBox::StandardButton warning;
         warning = QMessageBox::warning(this, "Invalid size", "Invalid size: Defaulting to 128x128", QMessageBox::Ok);
     }
 
     if(width <= 0){
         width = 128;
-    }
-    if(height <= 0){
         height = 128;
     }
-
     //Get Selected Color
     int backColor = 0;
     if(resButtonsGroup->checkedButton() == ui->whiteBackgroundButton){
@@ -70,4 +68,9 @@ void GetResolutionDialog::closeEvent(QCloseEvent *){
         backColor = 2;
     }
     emit okClicked(width, height, backColor);
+}
+
+void GetResolutionDialog::on_widthInputBox_textChanged(const QString &arg1)
+{
+    ui->heightInputBox->setText(arg1);
 }

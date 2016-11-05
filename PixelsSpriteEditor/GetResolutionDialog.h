@@ -28,6 +28,8 @@ public slots:
 
 signals:
     void okClicked(int width, int height, int backColor);
+private slots:
+    void on_widthInputBox_textChanged(const QString &arg1);
 };
 
 #endif // GETRESOLUTIONDIALOG_H

@@ -107,6 +107,9 @@ color: rgb(239, 239, 239);</string>
      <height>21</height>
     </rect>
    </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
    <property name="placeholderText">
     <string>128</string>
    </property>
@@ -127,7 +130,7 @@ color: rgb(239, 239, 239);</string>
 }
 
 #okButton:hover{	
-	background-color: rgb(181, 183, 183);
+	background-color: rgb(108, 108, 108);
 }</string>
    </property>
    <property name="text">

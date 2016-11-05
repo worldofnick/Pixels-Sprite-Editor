@@ -181,7 +181,7 @@ public slots:
     void on_brushSize3Button_clicked();
     void on_brushSize4Button_clicked();
 
-    void initialResolution(int width, int height, int backColor);
+    void initialResolution(int width, int backColor);
 
 private slots:
     void on_action2x_Workspace_triggered();

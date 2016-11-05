@@ -18,19 +18,22 @@ SOURCES += main.cpp\
     Frame.cpp \
     Sprite.cpp \
     GetResolutionDialog.cpp \
-    StampSelector.cpp
+    StampSelector.cpp \
+    Preview.cpp
 
 HEADERS  += SpriteMainWindow.h \
     PopupWindow.h \
     Frame.h \
     Sprite.h \
     GetResolutionDialog.h \
-    StampSelector.h
+    StampSelector.h \
+    Preview.h
 
 FORMS    += SpriteMainWindow.ui \
     PopupWindow.ui \
     GetResolutionDialog.ui \
-    StampSelector.ui
+    StampSelector.ui \
+    Preview.ui
 
 RESOURCES += \
     assets/ui_assets.qrc

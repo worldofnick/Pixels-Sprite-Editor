@@ -11,6 +11,7 @@
 #include "ui_SpriteMainWindow.h"
 #include "GetResolutionDialog.h"
 #include "StampSelector.h"
+#include "Preview.h"
 
 #include <QScrollBar>
 
@@ -19,7 +20,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     ui(new Ui::SpriteMainWindow)
 {
     GetResolutionDialog welcomeScreen;
-    connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int,int)));
+    connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int)));
     welcomeScreen.exec();
 
 
@@ -128,6 +129,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(whenTimerUpdates()));
     timer->start(ui->fpsSlider->value());
+
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -145,6 +147,15 @@ SpriteMainWindow::~SpriteMainWindow()
 // class and making it inherit from QLabel (and overide the mouse events).
 bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
+    if (watched == ui->previewLabelMap){
+        qDebug() << "Preview Clicked__________";
+        if(event->type() == QEvent::MouseButtonPress){
+            Preview window;
+            window.setPixmap(workspacePixMap);
+            window.exec();
+        }
+        return true;
+    }
     if (watched == ui->workspaceLabel) {
         clickedInsideWorkspace = true;
         if (event->type() == QEvent::MouseButtonPress) {
@@ -439,7 +450,7 @@ void SpriteMainWindow::on_actionNew_triggered()
     //Check if the user wants to save any changes first, then trigger the reset action.
     if(maybeSave()){
         GetResolutionDialog welcomeScreen;
-        connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int,int)));
+        connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int)));
         welcomeScreen.exec();
         this->on_actionReset_triggered();
     }
@@ -767,7 +778,7 @@ void SpriteMainWindow::on_action2x_Workspace_triggered()
 }
 
 
-void SpriteMainWindow::initialResolution(int width, int height, int backColor){
+void SpriteMainWindow::initialResolution(int width, int backColor){
     //See which color the user selected for the background
     if(backColor == 0){
         //Set Transparent Background
@@ -782,20 +793,8 @@ void SpriteMainWindow::initialResolution(int width, int height, int backColor){
         this->backgroundColor = QColor(0,0,0);
     }
 
-    if(width != height) {
-        if(width >= height) {
-            this->spriteWidth = width;
-            this->spriteHeight = width;
-        }
-        else {
-            this->spriteWidth = height;
-            this->spriteHeight = height;
-        }
-    }
-    else {
-        this->spriteWidth = width;
-        this->spriteHeight = width;
-    }
+    this->spriteWidth = width;
+    this->spriteHeight = width;
 
     // TODO: scale the image to worksapce
 }
