@@ -95,14 +95,16 @@ void Sprite::loadFile(QString file)
     QStringList lineSeg = line.split(" ");
     height = lineSeg.at(0).toInt();
     width = lineSeg.at(1).toInt();
-    QImage spriteImage(width, height, QImage::Format_RGB32);
+    QImage spriteImage(width, height, QImage::Format_ARGB32);
 
     line = in.readLine();
     lineSeg = line.split(" ");
     framesCount = lineSeg.at(0).toInt();
     for(int i = 0; i < framesCount; i++) {
         addFrame();
-        for(int j = 0; j < height; j++) {
+
+        for(int y = 0; y < height; y++) {
+            int x = 0;
             line = in.readLine();
             lineSeg = line.split(" ");
             for(int k = 0; k < lineSeg.size(); k+=4) {
@@ -111,10 +113,11 @@ void Sprite::loadFile(QString file)
                 colorVal.setGreen(lineSeg.at(k+1).toInt());
                 colorVal.setBlue(lineSeg.at(k+2).toInt());
                 colorVal.setAlpha(lineSeg.at(k+3).toInt());
-                spriteImage.setPixelColor(j, i, colorVal);
+                spriteImage.setPixelColor(x, y, colorVal);
+                x++;
             }
         }
-        frames.last()->setPixmap(QPixmap::fromImage(spriteImage, 0));
+        frames.last()->setPixmap(QPixmap::fromImage(spriteImage, 0).scaled(150, 150));
     }
     // Close file
     fileLoad.close();
