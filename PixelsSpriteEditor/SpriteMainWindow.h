@@ -203,6 +203,7 @@ private slots:
     void changeStamp(int id);
 
     void setFps(int fps);
+    void on_duplicateFrameButton_clicked();
 };
 
 #endif // SPRITEMAINWINDOW_H

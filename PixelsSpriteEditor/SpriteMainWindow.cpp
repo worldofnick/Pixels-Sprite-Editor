@@ -669,7 +669,7 @@ void SpriteMainWindow::on_actionShow_Hide_Frame_triggered()
 //Slot for when the Duplicate option is selected from the menu.
 void SpriteMainWindow::on_actionDuplicate_triggered()
 {
-
+    this->on_duplicateFrameButton_clicked();
 }
 
 //Slot for when the delete option is selected from the menu.
@@ -881,4 +881,30 @@ void SpriteMainWindow::whenTimerUpdates()
 void SpriteMainWindow::setFps(int fps){
     ui->fpsSlider->setValue(fps);
     currentSprite.setFps(fps);
+}
+
+void SpriteMainWindow::on_duplicateFrameButton_clicked()
+{
+    Frame* f = new Frame();
+    QPixmap map = currentSprite.getFrame(currentSprite.getFrames().length()-1).pixmap()->copy();
+    f->setPixmap(map);
+
+    currentFrame->makeFrameUnactive();
+
+    currentFrame = f;
+
+    currentSprite.appendFrame(currentFrame);
+
+    ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
+
+    currentFrame->makeFrameActive();
+
+    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+    workspacePixMap = map;
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    //sets the scrollbar to the bottom
+    QScrollBar* verticalScrollBar = ui->framesScrollArea->verticalScrollBar();
+    verticalScrollBar->setMaximum(verticalScrollBar->maximum() + 170);
+    verticalScrollBar->setSliderPosition(verticalScrollBar->maximum());
 }

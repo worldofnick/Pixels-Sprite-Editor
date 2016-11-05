@@ -131,7 +131,7 @@
             <x>0</x>
             <y>0</y>
             <width>164</width>
-            <height>308</height>
+            <height>278</height>
            </rect>
           </property>
          </widget>
@@ -151,6 +151,24 @@
          </property>
          <property name="text">
           <string>+</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="duplicateFrameButton">
+         <property name="styleSheet">
+          <string notr="true">#duplicateFrameButton{
+	border-radius: 4px;
+	background-color: rgb(100, 100, 100);
+	color: rgb(252, 255, 255);
+}
+
+#duplicateFrameButton:hover{	
+	background-color: rgb(183, 183, 183);
+}</string>
+         </property>
+         <property name="text">
+          <string>Duplicate Last Frame</string>
          </property>
         </widget>
        </item>

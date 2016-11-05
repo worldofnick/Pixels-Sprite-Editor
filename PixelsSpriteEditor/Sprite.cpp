@@ -73,6 +73,10 @@ Frame& Sprite::getFrame(int index)
     return *(frames.at(index));
 }
 
+void Sprite::appendFrame(Frame *frame){
+    frames.append(frame);
+}
+
 void Sprite::setFps(int speed)
 {
     fps = speed;
