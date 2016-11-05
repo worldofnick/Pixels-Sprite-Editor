@@ -40,7 +40,7 @@ void StampSelector::closeEvent(QCloseEvent *){
     }
 }
 
-void StampSelector::on_pushButton_clicked()
+void StampSelector::on_selectButton_clicked()
 {
     this->close();
 }

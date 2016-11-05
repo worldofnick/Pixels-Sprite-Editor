@@ -24,7 +24,7 @@ protected:
 signals:
     void selectedStamp(int id);
 private slots:
-    void on_pushButton_clicked();
+    void on_selectButton_clicked();
 };
 
 #endif // STAMPSELECTOR_H

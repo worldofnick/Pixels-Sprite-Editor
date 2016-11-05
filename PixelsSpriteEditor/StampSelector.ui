@@ -6,21 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
+    <width>334</width>
     <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <property name="styleSheet">
+   <string notr="true">background-color: qlineargradient(spread:pad, x1:0.482, y1:0.4375, x2:0.488, y2:0.994318, stop:0 rgba(35, 37, 37, 255), stop:1 rgba(51, 53, 53, 255));
+color: rgb(239, 239, 239);</string>
+  </property>
+  <widget class="QPushButton" name="selectButton">
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>390</y>
+     <y>380</y>
      <width>100</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#selectButton{
+	border-radius: 8px;
+	border: 2px solid #FFFFFF;
+}
+
+#selectButton:hover{	
+	background-color: rgb(181, 183, 183);
+}</string>
    </property>
    <property name="text">
     <string>SELECT</string>
