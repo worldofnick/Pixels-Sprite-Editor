@@ -208,7 +208,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
 
 
-            ui->workspaceLabel->setPixmap(currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION));
+            //ui->workspaceLabel->setPixmap(currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION));
 
             return true;
         }
@@ -253,6 +253,7 @@ void SpriteMainWindow::updateWorkspace() {
    if (brush == pencil || brush == eraser || shapeShouldNowBeDrawn){
     painter.begin(&workspacePixMap);
     painter.setCompositionMode(QPainter::CompositionMode_Source);
+    painter.setRenderHints(QPainter::Antialiasing, QPainter::SmoothPixmapTransform);
 
 
     painter.setPen(pen);
