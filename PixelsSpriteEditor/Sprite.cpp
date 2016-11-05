@@ -49,10 +49,11 @@ Sprite::~Sprite()
 {
     //delete timer;
 
-    for (int i = 0; i < frames.size(); i++){
-        //removing the & here will make it crash!!!!
-        delete &frames.first();
-    }
+//    for (int i = 0; i < frames.size(); i++){
+//        //removing the & here will make it crash!!!!
+//        delete &frames.first();
+//    }
+    frames.clear();
 }
 
 const QVector<Frame*> Sprite::getFrames(){

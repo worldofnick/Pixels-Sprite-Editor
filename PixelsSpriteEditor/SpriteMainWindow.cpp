@@ -122,7 +122,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     // Setup and start the preview timer
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(on_timer_update()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(whenTimerUpdates()));
     timer->start(ui->fpsSlider->value());
 }
 
@@ -838,7 +838,7 @@ void SpriteMainWindow::on_flipHorizontalButton_clicked()
     currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
 }
 
-void SpriteMainWindow::on_timer_update()
+void SpriteMainWindow::whenTimerUpdates()
 {
     if(currentSprite.getFps() > 0)
         it++;

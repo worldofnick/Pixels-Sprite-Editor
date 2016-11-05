@@ -174,7 +174,7 @@ public slots:
     void on_actionWalkthrough_triggered();
 
     // Timer slot
-    void on_timer_update();
+    void whenTimerUpdates();
 
     void on_brushSize1Button_clicked();
     void on_brushSize2Button_clicked();
