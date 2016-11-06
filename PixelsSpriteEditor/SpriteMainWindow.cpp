@@ -907,14 +907,24 @@ void SpriteMainWindow::whenTimerUpdates()
         it = 0;
     }
 
-    //ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->scaled(PREVIEW_DIMENSION));
-    if((currentSprite.getFrame(it).getIsVisible())){
-        ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->copy());
-        previewWindow.setPixmap((currentSprite.getFrame(it).pixmap())->copy());
+    //counts how many non visible frames there are
+    int numOfNotVisible = 0;
+    //if the current frame is not visible, iterate until there is one visible.
+    while (!currentSprite.getFrame(it).getIsVisible()){
+        numOfNotVisible++;
+        it++;
+        if(it >= currentSprite.getFrames().size()){
+            it = 0;
+        }
+        //if all of the frames are not visible, return
+        if (numOfNotVisible >= currentSprite.getFrames().size() ){
+            return;
+        }
+
     }
-    else{
-        this->whenTimerUpdates();
-    }
+
+    ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->copy());
+    previewWindow.setPixmap((currentSprite.getFrame(it).pixmap())->copy());
 }
 
 void SpriteMainWindow::setFps(int fps){
