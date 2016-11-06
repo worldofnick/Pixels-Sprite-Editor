@@ -378,11 +378,13 @@ void SpriteMainWindow::changeStamp(int id){
 
 void SpriteMainWindow::on_ellipseTool_clicked()
 {
+    pen.setColor(penColor);
     brush = ellipse;
 }
 
 void SpriteMainWindow::on_rectangleTool_clicked()
 {
+    pen.setColor(penColor);
     brush = rect;
 }
 
@@ -505,8 +507,21 @@ void SpriteMainWindow::on_actionOpen_triggered()
         QString filename = dialog.getOpenFileName();
 
     }*/
+
+    //creates a dialog and a popup appears asking for filename.
     QFileDialog dialog;
-    currentSprite.loadFile(dialog.getOpenFileName());
+    QString nameOfFile= dialog.getOpenFileName(this, tr("Open File"), "", tr("Sprite (*.ssp)"));
+
+    //if user canceled out of the dialog, return and do nothing.
+    if (nameOfFile == ""){
+        return;
+    }
+
+    //Check if the user wants to save any changes first, then open the project.
+    maybeSave();
+
+    //opening project
+    currentSprite.loadFile(nameOfFile);
 
 
 
