@@ -26,6 +26,7 @@ public:
     const QVector<Frame*> getFrames();
     void setFilename(const QString& filename);
     void appendFrame(Frame* frame);
+    bool removeFrame(Frame* frame);
 
 private:
     QVector<Frame*> frames;

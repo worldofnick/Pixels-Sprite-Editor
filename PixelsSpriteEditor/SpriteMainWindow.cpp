@@ -124,14 +124,10 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     currentFrame->makeFrameActive();
 
-
     connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
 
     //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
     currentFrame->setPixmap(workspacePixMap.copy());
-
-    //qDebug() << currentFrame->pixmap()->width();
-    //qDebug() << currentFrame->pixmap()->height();
 
     QPixmap tempPixmap = *currentSprite.getFrame(0).pixmap();
     //ui->previewLabelMap->setPixmap(tempPixmap.scaled(PREVIEW_DIMENSION));
@@ -164,6 +160,8 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
     if (qobject_cast<QLabel*>(watched)==ui->previewLabelMap && event->type() == QEvent::MouseButtonPress){
         //if(event->type() == QEvent::MouseButtonPress){
+
+        qDebug() << "Preview Clicked";
             previewWindow.setPixmap(workspacePixMap);
             previewWindow.setFps(currentSprite.getFps());
             previewWindow.exec();
@@ -419,8 +417,6 @@ void SpriteMainWindow::on_eraserTool_clicked()
     pen.setColor(this->backgroundColor);
     brush = eraser;
 }
-
-
 
 void SpriteMainWindow::on_penTool_clicked()
 {
@@ -737,9 +733,35 @@ void SpriteMainWindow::on_actionDuplicate_triggered()
 }
 
 //Slot for when the delete option is selected from the menu.
+//Remove a frame
 void SpriteMainWindow::on_actionDelete_triggered()
 {
+    //Find the position of the frame to be deleted from the currentSprite's frames vector
+    QVector<Frame*> frames = this->currentSprite.getFrames();
+    if(frames.length() > 1){
+        int frameID = -1;
+        for(int i = 0; i < frames.length(); i++){
+            if(frames.at(i) == currentFrame){
+                frameID = i;
+                break;
+            }
+        }
 
+        if(currentSprite.removeFrame(currentFrame)){
+            currentFrame = this->currentSprite.getFrames().first();
+
+            QLayoutItem* child = ui->scrollAreaWidgetContents->layout()->takeAt(frameID);
+            delete child->widget();
+            delete child;
+
+            workspacePixMap = currentFrame->pixmap()->copy();
+            ui->workspaceLabel->setPixmap(workspacePixMap);
+            currentFrame->makeFrameActive();
+        }
+    }
+    else{
+        //Add a message here that you can't remove a frame if there is only one??
+    }
 }
 
 //Slot for when the remove all option is selected from the menu.

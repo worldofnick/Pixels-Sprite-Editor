@@ -233,3 +233,8 @@ void Sprite::frameSelected(Frame* other){
 void Sprite::setFilename(const QString &filename){
     this->filename = filename;
 }
+
+//Returns true if the remove was successful
+bool Sprite::removeFrame(Frame *frame){
+    return this->frames.removeOne(frame);
+}
