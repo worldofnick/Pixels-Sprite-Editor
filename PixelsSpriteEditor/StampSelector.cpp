@@ -15,20 +15,28 @@ StampSelector::StampSelector(QWidget *parent) :
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setWindowFlags(Qt::FramelessWindowHint);
 
-//    QGraphicsBlurEffect* blurEffect = new QGraphicsBlurEffect( );
-//    blurEffect->setBlurHints(QGraphicsBlurEffect::AnimationHint);
-//    blurEffect->setBlurRadius(1);
-//    this->setGraphicsEffect( blurEffect );
+    //    QGraphicsBlurEffect* blurEffect = new QGraphicsBlurEffect( );
+    //    blurEffect->setBlurHints(QGraphicsBlurEffect::AnimationHint);
+    //    blurEffect->setBlurRadius(1);
+    //    this->setGraphicsEffect( blurEffect );
 
 
     ui->marioLabel->installEventFilter(this);
+    ui->marioLabel_2->installEventFilter(this);
+    ui->marioLabel_3->installEventFilter(this);
+    ui->marioLabel_4->installEventFilter(this);
     ui->sunLabel->installEventFilter(this);
     ui->cloudLabel->installEventFilter(this);
 
+    whichStampSelected = 0;
+
     QPixmap map;
     map.load(":/stamps/Retro-Mario-icon.png");
-    ui->marioLabel->setPixmap(map);
-    whichStampSelected = 0;
+    ui->marioLabel->setPixmap(map.copy());
+    ui->marioLabel_2->setPixmap(map.copy());
+    ui->marioLabel_3->setPixmap(map.copy());
+    ui->marioLabel_4->setPixmap(map.copy());
+
 
     QPixmap sun;
     sun.load(":/stamps/orange-sun.png");
@@ -43,25 +51,30 @@ StampSelector::StampSelector(QWidget *parent) :
 
 StampSelector::~StampSelector()
 {
-
     delete ui;
 }
 
 bool StampSelector::eventFilter(QObject *watched, QEvent *event)
 {
-    if (watched == ui->marioLabel && event->type() == QEvent::MouseButtonPress){
-
-        whichStampSelected = 0;
-        this->close();
-        return true;
-    }
-    else if (watched == ui->sunLabel && event->type() == QEvent::MouseButtonPress){
-        whichStampSelected = 1;
-        this->close();
-        return true;
-    }
-    else if (watched == ui->cloudLabel && event->type() == QEvent::MouseButtonPress){
-        whichStampSelected = 2;
+    if (event->type() == QEvent::MouseButtonPress){
+        if(watched == ui->marioLabel) {
+            whichStampSelected = 0;
+        }
+        else if (watched == ui->sunLabel){
+            whichStampSelected = 1;
+        }
+        else if (watched == ui->cloudLabel){
+            whichStampSelected = 2;
+        }
+        else if (watched == ui->marioLabel_2){
+            whichStampSelected = 3;
+        }
+        else if (watched == ui->marioLabel_3){
+            whichStampSelected = 4;
+        }
+        else if (watched == ui->marioLabel_4){
+            whichStampSelected = 5;
+        }
         this->close();
         return true;
     }

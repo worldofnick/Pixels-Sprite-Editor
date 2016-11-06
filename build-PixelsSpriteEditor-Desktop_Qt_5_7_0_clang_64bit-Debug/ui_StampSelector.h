@@ -35,23 +35,22 @@ public:
     QLabel *marioLabel;
     QLabel *sunLabel;
     QLabel *cloudLabel;
+    QLabel *marioLabel_2;
     QLabel *marioLabel_3;
     QLabel *marioLabel_4;
-    QLabel *marioLabel_2;
-    QLabel *marioLabel_5;
 
     void setupUi(QDialog *StampSelector)
     {
         if (StampSelector->objectName().isEmpty())
             StampSelector->setObjectName(QStringLiteral("StampSelector"));
         StampSelector->resize(160, 600);
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(StampSelector->sizePolicy().hasHeightForWidth());
         StampSelector->setSizePolicy(sizePolicy);
         StampSelector->setMinimumSize(QSize(160, 500));
-        StampSelector->setMaximumSize(QSize(160, 1000));
+        StampSelector->setMaximumSize(QSize(160, 2000));
         StampSelector->setStyleSheet(QLatin1String("#StampSelector {\n"
 "background-color: transparent;\n"
 "}"));
@@ -62,7 +61,7 @@ public:
         sizePolicy.setHeightForWidth(stampBackFrame->sizePolicy().hasHeightForWidth());
         stampBackFrame->setSizePolicy(sizePolicy);
         stampBackFrame->setMinimumSize(QSize(136, 476));
-        stampBackFrame->setMaximumSize(QSize(136, 1000));
+        stampBackFrame->setMaximumSize(QSize(136, 2000));
         stampBackFrame->setStyleSheet(QLatin1String("#stampBackFrame {\n"
 "background-color: rgb(50, 51, 54, 170);\n"
 "border: 0px solid rgb(252, 252, 252);\n"
@@ -77,7 +76,7 @@ public:
         sizePolicy.setHeightForWidth(stampScrollArea->sizePolicy().hasHeightForWidth());
         stampScrollArea->setSizePolicy(sizePolicy);
         stampScrollArea->setMinimumSize(QSize(136, 576));
-        stampScrollArea->setMaximumSize(QSize(136, 576));
+        stampScrollArea->setMaximumSize(QSize(136, 2000));
         stampScrollArea->setStyleSheet(QLatin1String("#stampScrollArea {\n"
 "background-color: transparent;\n"
 "}"));
@@ -90,17 +89,19 @@ public:
         stampScrollArea->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 136, 714));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 136, 614));
         scrollAreaWidgetContents->setStyleSheet(QLatin1String("#scrollAreaWidgetContents {\n"
 "background-color: transparent;\n"
 "}"));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(12, -1, -1, -1);
         marioLabel = new QLabel(scrollAreaWidgetContents);
         marioLabel->setObjectName(QStringLiteral("marioLabel"));
-        sizePolicy.setHeightForWidth(marioLabel->sizePolicy().hasHeightForWidth());
-        marioLabel->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(marioLabel->sizePolicy().hasHeightForWidth());
+        marioLabel->setSizePolicy(sizePolicy1);
         marioLabel->setMinimumSize(QSize(90, 90));
         marioLabel->setMaximumSize(QSize(90, 90));
         marioLabel->setStyleSheet(QLatin1String("#marioLabel {\n"
@@ -130,19 +131,19 @@ public:
 
         sunLabel = new QLabel(scrollAreaWidgetContents);
         sunLabel->setObjectName(QStringLiteral("sunLabel"));
-        sizePolicy.setHeightForWidth(sunLabel->sizePolicy().hasHeightForWidth());
-        sunLabel->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(sunLabel->sizePolicy().hasHeightForWidth());
+        sunLabel->setSizePolicy(sizePolicy1);
         sunLabel->setMinimumSize(QSize(90, 90));
         sunLabel->setMaximumSize(QSize(90, 90));
         sunLabel->setStyleSheet(QLatin1String("#sunLabel {\n"
-"background-color: rgb(54,58,62,120);\n"
+"background-color: rgb(54,58,62,30);\n"
 "border-radius: 10px;\n"
 "background-repeat: none;\n"
 "margin: 6px;\n"
 "}\n"
 "#sunLabel:hover\n"
 "{\n"
-"background-color: rgb(54,58,62,160);\n"
+"background-color: rgb(54,58,62,50);\n"
 "border-radius: 10px;\n"
 "border-top: -15px transparent;\n"
 "border-bottom: -15px transparent;\n"
@@ -159,19 +160,19 @@ public:
 
         cloudLabel = new QLabel(scrollAreaWidgetContents);
         cloudLabel->setObjectName(QStringLiteral("cloudLabel"));
-        sizePolicy.setHeightForWidth(cloudLabel->sizePolicy().hasHeightForWidth());
-        cloudLabel->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(cloudLabel->sizePolicy().hasHeightForWidth());
+        cloudLabel->setSizePolicy(sizePolicy1);
         cloudLabel->setMinimumSize(QSize(90, 90));
         cloudLabel->setMaximumSize(QSize(90, 90));
         cloudLabel->setStyleSheet(QLatin1String("#cloudLabel {\n"
-"background-color: rgb(54,58,62,120);\n"
+"background-color: rgb(54,58,62,30);\n"
 "border-radius: 10px;\n"
 "background-repeat: none;\n"
 "margin: 6px;\n"
 "}\n"
 "#cloudLabel:hover\n"
 "{\n"
-"background-color: rgb(54,58,62,160);\n"
+"background-color: rgb(54,58,62,50);\n"
 "border-radius: 10px;\n"
 "border-top: -15px transparent;\n"
 "border-bottom: -15px transparent;\n"
@@ -186,22 +187,53 @@ public:
 
         verticalLayout_2->addWidget(cloudLabel);
 
-        marioLabel_3 = new QLabel(scrollAreaWidgetContents);
-        marioLabel_3->setObjectName(QStringLiteral("marioLabel_3"));
-        sizePolicy.setHeightForWidth(marioLabel_3->sizePolicy().hasHeightForWidth());
-        marioLabel_3->setSizePolicy(sizePolicy);
-        marioLabel_3->setMinimumSize(QSize(90, 90));
-        marioLabel_3->setMaximumSize(QSize(90, 90));
-        marioLabel_3->setStyleSheet(QLatin1String("#marioLabel {\n"
-"background-color: rgb(54,58,62,120);\n"
+        marioLabel_2 = new QLabel(scrollAreaWidgetContents);
+        marioLabel_2->setObjectName(QStringLiteral("marioLabel_2"));
+        sizePolicy1.setHeightForWidth(marioLabel_2->sizePolicy().hasHeightForWidth());
+        marioLabel_2->setSizePolicy(sizePolicy1);
+        marioLabel_2->setMinimumSize(QSize(90, 90));
+        marioLabel_2->setMaximumSize(QSize(90, 90));
+        marioLabel_2->setStyleSheet(QLatin1String("#marioLabel_2 {\n"
+"background-color: rgb(54,58,62,30);\n"
 "border-radius: 10px;\n"
 "background-repeat: none;\n"
 "margin: 6px;\n"
 "padding: 10px;\n"
 "}\n"
-"#marioLabel:hover\n"
+"#marioLabel_2:hover\n"
 "{\n"
-"background-color: rgb(54,58,62,160);\n"
+"background-color: rgb(54,58,62,50);\n"
+"border-radius: 10px;\n"
+"border-top: -15px transparent;\n"
+"border-bottom: -15px transparent;\n"
+"border-right: -15px transparent;\n"
+"border-left: -15px transparent;\n"
+"margin: 2px;\n"
+"padding: 0px;\n"
+"}"));
+        marioLabel_2->setFrameShape(QFrame::NoFrame);
+        marioLabel_2->setLineWidth(0);
+        marioLabel_2->setScaledContents(true);
+        marioLabel_2->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_2->addWidget(marioLabel_2);
+
+        marioLabel_3 = new QLabel(scrollAreaWidgetContents);
+        marioLabel_3->setObjectName(QStringLiteral("marioLabel_3"));
+        sizePolicy1.setHeightForWidth(marioLabel_3->sizePolicy().hasHeightForWidth());
+        marioLabel_3->setSizePolicy(sizePolicy1);
+        marioLabel_3->setMinimumSize(QSize(90, 90));
+        marioLabel_3->setMaximumSize(QSize(90, 90));
+        marioLabel_3->setStyleSheet(QLatin1String("#marioLabel_3 {\n"
+"background-color: rgb(54,58,62,30);\n"
+"border-radius: 10px;\n"
+"background-repeat: none;\n"
+"margin: 6px;\n"
+"padding: 10px;\n"
+"}\n"
+"#marioLabel_3:hover\n"
+"{\n"
+"background-color: rgb(54,58,62,50);\n"
 "border-radius: 10px;\n"
 "border-top: -15px transparent;\n"
 "border-bottom: -15px transparent;\n"
@@ -219,20 +251,20 @@ public:
 
         marioLabel_4 = new QLabel(scrollAreaWidgetContents);
         marioLabel_4->setObjectName(QStringLiteral("marioLabel_4"));
-        sizePolicy.setHeightForWidth(marioLabel_4->sizePolicy().hasHeightForWidth());
-        marioLabel_4->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(marioLabel_4->sizePolicy().hasHeightForWidth());
+        marioLabel_4->setSizePolicy(sizePolicy1);
         marioLabel_4->setMinimumSize(QSize(90, 90));
         marioLabel_4->setMaximumSize(QSize(90, 90));
-        marioLabel_4->setStyleSheet(QLatin1String("#marioLabel {\n"
-"background-color: rgb(54,58,62,120);\n"
+        marioLabel_4->setStyleSheet(QLatin1String("#marioLabel_4 {\n"
+"background-color: rgb(54,58,62,30);\n"
 "border-radius: 10px;\n"
 "background-repeat: none;\n"
 "margin: 6px;\n"
 "padding: 10px;\n"
 "}\n"
-"#marioLabel:hover\n"
+"#marioLabel_4:hover\n"
 "{\n"
-"background-color: rgb(54,58,62,160);\n"
+"background-color: rgb(54,58,62,50);\n"
 "border-radius: 10px;\n"
 "border-top: -15px transparent;\n"
 "border-bottom: -15px transparent;\n"
@@ -248,72 +280,10 @@ public:
 
         verticalLayout_2->addWidget(marioLabel_4);
 
-        marioLabel_2 = new QLabel(scrollAreaWidgetContents);
-        marioLabel_2->setObjectName(QStringLiteral("marioLabel_2"));
-        sizePolicy.setHeightForWidth(marioLabel_2->sizePolicy().hasHeightForWidth());
-        marioLabel_2->setSizePolicy(sizePolicy);
-        marioLabel_2->setMinimumSize(QSize(90, 90));
-        marioLabel_2->setMaximumSize(QSize(90, 90));
-        marioLabel_2->setStyleSheet(QLatin1String("#marioLabel {\n"
-"background-color: rgb(54,58,62,120);\n"
-"border-radius: 10px;\n"
-"background-repeat: none;\n"
-"margin: 6px;\n"
-"}\n"
-"#marioLabel:hover\n"
-"{\n"
-"background-color: rgb(54,58,62,160);\n"
-"border-radius: 10px;\n"
-"border-top: -15px transparent;\n"
-"border-bottom: -15px transparent;\n"
-"border-right: -15px transparent;\n"
-"border-left: -15px transparent;\n"
-"margin: 2px;\n"
-"}"));
-        marioLabel_2->setFrameShape(QFrame::NoFrame);
-        marioLabel_2->setLineWidth(0);
-        marioLabel_2->setScaledContents(true);
-        marioLabel_2->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_2->addWidget(marioLabel_2);
-
-        marioLabel_5 = new QLabel(scrollAreaWidgetContents);
-        marioLabel_5->setObjectName(QStringLiteral("marioLabel_5"));
-        sizePolicy.setHeightForWidth(marioLabel_5->sizePolicy().hasHeightForWidth());
-        marioLabel_5->setSizePolicy(sizePolicy);
-        marioLabel_5->setMinimumSize(QSize(90, 90));
-        marioLabel_5->setMaximumSize(QSize(90, 90));
-        marioLabel_5->setStyleSheet(QLatin1String("#marioLabel {\n"
-"background-color: rgb(54,58,62,120);\n"
-"border-radius: 10px;\n"
-"background-repeat: none;\n"
-"margin: 6px;\n"
-"padding: 10px;\n"
-"}\n"
-"#marioLabel:hover\n"
-"{\n"
-"background-color: rgb(54,58,62,160);\n"
-"border-radius: 10px;\n"
-"border-top: -15px transparent;\n"
-"border-bottom: -15px transparent;\n"
-"border-right: -15px transparent;\n"
-"border-left: -15px transparent;\n"
-"margin: 2px;\n"
-"padding: 0px;\n"
-"}"));
-        marioLabel_5->setFrameShape(QFrame::NoFrame);
-        marioLabel_5->setLineWidth(0);
-        marioLabel_5->setScaledContents(true);
-        marioLabel_5->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_2->addWidget(marioLabel_5);
-
         stampScrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_3->addWidget(stampScrollArea);
 
-        stampScrollArea->raise();
-        marioLabel->raise();
 
         verticalLayout->addWidget(stampBackFrame);
 
@@ -329,10 +299,9 @@ public:
         marioLabel->setText(QApplication::translate("StampSelector", "Mario", 0));
         sunLabel->setText(QApplication::translate("StampSelector", "Sun", 0));
         cloudLabel->setText(QApplication::translate("StampSelector", "Cloud", 0));
+        marioLabel_2->setText(QApplication::translate("StampSelector", "Mario", 0));
         marioLabel_3->setText(QApplication::translate("StampSelector", "Mario", 0));
         marioLabel_4->setText(QApplication::translate("StampSelector", "Mario", 0));
-        marioLabel_2->setText(QApplication::translate("StampSelector", "Mario", 0));
-        marioLabel_5->setText(QApplication::translate("StampSelector", "Mario", 0));
     } // retranslateUi
 
 };

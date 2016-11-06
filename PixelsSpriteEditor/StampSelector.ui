@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+   <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -25,7 +25,7 @@
   <property name="maximumSize">
    <size>
     <width>160</width>
-    <height>1000</height>
+    <height>2000</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,7 @@ background-color: transparent;
    <item>
     <widget class="QFrame" name="stampBackFrame">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+      <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -54,7 +54,7 @@ background-color: transparent;
      <property name="maximumSize">
       <size>
        <width>136</width>
-       <height>1000</height>
+       <height>2000</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -74,7 +74,7 @@ border-radius: 20px;
       <item>
        <widget class="QScrollArea" name="stampScrollArea">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -88,7 +88,7 @@ border-radius: 20px;
         <property name="maximumSize">
          <size>
           <width>136</width>
-          <height>576</height>
+          <height>2000</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -475,8 +475,6 @@ padding: 0px;
        </widget>
       </item>
      </layout>
-     <zorder>stampScrollArea</zorder>
-     <zorder>marioLabel</zorder>
     </widget>
    </item>
   </layout>

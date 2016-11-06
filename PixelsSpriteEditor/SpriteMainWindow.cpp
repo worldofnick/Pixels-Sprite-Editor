@@ -373,13 +373,13 @@ void SpriteMainWindow::call() {
 }
 
 void SpriteMainWindow::changeStamp(int id){
-    if(id == 0){
+    if(id == 0 || id == 3 || id == 4 || id == 5){
         selectedStamp.load(":/stamps/Retro-Mario-icon.png");
     }
     else if(id == 1){
         selectedStamp.load(":/stamps/orange-sun.png");
     }
-    else{
+    else if(id == 2){
         selectedStamp.load(":/stamps/cloud.png");
     }
 }
