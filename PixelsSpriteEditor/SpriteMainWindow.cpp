@@ -64,10 +64,10 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     //toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
     //toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
     //toolsButtonsGroup->addButton(ui->rotateClockwiseButton, 11);
-    toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
-    toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
-    toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);
-    toolsButtonsGroup->addButton(ui->unassignedButton_6, 15);
+    //toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
+    //toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
+    //toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);
+    //toolsButtonsGroup->addButton(ui->unassignedButton_6, 15);
 
     brushSizeButtonsGroup = new QButtonGroup(this);
     brushSizeButtonsGroup->addButton(ui->brushSize1Button, 0);
@@ -88,9 +88,12 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     shapeShouldNowBeDrawn = false;
 
-    // Connections for undo/redo buttons
+    // Connections for undo,redo,zooming buttons
     connect(ui->undoButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionUndo_triggered);
     connect(ui->redoButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionRedo_triggered);
+    connect(ui->zoomInButton, &QPushButton::clicked, this, &SpriteMainWindow::on_action2x_Workspace_triggered);
+    connect(ui->zoomOutButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionZoom_Out_triggered);
+    connect(ui->oneToOneButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionReset_Size_triggered);
 
     // Install SpriteMainWindow as an event handler for the workspaceLabel
     ui->workspaceLabel->installEventFilter(this);

@@ -135,7 +135,7 @@ color: rgb(239, 239, 239);</string>
             <x>0</x>
             <y>0</y>
             <width>180</width>
-            <height>235</height>
+            <height>241</height>
            </rect>
           </property>
          </widget>
@@ -1445,7 +1445,7 @@ margin: 10px;
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="unassignedButton_3">
+      <widget class="QPushButton" name="zoomInButton">
        <property name="geometry">
         <rect>
          <x>8</x>
@@ -1473,36 +1473,38 @@ margin: 10px;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#unassignedButton_3 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+        <string notr="true">#zoomInButton {
+border-image: url(:Zoom In-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
 }
-
-#unassignedButton_3:hover
+#zoomInButton:hover
 {
-	background-color: rgb(179, 179, 179, 30);
-	border: 0px solid rgb(252, 252, 252);
-	border-radius: 10px;
+border-image: url(:Zoom In Filled-100(1).png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
 }
-
-#unassignedButton_3:checked
+#zoomInButton:pressed
 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
+border-image: url(:Zoom In Filled-100(1).png);
+margin: 0px;
 }
-
-#unassignedButton_3:unchecked {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+#zoomInButton:released
+{
+border-image: url(:Zoom In-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
 }</string>
        </property>
        <property name="text">
-        <string>-</string>
+        <string/>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -1511,7 +1513,7 @@ margin: 10px;
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="unassignedButton_4">
+      <widget class="QPushButton" name="zoomOutButton">
        <property name="geometry">
         <rect>
          <x>62</x>
@@ -1539,36 +1541,38 @@ margin: 10px;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#unassignedButton_4 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+        <string notr="true">#zoomOutButton {
+border-image: url(:Zoom Out-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
 }
-
-#unassignedButton_4:hover
+#zoomOutButton:hover
 {
-	background-color: rgb(179, 179, 179, 30);
-	border: 0px solid rgb(252, 252, 252);
-	border-radius: 10px;
+border-image: url(:Zoom Out Filled-100(1).png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
 }
-
-#unassignedButton_4:checked
+#zoomOutButton:pressed
 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
+border-image: url(:Zoom Out Filled-100(1).png);
+margin: 0px;
 }
-
-#unassignedButton_4:unchecked {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+#zoomOutButton:released
+{
+border-image: url(:Zoom Out-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
 }</string>
        </property>
        <property name="text">
-        <string>-</string>
+        <string/>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -1986,7 +1990,7 @@ margin: 10px;
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="unassignedButton_5">
+      <widget class="QPushButton" name="oneToOneButton">
        <property name="geometry">
         <rect>
          <x>8</x>
@@ -2014,36 +2018,38 @@ margin: 10px;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#unassignedButton_5 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+        <string notr="true">#oneToOneButton {
+border-image: url(:One To One-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
 }
-
-#unassignedButton_5:hover
+#oneToOneButton:hover
 {
-	background-color: rgb(179, 179, 179, 30);
-	border: 0px solid rgb(252, 252, 252);
-	border-radius: 10px;
+border-image: url(:One To One Filled-100-2.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
 }
-
-#unassignedButton_5:checked
+#oneToOneButton:pressed
 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
+border-image: url(:One To One Filled-100-2.png);
+margin: 0px;
 }
-
-#unassignedButton_5:unchecked {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+#oneToOneButton:released
+{
+border-image: url(:One To One-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
 }</string>
        </property>
        <property name="text">
-        <string>-</string>
+        <string/>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -2128,8 +2134,8 @@ margin: 10px;
       <zorder>flipVerticalButton</zorder>
       <zorder>undoButton</zorder>
       <zorder>redoButton</zorder>
-      <zorder>unassignedButton_3</zorder>
-      <zorder>unassignedButton_4</zorder>
+      <zorder>zoomInButton</zorder>
+      <zorder>zoomOutButton</zorder>
       <zorder>brushSize1Button</zorder>
       <zorder>brushSize2Button</zorder>
       <zorder>brushSize3Button</zorder>
@@ -2137,7 +2143,7 @@ margin: 10px;
       <zorder>colorPickButton</zorder>
       <zorder>rectangleTool</zorder>
       <zorder>penTool</zorder>
-      <zorder>unassignedButton_5</zorder>
+      <zorder>oneToOneButton</zorder>
       <zorder>unassignedButton_6</zorder>
      </widget>
     </item>
