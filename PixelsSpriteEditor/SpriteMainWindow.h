@@ -59,7 +59,7 @@ private:
 
     bool stampIsActive;
     bool stampShouldBeDrawn;
-
+    bool transparentGridIsVisible;
     bool drawStarted;
     bool shapeShouldNowBeDrawn;
 
@@ -216,6 +216,7 @@ private slots:
     void on_duplicateFrameButton_clicked();
     void on_actionZoom_Out_triggered();
     void on_actionReset_Size_triggered();
+    void on_transparentGridButton_clicked();
 };
 
 #endif // SPRITEMAINWINDOW_H

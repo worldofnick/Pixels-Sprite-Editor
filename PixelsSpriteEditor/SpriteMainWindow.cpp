@@ -35,6 +35,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     penColor = qRgb(255, 198, 6);
     pen.setColor(penColor);
     penWidthSelected = 1;
+    transparentGridIsVisible = true;
     pen.setWidth(penWidthSelected);
     clickedInsideWorkspace = false;     //TODO: keep or remove later
     timesScaled = 0;
@@ -1063,5 +1064,18 @@ void SpriteMainWindow::resetAllFrameSizes() {
     QVector<Frame*> frames = currentSprite.getFrames();
     for(int i = 0; i < frames.size(); i++) {
         frames[i]->setPixmap(frames[i]->pixmap()->scaled(spriteWidth, spriteHeight));
+    }
+}
+
+void SpriteMainWindow::on_transparentGridButton_clicked()
+{
+    if(transparentGridIsVisible) {
+        ui->workspaceLabel->setStyleSheet("#workspaceLabel { background-color: rgb(29,29,29); border: none;}");
+        transparentGridIsVisible = false;
+    }
+    else {
+        ui->workspaceLabel->setStyleSheet("#workspaceLabel { background-color: rgb(29,29,29); "
+                                          "background-image: url(:transparent pattern 3.png);border: none;}");
+        transparentGridIsVisible = true;
     }
 }

@@ -2058,7 +2058,7 @@ margin: 10px;
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="unassignedButton_6">
+      <widget class="QPushButton" name="transparentGridButton">
        <property name="geometry">
         <rect>
          <x>62</x>
@@ -2086,36 +2086,38 @@ margin: 10px;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#unassignedButton_6 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+        <string notr="true">#transparentGridButton {
+border-image: url(:Activity Grid-100.png);
+background: transparent;
+background-repeat: none;
+margin: 10px;
 }
-
-#unassignedButton_6:hover
+#transparentGridButton:hover
 {
-	background-color: rgb(179, 179, 179, 30);
-	border: 0px solid rgb(252, 252, 252);
-	border-radius: 10px;
+border-image: url(:Activity Grid Filled-100.png) -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 2px;
 }
-
-#unassignedButton_6:checked
+#transparentGridButton:pressed
 {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
+border-image: url(:Activity Grid Filled-100.png);
+margin: 0px;
 }
-
-#unassignedButton_6:unchecked {
-	border: 0px solid rgb(239, 239, 239);
-	background-color: rgb(179, 179, 179, 10);
-	border-radius: 10px;
-	color: rgb(76, 76, 76);
+#transparentGridButton:released
+{
+border-image: url(:Activity Grid-100.png)  -5 -5 -5 -5;
+border-top: -5px transparent;
+border-bottom: -5px transparent;
+border-right: -5px transparent;
+border-left: -5px transparent;
+margin: 10px;
 }</string>
        </property>
        <property name="text">
-        <string>-</string>
+        <string/>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -2144,7 +2146,7 @@ margin: 10px;
       <zorder>rectangleTool</zorder>
       <zorder>penTool</zorder>
       <zorder>oneToOneButton</zorder>
-      <zorder>unassignedButton_6</zorder>
+      <zorder>transparentGridButton</zorder>
      </widget>
     </item>
    </layout>
