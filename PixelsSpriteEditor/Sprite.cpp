@@ -76,6 +76,7 @@ Frame& Sprite::getFrame(int index)
 
 void Sprite::appendFrame(Frame *frame){
     frames.append(frame);
+    connect(frame, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
 }
 
 void Sprite::setFps(int speed)

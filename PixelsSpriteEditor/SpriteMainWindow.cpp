@@ -809,6 +809,8 @@ void SpriteMainWindow::frameClicked(Frame* other){
     currentFrame = other;
     currentFrame->makeFrameActive();
 
+    qDebug() << "Frame Clicked";
+
 //    workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
     workspacePixMap = currentFrame->pixmap()->copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
@@ -888,16 +890,16 @@ void SpriteMainWindow::setFps(int fps){
 void SpriteMainWindow::on_duplicateFrameButton_clicked()
 {
     Frame* f = new Frame();
-    QPixmap map = currentSprite.getFrame(currentSprite.getFrames().length()-1).pixmap()->copy();
+    QPixmap map = currentSprite.getFrames().last()->pixmap()->copy();
     f->setPixmap(map);
 
     currentFrame->makeFrameUnactive();
 
-    currentFrame = f;
+    currentSprite.appendFrame(f);
 
-    currentSprite.appendFrame(currentFrame);
+    currentFrame = currentSprite.getFrames().last();
 
-    ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
+    ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
 
     currentFrame->makeFrameActive();
 
