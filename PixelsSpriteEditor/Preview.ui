@@ -14,8 +14,7 @@
    <string>Sprite Preview</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:pad, x1:0.482, y1:0.4375, x2:0.488, y2:0.994318, stop:0 rgba(35, 37, 37, 255), stop:1 rgba(51, 53, 53, 255));
-color: rgb(239, 239, 239);</string>
+   <string notr="true"/>
   </property>
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
@@ -129,6 +128,9 @@ background-color: rgb(108, 108, 108);
      <width>361</width>
      <height>361</height>
     </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
    </property>
    <property name="text">
     <string/>

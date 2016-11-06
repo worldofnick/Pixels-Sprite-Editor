@@ -103,7 +103,13 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     QVBoxLayout* layout = new QVBoxLayout;
     //Frame* something = &currentSprite.getFrame(0);
-    layout->addWidget(currentSprite.getFrames().last());
+
+    Frame* s =currentSprite.getFrames().last();
+    s->setMinimumSize(160,160);
+    s->setMaximumSize(160,160);
+    s->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    s->setScaledContents(true);
+    layout->addWidget(s);
     ui->scrollAreaWidgetContents->setLayout(layout);
     // Frame* something = new Frame();
     //ui->scrollAreaWidgetContents->layout()->
@@ -424,7 +430,12 @@ void SpriteMainWindow::on_addFrameButton_clicked()
     currentFrame->makeFrameUnactive();
 
     currentSprite.addFrame();
-    ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
+    Frame* s =currentSprite.getFrames().last();
+    s->setMinimumSize(160,160);
+    s->setMaximumSize(160,160);
+    s->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    s->setScaledContents(true);
+    ui->scrollAreaWidgetContents->layout()->addWidget(s);
 
     currentFrame = currentSprite.getFrames().last();
 
@@ -500,7 +511,12 @@ void SpriteMainWindow::on_actionNew_triggered()
 //    QVBoxLayout* layout = new QVBoxLayout;
 //    layout->addWidget(currentFrame);
 //    ui->scrollAreaWidgetContents->setLayout(layout);
-       ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
+
+    currentFrame->setMinimumSize(160,160);
+    currentFrame->setMaximumSize(160,160);
+    currentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    currentFrame->setScaledContents(true);
+    ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
 
 
 
@@ -543,6 +559,10 @@ void SpriteMainWindow::on_actionOpen_triggered()
     //Adds all the frames that are in the vector to the GUI layout
     for (int i = 0; i < currentSprite.getFrames().size(); i++){
         Frame* tmp = &currentSprite.getFrame(i);
+        tmp->setMinimumSize(160,160);
+        tmp->setMaximumSize(160,160);
+        tmp->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        tmp->setScaledContents(true);
         tmp->makeFrameUnactive();
         ui->scrollAreaWidgetContents->layout()->addWidget(tmp);
 
@@ -944,7 +964,12 @@ void SpriteMainWindow::on_duplicateFrameButton_clicked()
 
     currentFrame = currentSprite.getFrames().last();
 
-    ui->scrollAreaWidgetContents->layout()->addWidget(currentSprite.getFrames().last());
+    Frame* s =currentSprite.getFrames().last();
+    s->setMinimumSize(160,160);
+    s->setMaximumSize(160,160);
+    s->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    s->setScaledContents(true);
+    ui->scrollAreaWidgetContents->layout()->addWidget(s);
 
     currentFrame->makeFrameActive();
 
