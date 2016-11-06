@@ -93,6 +93,8 @@
         <file>Zoom In-100.png</file>
         <file>Activity Grid Filled-100.png</file>
         <file>Activity Grid-100.png</file>
+        <file>Pixels.png</file>
+        <file>welcome_texture.png</file>
     </qresource>
     <qresource prefix="/stamps">
         <file>Retro-Mario-icon.png</file>

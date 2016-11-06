@@ -2231,7 +2231,6 @@ margin: 10px;
     <addaction name="actionDuplicate"/>
     <addaction name="separator"/>
     <addaction name="actionDelete"/>
-    <addaction name="actionRemove_All"/>
     <addaction name="separator"/>
     <addaction name="action2x_Workspace"/>
     <addaction name="actionReset_Size"/>
