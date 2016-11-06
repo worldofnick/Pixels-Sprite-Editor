@@ -484,9 +484,17 @@ color: rgb(180,180,180, 180);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*background-color: rgb(46,46,48, 35);*/
+#label_3{ 
 background-color: rgb(240,240,240);
 border-image: url(:Pixels.png);
-color: rgb(46,46,48);</string>
+color: rgb(46,46,48);
+}
+#label_3:hover{ 
+background-color: rgb(240,240,240);
+border-image: url(:Pixels.png);
+color: rgb(46,46,48);
+margin: -4px;
+}</string>
    </property>
    <property name="text">
     <string/>
