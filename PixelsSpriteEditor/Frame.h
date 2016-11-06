@@ -13,7 +13,7 @@ private:
     int height;
     int width;   
     const QSize FRAME_VIEW_DIMENSION = QSize(150, 150);
-    //QPixmap pix;
+    QPixmap* pix;
 
 public:
     Frame(int width = 150, int height = 150);
@@ -31,6 +31,8 @@ protected:
     // QWidget interface
 public:
     QSize sizeHint() const;
+    void toggleVisibility(bool visible);
+    bool getIsVisible();
 
 signals:
     void clicked(Frame*);

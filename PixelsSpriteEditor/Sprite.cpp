@@ -205,20 +205,23 @@ void Sprite::exportToGif(QString file)
     for(int i = 0; i < frames.count(); i++)
     {
 
-        QImage spriteImage = frames.at(i)->pixmap()->toImage();
-        int index = 0;
-        for (int y = 0; y < spriteImage.height(); y++) {
-            for (int x = 0; x < spriteImage.width(); x++) {
-                QColor colorValue(spriteImage.pixelColor(x, y));
-                *(fr+index) = (uint8_t)colorValue.red(); index++;
-                *(fr+index) = (uint8_t)colorValue.green(); index++;
-                *(fr+index) = (uint8_t)colorValue.blue(); index++;
-                *(fr+index) = (uint8_t)colorValue.alpha(); index++;
+        if(frames.at(i)->getIsVisible()){
+            QImage spriteImage = frames.at(i)->pixmap()->toImage();
+            int index = 0;
+            for (int y = 0; y < spriteImage.height(); y++) {
+                for (int x = 0; x < spriteImage.width(); x++) {
+                    QColor colorValue(spriteImage.pixelColor(x, y));
+                    *(fr+index) = (uint8_t)colorValue.red(); index++;
+                    *(fr+index) = (uint8_t)colorValue.green(); index++;
+                    *(fr+index) = (uint8_t)colorValue.blue(); index++;
+                    *(fr+index) = (uint8_t)colorValue.alpha(); index++;
 
+                }
             }
+            const uint8_t* cfr = const_cast<const uint8_t*>(fr);
+            GifWriteFrame(g, cfr, width, height, 100/fps, 8, true);
         }
-        const uint8_t* cfr = const_cast<const uint8_t*>(fr);
-        GifWriteFrame(g, cfr, width, height, 100/fps, 8, true);
+
     }
     GifEnd(g);
 }

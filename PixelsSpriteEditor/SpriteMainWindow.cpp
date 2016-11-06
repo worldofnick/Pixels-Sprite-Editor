@@ -110,6 +110,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     //sets the current frame to the first frame
     currentFrame = currentSprite.getFrames().last();
+
     currentFrame->makeFrameActive();
 
 
@@ -680,7 +681,12 @@ void SpriteMainWindow::on_actionRotate_Counterclockwise_triggered()
 //Slot for when the Show/Hide option is selected from the menu.
 void SpriteMainWindow::on_actionShow_Hide_Frame_triggered()
 {
-
+    if(currentFrame->getIsVisible()){
+        currentFrame->toggleVisibility(false);
+    }
+    else{
+        currentFrame->toggleVisibility(true);
+    }
 }
 
 //Slot for when the Duplicate option is selected from the menu.
@@ -887,14 +893,21 @@ void SpriteMainWindow::on_flipHorizontalButton_clicked()
 
 void SpriteMainWindow::whenTimerUpdates()
 {
-    if(currentSprite.getFps() > 0)
+    if(currentSprite.getFps() > 0){
         it++;
-    if(it >= currentSprite.getFrames().size())
+    }
+    if(it >= currentSprite.getFrames().size()){
         it = 0;
+    }
 
     //ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->scaled(PREVIEW_DIMENSION));
-    ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->copy());
-    previewWindow.setPixmap((currentSprite.getFrame(it).pixmap())->copy());
+    if((currentSprite.getFrame(it).getIsVisible())){
+        ui->previewLabelMap->setPixmap((currentSprite.getFrame(it).pixmap())->copy());
+        previewWindow.setPixmap((currentSprite.getFrame(it).pixmap())->copy());
+    }
+    else{
+        this->whenTimerUpdates();
+    }
 }
 
 void SpriteMainWindow::setFps(int fps){
