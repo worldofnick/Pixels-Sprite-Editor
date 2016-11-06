@@ -77,6 +77,14 @@
         <file>okay-100-2.png</file>
         <file>Flip Horizontal-color-100.png</file>
         <file>Flip Vertical-color-100.png</file>
+        <file>Delete-100.png</file>
+        <file>One To One Filled-100.png</file>
+        <file>One To One-100.png</file>
+        <file>Resize-100-1.png</file>
+        <file>Resize-100.png</file>
+        <file>Cancel-100.png</file>
+        <file>Cancel Filled-100.png</file>
+        <file>Resize Filled-100.png</file>
     </qresource>
     <qresource prefix="/stamps">
         <file>Retro-Mario-icon.png</file>

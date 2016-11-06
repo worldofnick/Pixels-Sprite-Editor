@@ -9,6 +9,8 @@ GetResolutionDialog::GetResolutionDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->okButton, SIGNAL(pressed()), this, SLOT(resolution()));
+    //this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setWindowFlags(Qt::FramelessWindowHint);
 
     resButtonsGroup = new QButtonGroup(this);
     resButtonsGroup->addButton(ui->blackBackgroundButton, 2);
