@@ -95,6 +95,7 @@
         <file>Activity Grid-100.png</file>
         <file>Pixels.png</file>
         <file>welcome_texture.png</file>
+        <file>credits.png</file>
     </qresource>
     <qresource prefix="/stamps">
         <file>Retro-Mario-icon.png</file>

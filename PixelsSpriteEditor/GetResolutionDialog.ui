@@ -493,7 +493,7 @@ color: rgb(46,46,48);
 background-color: rgb(240,240,240);
 border-image: url(:Pixels.png);
 color: rgb(46,46,48);
-margin: -4px;
+margin: -1px;
 }</string>
    </property>
    <property name="text">

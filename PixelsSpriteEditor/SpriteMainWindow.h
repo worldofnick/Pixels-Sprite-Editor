@@ -188,8 +188,6 @@ public slots:
 
     void on_actionAbout_triggered();
 
-    void on_actionWalkthrough_triggered();
-
     // Timer slot
     void whenTimerUpdates();
 

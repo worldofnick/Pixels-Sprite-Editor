@@ -2240,7 +2240,6 @@ margin: 10px;
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionWalkthrough"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>

@@ -9,6 +9,7 @@ PopupWindow::PopupWindow(QWidget *parent) :
     ui(new Ui::PopupWindow)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::FramelessWindowHint);
     connect(ui->okButton, SIGNAL(pressed()), this, SLOT(okClicked()));
 }
 
@@ -16,15 +17,6 @@ PopupWindow::PopupWindow(QWidget *parent) :
 PopupWindow::~PopupWindow()
 {
     delete ui;
-}
-
-//Sets the text of the current PopupWindow.
-void PopupWindow::setText(const QString& text){
-    ui->popupLabel->setText(text);
-}
-
-void PopupWindow::setTitle(const QString& title){
-    this->setWindowTitle(title);
 }
 
 void PopupWindow::okClicked(){

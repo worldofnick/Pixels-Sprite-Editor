@@ -774,18 +774,7 @@ void SpriteMainWindow::on_actionRemove_All_triggered()
 void SpriteMainWindow::on_actionAbout_triggered()
 {
     PopupWindow aboutPopup;
-    aboutPopup.setText("This text will be replaced by a helpful about message.");
-    aboutPopup.setTitle("About Pixels Sprite Editor");
     aboutPopup.exec();
-}
-
-//Slot for when the walkthrough option is selected from the menu.
-void SpriteMainWindow::on_actionWalkthrough_triggered()
-{
-    PopupWindow walkthroughPopup;
-    walkthroughPopup.setText("This text will be replaced by a helpful walkthrough.");
-    walkthroughPopup.setTitle("Walkthrough");
-    walkthroughPopup.exec();
 }
 
 //Override the closeEvent for the window so that a warning popup may be displayed if there are unsaved changes.
