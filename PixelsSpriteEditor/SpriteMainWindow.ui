@@ -2226,6 +2226,8 @@ margin: 10px;
     <addaction name="actionRemove_All"/>
     <addaction name="separator"/>
     <addaction name="action2x_Workspace"/>
+    <addaction name="actionReset_Size"/>
+    <addaction name="actionZoom_Out"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -2379,10 +2381,26 @@ margin: 10px;
   </action>
   <action name="action2x_Workspace">
    <property name="text">
-    <string>2x Workspace</string>
+    <string>Zoom In</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="actionReset_Size">
+   <property name="text">
+    <string>Reset Size</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
    </property>
   </action>
  </widget>

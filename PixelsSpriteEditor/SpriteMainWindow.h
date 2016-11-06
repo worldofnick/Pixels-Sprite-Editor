@@ -26,13 +26,20 @@ private:
     Ui::SpriteMainWindow *ui;
     QString filename;
 
+    // Helper method that scales workspace pixmap
+    void scaleWorkspaceSizeUp();
+    void resetWorkspaceSizeToOriginal();
+    void scaleWorkspaceSizeDown();
+    void resetAllFrameSizes();
+
+    int penWidthSelected;
 
     // Exclusive grouping of the tools buttons. Only one are be toggle and remain active at a time.
     QButtonGroup* toolsButtonsGroup;
     QButtonGroup* brushSizeButtonsGroup;
 
 
-    int scaleFactor;
+    int timesScaled;
     QByteArray mainWindowOriginalGeometry;
 
 
@@ -76,6 +83,7 @@ private:
 
     // Helper methods
     void updateWorkspace();         // paints on the workspaceLabel's pixmap and updates it
+
 
 
     // Sprite
@@ -206,6 +214,8 @@ private slots:
 
     void setFps(int fps);
     void on_duplicateFrameButton_clicked();
+    void on_actionZoom_Out_triggered();
+    void on_actionReset_Size_triggered();
 };
 
 #endif // SPRITEMAINWINDOW_H
