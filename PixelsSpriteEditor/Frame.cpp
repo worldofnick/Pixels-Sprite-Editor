@@ -31,20 +31,22 @@ Frame::~Frame(){
 
 
 void Frame::makeFrameActive(){
-
-    this->setFrameStyle(QFrame::Panel | QFrame::Plain);
-    this->setLineWidth(2);
-    this->setMidLineWidth(0);
-
+    if(!this->isVisible) {
+        this->setStyleSheet("background-color: rgb(232,0,71,50); border: 3px solid rgb(232,0,71); border-radius: 5px;");
+    }
+    else {
+        this->setStyleSheet("border: 2px solid rgb(180,180,180, 50); border-radius: 0px;");
+    }
 }
 
 
-void Frame::makeFrameUnactive(){
+void Frame::makeFrameUnactive() {
 
-    this->setFrameStyle(QFrame::StyledPanel | QFrame::Plain);
-    this->setLineWidth(1);
-    this->setMidLineWidth(0);
-
+    if(!this->isVisible) {
+        this->setStyleSheet("background-color: rgb(232,0,71,50); border: 3px solid rgb(232,0,71); border-radius: 5px;");
+    }else {
+        this->setStyleSheet("border: 0px;");
+    }
 }
 
 
@@ -62,10 +64,10 @@ void Frame::toggleVisibility(bool visible){
 
     //Add a red border around the frame if it is hidden, else remove the border
     if(this->isVisible){
-        this->setStyleSheet("");
+        this->setStyleSheet("border: 2px solid rgb(180,180,180, 50); border-radius: 0px;");
     }
     else{
-        this->setStyleSheet("border-color: rgb(239, 0, 0); \n border-style: solid; \n border-width: 5px;");
+        this->setStyleSheet("background-color: rgb(232,0,71,50); border: 3px solid rgb(232,0,71); border-radius: 5px;");
     }
 }
 
