@@ -27,6 +27,7 @@ signals:
     void selectedStamp(int id);
 private slots:
     //void on_selectButton_clicked();
+    void resolution(QRect geometry);
 };
 
 #endif // STAMPSELECTOR_H

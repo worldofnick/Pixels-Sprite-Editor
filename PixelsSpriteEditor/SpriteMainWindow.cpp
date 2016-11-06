@@ -359,10 +359,17 @@ void SpriteMainWindow::on_colorPickButton_clicked()
 void SpriteMainWindow::on_stampTool_clicked()
 {
     StampSelector window;
+    connect(this, SIGNAL(sendRes(QRect)), &window, SLOT(resolution(QRect)));
+    call();
     connect(&window, SIGNAL(selectedStamp(int)), this, SLOT(changeStamp(int)));
     window.exec();
 
     brush = stamp;
+}
+
+void SpriteMainWindow::call() {
+    //qDebug() << this->width() << this->height();
+    emit(sendRes(this->geometry()));
 }
 
 void SpriteMainWindow::changeStamp(int id){

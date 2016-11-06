@@ -106,6 +106,7 @@ private:
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
+    void call();
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);      // Handles the QLabel events
@@ -114,7 +115,8 @@ protected:
     //void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     //void paintEvent(QPaintEvent *event);
-
+signals:
+    void sendRes(QRect geometry);
 public slots:
 
     // Used by button group
