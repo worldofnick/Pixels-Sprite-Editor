@@ -748,7 +748,13 @@ void SpriteMainWindow::on_actionDelete_triggered()
         }
 
         if(currentSprite.removeFrame(currentFrame)){
-            currentFrame = this->currentSprite.getFrames().first();
+
+            if (frameID != 0){
+            currentFrame = this->currentSprite.getFrames().at(frameID - 1);
+            }
+            else{
+                currentFrame = this->currentSprite.getFrames().first();
+            }
 
             QLayoutItem* child = ui->scrollAreaWidgetContents->layout()->takeAt(frameID);
             delete child->widget();
@@ -761,6 +767,8 @@ void SpriteMainWindow::on_actionDelete_triggered()
     }
     else{
         //Add a message here that you can't remove a frame if there is only one??
+        QMessageBox::StandardButton warning;
+        warning = QMessageBox::warning(this, "Warning", "Cannot remove the only frame!", QMessageBox::Ok);
     }
 }
 
