@@ -9,6 +9,7 @@
 #include <QPainter>
 #include <QButtonGroup>
 #include <list>
+#include <QPainterPath>
 #include "qevent.h"
 #include "Sprite.h"
 #include "PopupWindow.h"
@@ -58,6 +59,7 @@ private:
     QLine mLine;
     QRect mRect;
     QPixmap selectedStamp;
+    QPainterPath drawPath;
 
 
     bool stampIsActive;

@@ -185,6 +185,12 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             if (brush == pencil || brush == eraser || brush == stamp){
                 drawPoint.setX(canvasX);
                 drawPoint.setY(canvasY);
+
+                if(brush == pencil || brush == eraser){
+
+                }
+
+                drawPath.moveTo(drawPoint);
                 //mousePressed = true;
             }
             else if (brush == line) {
@@ -216,6 +222,7 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             if (brush == pencil || brush == eraser || brush == stamp){
                 drawPoint.setX(canvasX);
                 drawPoint.setY(canvasY);
+                drawPath.lineTo(drawPoint);
             }
             else if (brush == line){
                 mLine.setP2(QPoint(canvasX, canvasY));
@@ -230,12 +237,21 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 
             mousePressed = false;
 
+            if (brush == pencil){
+                painter.begin(&workspacePixMap);
+                painter.setCompositionMode(QPainter::CompositionMode_Source);
+                painter.setPen(pen);
+                painter.drawPoint(drawPoint);
+                painter.end();
+
+            }
+
             if (brush == line || brush == rect || brush == ellipse || brush == stamp){
                 shapeShouldNowBeDrawn = true;
             }
             updateWorkspace();
 
-
+            drawPath = QPainterPath();
 
             //NEED TO SCALE IT HERE FOR THE SIDE VIEW
             //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
@@ -294,19 +310,23 @@ void SpriteMainWindow::updateWorkspace() {
     painter.setPen(pen);
 
     if (brush == pencil || brush == eraser){
-        painter.drawPoint(drawPoint);
+        //painter.drawPoint(drawPoint);
+        painter.drawPath(drawPath);
     }
     else if (brush == line){
         //draw the line once mouse is actually released
         painter.drawLine(mLine);
-        shapeShouldNowBeDrawn = false;
-    } else if (brush == rect) {
+        shapeShouldNowBeDrawn = false;       
+    }
+    else if (brush == rect) {
         painter.drawRect(mRect);
         shapeShouldNowBeDrawn = false;
-    }else if (brush == ellipse) {
+    }
+    else if (brush == ellipse) {
         painter.drawEllipse(mRect);
         shapeShouldNowBeDrawn = false;
-    }else if (brush == stamp){
+    }
+    else if (brush == stamp){
         painter.drawPixmap(drawPoint, selectedStamp);
         shapeShouldNowBeDrawn = false;
     }
