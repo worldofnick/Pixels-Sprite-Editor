@@ -14,16 +14,17 @@ Sprite::Sprite(int w, int h, int s, QString file)
     frames.append(new Frame());
 }
 
-Sprite::Sprite(){
+Sprite::Sprite()
+{
     width = 128;
     height = 128;
     fps = 30;
     filename = "sprite1.ssp";
     frames.append(new Frame());
-
 }
 
-Sprite::Sprite(const Sprite &other){
+Sprite::Sprite(const Sprite &other)
+{
     this->width = other.width;
     this->height = other.height;
     this->fps = other.fps;
@@ -31,12 +32,13 @@ Sprite::Sprite(const Sprite &other){
     QVector<Frame*> temp;
     this->frames = temp;
 
-    for (int i = 0; i < other.frames.length(); i++){
+    for (int i = 0; i < other.frames.length(); i++) {
         this->frames.append(other.frames[i]);
     }
 }
 
-Sprite& Sprite::operator=(Sprite other){
+Sprite& Sprite::operator=(Sprite other)
+{
     std::swap(this->width, other.width);
     std::swap(this->height, other.height);
     std::swap(this->fps, other.fps);
@@ -48,16 +50,11 @@ Sprite& Sprite::operator=(Sprite other){
 
 Sprite::~Sprite()
 {
-    //delete timer;
-
-//    for (int i = 0; i < frames.size(); i++){
-//        //removing the & here will make it crash!!!!
-//        delete &frames.first();
-//    }
     frames.clear();
 }
 
-const QVector<Frame*> Sprite::getFrames(){
+const QVector<Frame*> Sprite::getFrames()
+{
     return this->frames;
 }
 
@@ -136,7 +133,7 @@ void Sprite::saveFile(QString file)
     filename = file;
     // Open file
     // Save variables to header
-    if(filename.isEmpty()){
+    if(filename.isEmpty()) {
         return;
     }
     else {
@@ -151,29 +148,19 @@ void Sprite::saveFile(QString file)
         int fs = frames.size();
         out << fs << "\n";
 
-
-        for(int i = 0; i < frames.size(); i++)
-        {
+        for(int i = 0; i < frames.size(); i++) {
             // Convert to image
             //Frames are scaled to 150x150 for display, so we need to scale it to the proper height when saving
             QImage spriteImage = frames.at(i)->pixmap()->toImage().scaled(this->width, this->height);
 
             // Get RGBA from each pixel
             // Write frame to file
-            qDebug() << "sprite image size:" << spriteImage.size();
 
             for ( int y = 0; y < spriteImage.height(); ++y) {
-                for ( int x = 0; x < spriteImage.width(); ++x)
-                {
+                for ( int x = 0; x < spriteImage.width(); ++x) {
                     QColor clrCurrent(spriteImage.pixelColor(x, y));
-
-                    /*qDebug() << "Pixel at [" << row << "," << col << "] contains color ("
-                                         << clrCurrent.red() << ", "
-                                         << clrCurrent.green() << ", "
-                                         << clrCurrent.blue() << ", "
-                                         << clrCurrent.alpha() << ").";*/
                     out << clrCurrent.red() << " " << clrCurrent.green() << " " << clrCurrent.blue() << " " << clrCurrent.alpha();
-                    if(x != spriteImage.width()-1){
+                    if(x != spriteImage.width()-1) {
                         out << " ";
                     }
                 }
@@ -197,10 +184,9 @@ void Sprite::exportToGif(QString file)
     if(fps == 0)
         fps = 1;
     GifBegin(g, buffer, width, height, 100/fps, 8, true);
-    for(int i = 0; i < frames.count(); i++)
-    {
+    for(int i = 0; i < frames.count(); i++) {
 
-        if(frames.at(i)->getIsVisible()){
+        if(frames.at(i)->getIsVisible()) {
             QImage spriteImage = frames.at(i)->pixmap()->toImage();
             int index = 0;
             for (int y = 0; y < spriteImage.height(); y++) {
@@ -221,25 +207,30 @@ void Sprite::exportToGif(QString file)
     GifEnd(g);
 }
 
-void Sprite::frameSelected(Frame* other){
+void Sprite::frameSelected(Frame* other)
+{
     emit frameClicked(other);
 }
 
-void Sprite::setFilename(const QString &filename){
+void Sprite::setFilename(const QString &filename)
+{
     this->filename = filename;
 }
 
-void Sprite::appendFrame(Frame *frame){
+void Sprite::appendFrame(Frame *frame)
+{
     frames.append(frame);
     connect(frame, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
 }
 
 //Returns true if the remove was successful
-bool Sprite::removeFrame(Frame *frame){
+bool Sprite::removeFrame(Frame *frame)
+{
     return this->frames.removeOne(frame);
 }
 
-void Sprite::insertFrame(int index, Frame *frame){
+void Sprite::insertFrame(int index, Frame *frame)
+{
     this->frames.insert(index, frame);
     connect(frame, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
 }
