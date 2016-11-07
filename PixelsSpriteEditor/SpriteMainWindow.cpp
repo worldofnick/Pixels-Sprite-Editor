@@ -448,40 +448,43 @@ void SpriteMainWindow::on_actionNew_triggered()
     //Check if the user wants to save any changes first, then trigger the reset action.
     if(maybeSave()){
         GetResolutionDialog welcomeScreen;
-        connect(&welcomeScreen, SIGNAL(okClicked(int,int,int)), this, SLOT(initialResolution(int,int)));
+        connect(&welcomeScreen, SIGNAL(okClicked(int,int)), this, SLOT(initialResolution(int,int)));
         welcomeScreen.exec();
-        this->on_actionReset_triggered();
+        //this->on_actionReset_triggered();
+
+
+        //Clear the workspacePixMap
+        workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
+        workspacePixMap.fill(this->backgroundColor);
+        ui->workspaceLabel->setPixmap(workspacePixMap);
+
+        //Clear out the current Sprite
+        Sprite newSprite(this->spriteWidth, this->spriteHeight, currentSprite.getFps(), "IDK");
+        currentSprite = newSprite;
+
+        //sets the current frame to the first frame
+        currentFrame = currentSprite.getFrames().last();
+
+        connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
+        currentFrame->setPixmap(workspacePixMap);
+        currentFrame->makeFrameActive();
+
+
+        //Deletes old layout and its children
+        QLayoutItem* child;
+        while((child = ui->scrollAreaWidgetContents->layout()->takeAt(0)) != 0){
+            delete child->widget();
+            delete child;
+        }
+
+        currentFrame->setMinimumSize(160,160);
+        currentFrame->setMaximumSize(160,160);
+        currentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        currentFrame->setScaledContents(true);
+        ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
+
     }
 
-    //Clear the workspacePixMap
-    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
-    workspacePixMap.fill(this->backgroundColor);
-    ui->workspaceLabel->setPixmap(workspacePixMap);
-
-    //Clear out the current Sprite
-    Sprite newSprite(this->spriteWidth, this->spriteHeight, 0, "IDK");
-    currentSprite = newSprite;
-
-    //sets the current frame to the first frame
-    currentFrame = currentSprite.getFrames().last();
-
-    connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
-    currentFrame->setPixmap(workspacePixMap);
-    currentFrame->makeFrameActive();
-
-
-    //Deletes old layout and its children
-    QLayoutItem* child;
-    while((child = ui->scrollAreaWidgetContents->layout()->takeAt(0)) != 0){
-        delete child->widget();
-        delete child;
-    }
-
-    currentFrame->setMinimumSize(160,160);
-    currentFrame->setMaximumSize(160,160);
-    currentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    currentFrame->setScaledContents(true);
-    ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
 }
 
 //Slot for when File/Open is selected from the menu bar. Opens a new Sprite in the current window,
