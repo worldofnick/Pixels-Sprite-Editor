@@ -1,0 +1,114 @@
+<RCC>
+    <qresource prefix="/">
+        <file>RGB Circle 2.png</file>
+        <file>RGB Circle 1.png</file>
+        <file>transparent pattern 4.png</file>
+        <file>transparent pattern 3.png</file>
+        <file>transparent pattern 2.png</file>
+        <file>transparent pattern 1.png</file>
+        <file>Brush Filled-color-100.png</file>
+        <file>Brush-color-100.png</file>
+        <file>Erase-color-100.png</file>
+        <file>Erase Filled-color-100.png</file>
+        <file>Rubber Stamp Bottom View Filled-100.png</file>
+        <file>Rubber Stamp Bottom View-100.png</file>
+        <file>Plus Filled-100.png</file>
+        <file>Plus-100.png</file>
+        <file>Rotate Right Filled-100.png</file>
+        <file>Flip Vertical Filled-100.png</file>
+        <file>Flip Vertical-100.png</file>
+        <file>Flip Horizontal Filled-100.png</file>
+        <file>Flip Horizontal-100.png</file>
+        <file>Rotate Left-96.png</file>
+        <file>Rotate Left Filled-100.png</file>
+        <file>Undo-big-96.png</file>
+        <file>Undo-96.png</file>
+        <file>Redo-big-96.png</file>
+        <file>Redo-96.png</file>
+        <file>Line Filled-100.png</file>
+        <file>Line-100.png</file>
+        <file>Brush Filled-100.png</file>
+        <file>Brush-100.png</file>
+        <file>Edit Filled-100.png</file>
+        <file>Edit-100.png</file>
+        <file>Erase-color-Filled-100.png</file>
+        <file>Edit Filled-color-100.png</file>
+        <file>Rectangle Stroked Filled-100.png</file>
+        <file>Ellipse Stroked Filled-100.png</file>
+        <file>Line Filled-color-100.png</file>
+        <file>Flip Horizontal Filled-color-100.png</file>
+        <file>Flip Vertical Filled-color-100.png</file>
+        <file>Plus Filled Color.png</file>
+        <file>Rotate Left Filled-color-100.png</file>
+        <file>Rotate Right Filled-color-100.png</file>
+        <file>Rectangle Stroked Filled-color-100.png</file>
+        <file>Ellipse Stroked Filled-color-100.png</file>
+        <file>Edit color-100.png</file>
+        <file>Erase color-100.png</file>
+        <file>Rubber Stamp Bottom View Filled-color-100.png</file>
+        <file>Rubber Stamp Bottom View-color-100.png</file>
+        <file>Undo-color-96.png</file>
+        <file>Redo-color-96.png</file>
+        <file>Plus Filled Color shadow.png</file>
+        <file>plus 2.png</file>
+        <file>plus 2.tiff</file>
+        <file>okay-color-Filled-100.png</file>
+        <file>okay Filled-100.png</file>
+        <file>okay-100.png</file>
+        <file>back 01.png</file>
+        <file>pattern 01.png</file>
+        <file>Double Right Filled-100-5.png</file>
+        <file>Double Right Filled-100-4.png</file>
+        <file>Double Right Filled-100-3.png</file>
+        <file>Double Right Filled-100-2.png</file>
+        <file>Double Right Filled-100.png</file>
+        <file>Checked Filled-100-6.png</file>
+        <file>Checked-100-5.png</file>
+        <file>Forward-96-3.png</file>
+        <file>Forward-96-2.png</file>
+        <file>Forward-96.png</file>
+        <file>okay-96-2.png</file>
+        <file>Ok-96.png</file>
+        <file>Checked-100-3.png</file>
+        <file>Checked-100-4.png</file>
+        <file>Checked Filled-100-4.png</file>
+        <file>Checked Filled-100-3.png</file>
+        <file>Checked Filled-100-2.png</file>
+        <file>okay-100-2.png</file>
+        <file>Flip Horizontal-color-100.png</file>
+        <file>Flip Vertical-color-100.png</file>
+        <file>Delete-100.png</file>
+        <file>One To One Filled-100.png</file>
+        <file>One To One-100.png</file>
+        <file>Resize-100-1.png</file>
+        <file>Resize-100.png</file>
+        <file>Cancel-100.png</file>
+        <file>Cancel Filled-100.png</file>
+        <file>Resize Filled-100.png</file>
+        <file>One To One Filled-100-2.png</file>
+        <file>Zoom In Filled-100(1).png</file>
+        <file>Zoom In Filled-100(2).png</file>
+        <file>Zoom Out Filled-100(1).png</file>
+        <file>Zoom Out-100.png</file>
+        <file>Zoom In-100.png</file>
+        <file>Activity Grid Filled-100.png</file>
+        <file>Activity Grid-100.png</file>
+        <file>Pixels.png</file>
+        <file>welcome_texture.png</file>
+        <file>credits.png</file>
+        <file>icon3.icns</file>
+        <file>icon3.ico</file>
+    </qresource>
+    <qresource prefix="/stamps">
+        <file>Retro-Mario-icon.png</file>
+        <file>orange-sun.png</file>
+        <file>cloud.png</file>
+        <file>sword.png</file>
+        <file>sunglasses.png</file>
+        <file>pokeball.png</file>
+        <file>pikachu.png</file>
+        <file>cowboy.png</file>
+        <file>squirtle.png</file>
+        <file>ash.png</file>
+    </qresource>
+</RCC>

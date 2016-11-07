@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StampSelector</class>
+ <widget class="QDialog" name="StampSelector">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>160</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>160</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>160</width>
+    <height>2000</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#StampSelector {
+background-color: transparent;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QFrame" name="stampBackFrame">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>136</width>
+       <height>476</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>136</width>
+       <height>2000</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#stampBackFrame {
+background-color: rgb(50, 51, 54, 170);
+border: 0px solid rgb(252, 252, 252);
+border-radius: 20px;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QScrollArea" name="stampScrollArea">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>136</width>
+          <height>576</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>136</width>
+          <height>2000</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#stampScrollArea {
+background-color: transparent;
+}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>136</width>
+           <height>1006</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#scrollAreaWidgetContents {
+background-color: transparent;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="marioLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#marioLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#marioLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="text">
+             <string>Mario</string>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="sunLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#sunLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+}
+#sunLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="text">
+             <string>Sun</string>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="cloudLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#cloudLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+}
+#cloudLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="text">
+             <string>Cloud</string>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="cowboyLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#cowboyLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+}
+#cowboyLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Cowboy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="squirtleLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#squirtleLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+}
+#squirtleLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Squirtle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="pokeballLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#pokeballLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#pokeballLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="text">
+             <string>Pokeball</string>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="ashLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#ashLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#ashLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Ash</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="swordLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#swordLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#swordLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="text">
+             <string>Sword</string>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="pikachuLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#pikachuLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#pikachuLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Pikachu</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="sunglassesLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#marioLabel_4 {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#marioLabel_4:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="text">
+             <string>Sunglasses</string>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

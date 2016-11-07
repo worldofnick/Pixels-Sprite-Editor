@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PopupWindow</class>
+ <widget class="QDialog" name="PopupWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>533</width>
+    <height>292</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Credits</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">/*background-color: rgb(46,46,48, 35);*/
+#frame{ 
+background-color: transparent;
+border-image: url(:credits.png);
+color: rgb(46,46,48);
+}
+#frame:hover{ 
+background-color: transparent;
+border-image: url(:credits.png);
+color: rgb(46,46,48);
+margin: -1px;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <widget class="QPushButton" name="okButton">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>190</y>
+        <width>50</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>50</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#okButton {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147, 50);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}
+
+#okButton:hover
+{
+	background-color: rgb(179, 179, 179, 50);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#okButton:pressed
+{
+	background-color: rgb(179, 179, 179, 50);
+	border: 3px solid rgb(252, 252, 252);
+	border-radius: 10px;
+}
+
+#okButton:released {
+	border: 3px solid rgb(239, 239, 239);
+	background-color: rgb(255, 147, 147, 50);
+	border-radius: 10px;
+	color: rgb(76, 76, 76);
+}</string>
+      </property>
+      <property name="text">
+       <string>▷</string>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
