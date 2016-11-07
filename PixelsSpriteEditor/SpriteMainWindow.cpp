@@ -6,11 +6,11 @@
 #include <QTransform>
 #include <iostream>
 #include <QPoint>
+#include <string>
 #include <QDebug>
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
 #include "GetResolutionDialog.h"
-#include "StampSelector.h"
 
 #include <QScrollBar>
 
@@ -141,6 +141,12 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
 
     connect(&(this->previewWindow), SIGNAL(fpsChanged(int)), this, SLOT(setFps(int)));
+
+    //Add loading custom stamp stuff here
+    numCustomStamps = 0;
+    selector = new StampSelector();
+    connect(this, SIGNAL(sendRes(QRect)), selector, SLOT(resolution(QRect)));
+    connect(selector, SIGNAL(selectedStamp(int)), this, SLOT(changeStamp(int)));
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -367,12 +373,9 @@ void SpriteMainWindow::on_colorPickButton_clicked()
 }
 
 void SpriteMainWindow::on_stampTool_clicked()
-{
-    StampSelector window;
-    connect(this, SIGNAL(sendRes(QRect)), &window, SLOT(resolution(QRect)));
+{   
     call();
-    connect(&window, SIGNAL(selectedStamp(int)), this, SLOT(changeStamp(int)));
-    window.exec();
+    selector->exec();
 
     brush = stamp;
 }
@@ -383,7 +386,7 @@ void SpriteMainWindow::call() {
 }
 
 void SpriteMainWindow::changeStamp(int id){
-    if(id == 0 || id == 3 || id == 4 || id == 5){
+    if(id == 0){
         selectedStamp.load(":/stamps/Retro-Mario-icon.png");
     }
     else if(id == 1){
@@ -391,6 +394,15 @@ void SpriteMainWindow::changeStamp(int id){
     }
     else if(id == 2){
         selectedStamp.load(":/stamps/cloud.png");
+    }
+    else if(id == 3){
+        selectedStamp.load(":/stamps/pokeball.png");
+    }
+    else if(id == 4){
+        selectedStamp.load(":/stamps/sword.png");
+    }
+    else if(id == 5){
+        selectedStamp.load(":/stamps/sunglasses.png");
     }
 }
 
@@ -1048,7 +1060,6 @@ void SpriteMainWindow::setFps(int fps){
 
 void SpriteMainWindow::on_duplicateFrameButton_clicked()
 {
-
     Frame* f = new Frame();
     QPixmap map = currentFrame->pixmap()->scaled(spriteWidth,spriteHeight).copy();
     f->setPixmap(map);
@@ -1097,4 +1108,13 @@ void SpriteMainWindow::on_transparentGridButton_clicked()
                                           "background-image: url(:transparent pattern 3.png);border: none;}");
         transparentGridIsVisible = true;
     }
+}
+
+void SpriteMainWindow::on_actionStamp_triggered(){
+    QImage stamp = currentFrame->pixmap()->toImage();
+    QString filename = QString("/Users/tylerdailey/Desktop/stamp%1.png").arg(QString::number(numCustomStamps));
+
+    stamp.save(filename, "PNG");
+    numCustomStamps++;
+    selector->addStamp(filename);
 }

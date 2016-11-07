@@ -14,6 +14,7 @@ class StampSelector : public QDialog
 public:
     explicit StampSelector(QWidget *parent = 0);
     ~StampSelector();
+    void addStamp(const QString& filename);
 
 private:
     Ui::StampSelector *ui;

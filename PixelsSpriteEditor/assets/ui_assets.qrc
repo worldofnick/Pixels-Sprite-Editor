@@ -102,5 +102,9 @@
     <qresource prefix="/stamps">
         <file>Retro-Mario-icon.png</file>
         <file>orange-sun.png</file>
+        <file>cloud.png</file>
+        <file>sword.png</file>
+        <file>sunglasses.png</file>
+        <file>pokeball.png</file>
     </qresource>
 </RCC>

@@ -13,6 +13,7 @@
 #include "Sprite.h"
 #include "PopupWindow.h"
 #include "Preview.h"
+#include "StampSelector.h"
 
 namespace Ui {
 class SpriteMainWindow;
@@ -33,6 +34,8 @@ private:
     void resetAllFrameSizes();
 
     int penWidthSelected;
+
+    int numCustomStamps;
 
     // Exclusive grouping of the tools buttons. Only one are be toggle and remain active at a time.
     QButtonGroup* toolsButtonsGroup;
@@ -111,6 +114,8 @@ private:
     Preview previewWindow;
     bool previewIsActive;
 
+    StampSelector* selector;
+
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
@@ -161,6 +166,8 @@ public slots:
     void on_actionSave_triggered();
 
     void on_actionSprite_Sheet_triggered();
+
+    void on_actionStamp_triggered();
 
     void on_actionExport_as_gif_triggered();
 

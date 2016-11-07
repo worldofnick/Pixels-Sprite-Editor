@@ -74,11 +74,6 @@ Frame& Sprite::getFrame(int index)
     return *(frames.at(index));
 }
 
-void Sprite::appendFrame(Frame *frame){
-    frames.append(frame);
-    connect(frame, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
-}
-
 void Sprite::setFps(int speed)
 {
     fps = speed;
@@ -234,7 +229,17 @@ void Sprite::setFilename(const QString &filename){
     this->filename = filename;
 }
 
+void Sprite::appendFrame(Frame *frame){
+    frames.append(frame);
+    connect(frame, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
+}
+
 //Returns true if the remove was successful
 bool Sprite::removeFrame(Frame *frame){
     return this->frames.removeOne(frame);
+}
+
+void Sprite::insertFrame(int index, Frame *frame){
+    this->frames.insert(index, frame);
+    connect(frame, SIGNAL(clicked(Frame*)), this, SLOT(frameSelected(Frame*)));
 }

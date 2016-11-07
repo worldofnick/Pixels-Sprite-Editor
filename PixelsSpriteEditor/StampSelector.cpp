@@ -22,21 +22,29 @@ StampSelector::StampSelector(QWidget *parent) :
 
 
     ui->marioLabel->installEventFilter(this);
-    ui->marioLabel_2->installEventFilter(this);
-    ui->marioLabel_3->installEventFilter(this);
-    ui->marioLabel_4->installEventFilter(this);
+    ui->pokeballLabel->installEventFilter(this);
+    ui->swordLabel->installEventFilter(this);
+    ui->sunglassesLabel->installEventFilter(this);
     ui->sunLabel->installEventFilter(this);
     ui->cloudLabel->installEventFilter(this);
 
     whichStampSelected = 0;
 
-    QPixmap map;
-    map.load(":/stamps/Retro-Mario-icon.png");
-    ui->marioLabel->setPixmap(map.copy());
-    ui->marioLabel_2->setPixmap(map.copy());
-    ui->marioLabel_3->setPixmap(map.copy());
-    ui->marioLabel_4->setPixmap(map.copy());
+    QPixmap mario;
+    mario.load(":/stamps/Retro-Mario-icon.png");
+    ui->marioLabel->setPixmap(mario);
 
+    QPixmap pokeball;
+    pokeball.load(":/stamps/pokeball.png");
+    ui->pokeballLabel->setPixmap(pokeball);
+
+    QPixmap sword;
+    sword.load(":/stamps/sword.png");
+    ui->swordLabel->setPixmap(sword);
+
+    QPixmap sunglasses;
+    sunglasses.load(":/stamps/sunglasses.png");
+    ui->sunglassesLabel->setPixmap(sunglasses);
 
     QPixmap sun;
     sun.load(":/stamps/orange-sun.png");
@@ -66,13 +74,13 @@ bool StampSelector::eventFilter(QObject *watched, QEvent *event)
         else if (watched == ui->cloudLabel){
             whichStampSelected = 2;
         }
-        else if (watched == ui->marioLabel_2){
+        else if (watched == ui->pokeballLabel){
             whichStampSelected = 3;
         }
-        else if (watched == ui->marioLabel_3){
+        else if (watched == ui->swordLabel){
             whichStampSelected = 4;
         }
-        else if (watched == ui->marioLabel_4){
+        else if (watched == ui->sunglassesLabel){
             whichStampSelected = 5;
         }
         this->close();
@@ -102,4 +110,32 @@ void StampSelector::resolution(QRect geometry) {
     int y = geometry.y() - 10;
     //qDebug() << "x:" << x << "y: " << y;
     this->move(x, y);
+}
+
+void StampSelector::addStamp(const QString &filename){
+    QLabel* newStamp = new QLabel();
+    QPixmap map;
+
+    qDebug() << "Entered addStamp";
+
+    map.load(filename);
+
+    map.save("/Users/tylerdailey/Desktop/test2.png", "PNG");
+
+    qDebug() << "Loaded file";
+
+    newStamp->setPixmap(map);
+
+    qDebug() << "Created Stamp";
+
+    newStamp->setStyleSheet("#newStamp { \n background-color: rgb(54,58,62,30); \n border-radius: 10px; \n background-repeat: none; \n"
+                           " margin: 6px; \n } \n #newStamp:hover \n { \n background-color: rgb(54,58,62,50); \n border-radius: 10px;"
+                           " \n border-top: -15px transparent; \n border-bottom: -15px transparent; \n border-right: -15px transparent;"
+                           "\n border-left: -15px transparent; \n margin: 2px; \n }");
+
+    qDebug() << "Passed stylesheet";
+
+    newStamp->installEventFilter(this);
+
+    ui->scrollAreaWidgetContents->layout()->addWidget(newStamp);
 }
