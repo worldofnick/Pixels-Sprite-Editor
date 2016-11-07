@@ -129,7 +129,7 @@ border: none;
      <property name="styleSheet">
       <string notr="true">#frame {
 background-color: qlineargradient(spread:pad, x1:0.482, y1:0.4375, x2:0.488, y2:0.994318, stop:0 rgba(35, 37, 37, 255), stop:1 rgba(51, 53, 53, 255));
-color: rgb(239, 239, 239);
+color: rgb(29,29,29);
 }</string>
      </property>
      <property name="frameShape">
@@ -256,6 +256,9 @@ color: rgb(239, 239, 239);
           <height>51</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Original Aspect Ratio&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="styleSheet">
          <string notr="true">#zoomOutButton {
 border-image: url(:One To One-100.png);
@@ -311,6 +314,9 @@ margin: 6px;
           <width>51</width>
           <height>51</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scale to Window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">#zoomInButton {
@@ -383,6 +389,9 @@ margin: 7px;
           <width>51</width>
           <height>51</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Close Window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">#closeButton {

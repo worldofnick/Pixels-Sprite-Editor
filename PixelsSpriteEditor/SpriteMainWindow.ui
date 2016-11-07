@@ -28,6 +28,9 @@
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
+  <property name="styleSheet">
+   <string notr="true">color: rgb(29,29,29);</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
@@ -155,6 +158,9 @@ color: rgb(239, 239, 239);</string>
            <height>24</height>
           </size>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:13pt; font-weight:400;&quot;&gt;Add a frame&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">#addFrameButton {
 	border: 0px solid rgb(239, 239, 239);
@@ -234,7 +240,7 @@ color: rgb(208, 20, 33, 220);
           <bool>false</bool>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When you click on this, a new preview window will open. It has zoom controls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GIF Preview&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(29,29,29);
@@ -305,6 +311,9 @@ border: none;</string>
           </property>
           <item>
            <widget class="QSlider" name="fpsSlider">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preview FPS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="maximum">
              <number>32</number>
             </property>
@@ -396,7 +405,10 @@ border: none;</string>
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Will display the current selected frame. The size is dependent on the resolution of the image selected. Should scale without changing the resolution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Workspace&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">#workspaceLabel {
@@ -659,6 +671,9 @@ color: rgb(239, 239, 239);</string>
          </disabled>
         </palette>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pen tool&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#penTool {
 border-image: url(:Edit-100.png);
@@ -736,6 +751,9 @@ margin: 6px;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Eraser&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#eraserTool {
 border-image: url(:Erase-color-100.png);
@@ -809,6 +827,9 @@ margin: 10px;
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Line&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#lineTool {
@@ -884,6 +905,9 @@ margin: 10px;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ellipse&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#ellipseTool {
 border-image: url(:Ellipse Stroked Filled-100.png);
@@ -953,6 +977,9 @@ margin: 10px;
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stamp&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#stampTool {
@@ -1028,6 +1055,9 @@ margin: 10px;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotate Counter-clockwise&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#rotateCounterClockButton {
 border-image: url(:Rotate Left Filled-100.png);
@@ -1101,6 +1131,9 @@ margin: 10px;
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotate Clockwise&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#rotateClockwiseButton {
@@ -1176,6 +1209,9 @@ margin: 10px;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flip Horizontal&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#flipHorizontalButton {
 border-image: url(:Flip Horizontal-100.png);
@@ -1249,6 +1285,9 @@ margin: 10px;
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flip Vertical&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#flipVerticalButton {
@@ -1324,6 +1363,9 @@ margin: 10px;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Undo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#undoButton {
 border-image: url(:Undo-96.png);
@@ -1397,6 +1439,9 @@ margin: 10px;
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#redoButton {
@@ -1472,6 +1517,9 @@ margin: 10px;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zoom In&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#zoomInButton {
 border-image: url(:Zoom In-100.png);
@@ -1539,6 +1587,9 @@ margin: 10px;
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zoom Out&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#zoomOutButton {
@@ -1609,7 +1660,7 @@ margin: 10px;
         </size>
        </property>
        <property name="toolTip">
-        <string>Brush size 1</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brush Size #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#brushSize1Button {
@@ -1682,7 +1733,7 @@ margin: 10px;
         </size>
        </property>
        <property name="toolTip">
-        <string>Brush size 2</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brush Size #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#brushSize2Button {
@@ -1752,7 +1803,7 @@ margin: 10px;
         </size>
        </property>
        <property name="toolTip">
-        <string>Brush size 3</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brush Size #3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#brushSize3Button {
@@ -1822,7 +1873,7 @@ margin: 10px;
         </size>
        </property>
        <property name="toolTip">
-        <string>Brush size 4</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brush Size #4&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#brushSize4Button {
@@ -1947,6 +1998,9 @@ background-repeat: none;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rectangle&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#rectangleTool {
 border-image: url(:Rectangle Stroked Filled-100.png);
@@ -2017,6 +2071,9 @@ margin: 10px;
          <height>50</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Original Size&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#oneToOneButton {
 border-image: url(:One To One-100.png);
@@ -2084,6 +2141,9 @@ margin: 10px;
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency Grid Toogle&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#transparentGridButton {
