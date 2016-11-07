@@ -35,9 +35,13 @@ public:
     QLabel *marioLabel;
     QLabel *sunLabel;
     QLabel *cloudLabel;
-    QLabel *marioLabel_2;
-    QLabel *marioLabel_3;
-    QLabel *marioLabel_4;
+    QLabel *cowboyLabel;
+    QLabel *squirtleLabel;
+    QLabel *pokeballLabel;
+    QLabel *ashLabel;
+    QLabel *swordLabel;
+    QLabel *pikachuLabel;
+    QLabel *sunglassesLabel;
 
     void setupUi(QDialog *StampSelector)
     {
@@ -89,7 +93,7 @@ public:
         stampScrollArea->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 136, 614));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 136, 1006));
         scrollAreaWidgetContents->setStyleSheet(QLatin1String("#scrollAreaWidgetContents {\n"
 "background-color: transparent;\n"
 "}"));
@@ -187,20 +191,66 @@ public:
 
         verticalLayout_2->addWidget(cloudLabel);
 
-        marioLabel_2 = new QLabel(scrollAreaWidgetContents);
-        marioLabel_2->setObjectName(QStringLiteral("marioLabel_2"));
-        sizePolicy1.setHeightForWidth(marioLabel_2->sizePolicy().hasHeightForWidth());
-        marioLabel_2->setSizePolicy(sizePolicy1);
-        marioLabel_2->setMinimumSize(QSize(90, 90));
-        marioLabel_2->setMaximumSize(QSize(90, 90));
-        marioLabel_2->setStyleSheet(QLatin1String("#marioLabel_2 {\n"
+        cowboyLabel = new QLabel(scrollAreaWidgetContents);
+        cowboyLabel->setObjectName(QStringLiteral("cowboyLabel"));
+        cowboyLabel->setMinimumSize(QSize(90, 90));
+        cowboyLabel->setMaximumSize(QSize(90, 90));
+        cowboyLabel->setStyleSheet(QLatin1String("#cowboyLabel {\n"
+"background-color: rgb(54,58,62,30);\n"
+"border-radius: 10px;\n"
+"background-repeat: none;\n"
+"margin: 6px;\n"
+"}\n"
+"#cowboyLabel:hover\n"
+"{\n"
+"background-color: rgb(54,58,62,50);\n"
+"border-radius: 10px;\n"
+"border-top: -15px transparent;\n"
+"border-bottom: -15px transparent;\n"
+"border-right: -15px transparent;\n"
+"border-left: -15px transparent;\n"
+"margin: 2px;\n"
+"}"));
+
+        verticalLayout_2->addWidget(cowboyLabel);
+
+        squirtleLabel = new QLabel(scrollAreaWidgetContents);
+        squirtleLabel->setObjectName(QStringLiteral("squirtleLabel"));
+        squirtleLabel->setMinimumSize(QSize(90, 90));
+        squirtleLabel->setMaximumSize(QSize(90, 90));
+        squirtleLabel->setStyleSheet(QLatin1String("#squirtleLabel {\n"
+"background-color: rgb(54,58,62,30);\n"
+"border-radius: 10px;\n"
+"background-repeat: none;\n"
+"margin: 6px;\n"
+"}\n"
+"#squirtleLabel:hover\n"
+"{\n"
+"background-color: rgb(54,58,62,50);\n"
+"border-radius: 10px;\n"
+"border-top: -15px transparent;\n"
+"border-bottom: -15px transparent;\n"
+"border-right: -15px transparent;\n"
+"border-left: -15px transparent;\n"
+"margin: 2px;\n"
+"}"));
+
+        verticalLayout_2->addWidget(squirtleLabel);
+
+        pokeballLabel = new QLabel(scrollAreaWidgetContents);
+        pokeballLabel->setObjectName(QStringLiteral("pokeballLabel"));
+        sizePolicy1.setHeightForWidth(pokeballLabel->sizePolicy().hasHeightForWidth());
+        pokeballLabel->setSizePolicy(sizePolicy1);
+        pokeballLabel->setMinimumSize(QSize(90, 90));
+        pokeballLabel->setMaximumSize(QSize(90, 90));
+        pokeballLabel->setStyleSheet(QLatin1String("#pokeballLabel {\n"
 "background-color: rgb(54,58,62,30);\n"
 "border-radius: 10px;\n"
 "background-repeat: none;\n"
 "margin: 6px;\n"
 "padding: 10px;\n"
 "}\n"
-"#marioLabel_2:hover\n"
+"#pokeballLabel:hover\n"
 "{\n"
 "background-color: rgb(54,58,62,50);\n"
 "border-radius: 10px;\n"
@@ -211,27 +261,25 @@ public:
 "margin: 2px;\n"
 "padding: 0px;\n"
 "}"));
-        marioLabel_2->setFrameShape(QFrame::NoFrame);
-        marioLabel_2->setLineWidth(0);
-        marioLabel_2->setScaledContents(true);
-        marioLabel_2->setAlignment(Qt::AlignCenter);
+        pokeballLabel->setFrameShape(QFrame::NoFrame);
+        pokeballLabel->setLineWidth(0);
+        pokeballLabel->setScaledContents(true);
+        pokeballLabel->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_2->addWidget(marioLabel_2);
+        verticalLayout_2->addWidget(pokeballLabel);
 
-        marioLabel_3 = new QLabel(scrollAreaWidgetContents);
-        marioLabel_3->setObjectName(QStringLiteral("marioLabel_3"));
-        sizePolicy1.setHeightForWidth(marioLabel_3->sizePolicy().hasHeightForWidth());
-        marioLabel_3->setSizePolicy(sizePolicy1);
-        marioLabel_3->setMinimumSize(QSize(90, 90));
-        marioLabel_3->setMaximumSize(QSize(90, 90));
-        marioLabel_3->setStyleSheet(QLatin1String("#marioLabel_3 {\n"
+        ashLabel = new QLabel(scrollAreaWidgetContents);
+        ashLabel->setObjectName(QStringLiteral("ashLabel"));
+        ashLabel->setMinimumSize(QSize(90, 90));
+        ashLabel->setMaximumSize(QSize(90, 90));
+        ashLabel->setStyleSheet(QLatin1String("#ashLabel {\n"
 "background-color: rgb(54,58,62,30);\n"
 "border-radius: 10px;\n"
 "background-repeat: none;\n"
 "margin: 6px;\n"
 "padding: 10px;\n"
 "}\n"
-"#marioLabel_3:hover\n"
+"#ashLabel:hover\n"
 "{\n"
 "background-color: rgb(54,58,62,50);\n"
 "border-radius: 10px;\n"
@@ -242,20 +290,72 @@ public:
 "margin: 2px;\n"
 "padding: 0px;\n"
 "}"));
-        marioLabel_3->setFrameShape(QFrame::NoFrame);
-        marioLabel_3->setLineWidth(0);
-        marioLabel_3->setScaledContents(true);
-        marioLabel_3->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_2->addWidget(marioLabel_3);
+        verticalLayout_2->addWidget(ashLabel);
 
-        marioLabel_4 = new QLabel(scrollAreaWidgetContents);
-        marioLabel_4->setObjectName(QStringLiteral("marioLabel_4"));
-        sizePolicy1.setHeightForWidth(marioLabel_4->sizePolicy().hasHeightForWidth());
-        marioLabel_4->setSizePolicy(sizePolicy1);
-        marioLabel_4->setMinimumSize(QSize(90, 90));
-        marioLabel_4->setMaximumSize(QSize(90, 90));
-        marioLabel_4->setStyleSheet(QLatin1String("#marioLabel_4 {\n"
+        swordLabel = new QLabel(scrollAreaWidgetContents);
+        swordLabel->setObjectName(QStringLiteral("swordLabel"));
+        sizePolicy1.setHeightForWidth(swordLabel->sizePolicy().hasHeightForWidth());
+        swordLabel->setSizePolicy(sizePolicy1);
+        swordLabel->setMinimumSize(QSize(90, 90));
+        swordLabel->setMaximumSize(QSize(90, 90));
+        swordLabel->setStyleSheet(QLatin1String("#swordLabel {\n"
+"background-color: rgb(54,58,62,30);\n"
+"border-radius: 10px;\n"
+"background-repeat: none;\n"
+"margin: 6px;\n"
+"padding: 10px;\n"
+"}\n"
+"#swordLabel:hover\n"
+"{\n"
+"background-color: rgb(54,58,62,50);\n"
+"border-radius: 10px;\n"
+"border-top: -15px transparent;\n"
+"border-bottom: -15px transparent;\n"
+"border-right: -15px transparent;\n"
+"border-left: -15px transparent;\n"
+"margin: 2px;\n"
+"padding: 0px;\n"
+"}"));
+        swordLabel->setFrameShape(QFrame::NoFrame);
+        swordLabel->setLineWidth(0);
+        swordLabel->setScaledContents(true);
+        swordLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_2->addWidget(swordLabel);
+
+        pikachuLabel = new QLabel(scrollAreaWidgetContents);
+        pikachuLabel->setObjectName(QStringLiteral("pikachuLabel"));
+        pikachuLabel->setMinimumSize(QSize(90, 90));
+        pikachuLabel->setMaximumSize(QSize(90, 90));
+        pikachuLabel->setStyleSheet(QLatin1String("#pikachuLabel {\n"
+"background-color: rgb(54,58,62,30);\n"
+"border-radius: 10px;\n"
+"background-repeat: none;\n"
+"margin: 6px;\n"
+"padding: 10px;\n"
+"}\n"
+"#pikachuLabel:hover\n"
+"{\n"
+"background-color: rgb(54,58,62,50);\n"
+"border-radius: 10px;\n"
+"border-top: -15px transparent;\n"
+"border-bottom: -15px transparent;\n"
+"border-right: -15px transparent;\n"
+"border-left: -15px transparent;\n"
+"margin: 2px;\n"
+"padding: 0px;\n"
+"}"));
+
+        verticalLayout_2->addWidget(pikachuLabel);
+
+        sunglassesLabel = new QLabel(scrollAreaWidgetContents);
+        sunglassesLabel->setObjectName(QStringLiteral("sunglassesLabel"));
+        sizePolicy1.setHeightForWidth(sunglassesLabel->sizePolicy().hasHeightForWidth());
+        sunglassesLabel->setSizePolicy(sizePolicy1);
+        sunglassesLabel->setMinimumSize(QSize(90, 90));
+        sunglassesLabel->setMaximumSize(QSize(90, 90));
+        sunglassesLabel->setStyleSheet(QLatin1String("#marioLabel_4 {\n"
 "background-color: rgb(54,58,62,30);\n"
 "border-radius: 10px;\n"
 "background-repeat: none;\n"
@@ -273,12 +373,12 @@ public:
 "margin: 2px;\n"
 "padding: 0px;\n"
 "}"));
-        marioLabel_4->setFrameShape(QFrame::NoFrame);
-        marioLabel_4->setLineWidth(0);
-        marioLabel_4->setScaledContents(true);
-        marioLabel_4->setAlignment(Qt::AlignCenter);
+        sunglassesLabel->setFrameShape(QFrame::NoFrame);
+        sunglassesLabel->setLineWidth(0);
+        sunglassesLabel->setScaledContents(true);
+        sunglassesLabel->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_2->addWidget(marioLabel_4);
+        verticalLayout_2->addWidget(sunglassesLabel);
 
         stampScrollArea->setWidget(scrollAreaWidgetContents);
 
@@ -299,9 +399,13 @@ public:
         marioLabel->setText(QApplication::translate("StampSelector", "Mario", 0));
         sunLabel->setText(QApplication::translate("StampSelector", "Sun", 0));
         cloudLabel->setText(QApplication::translate("StampSelector", "Cloud", 0));
-        marioLabel_2->setText(QApplication::translate("StampSelector", "Mario", 0));
-        marioLabel_3->setText(QApplication::translate("StampSelector", "Mario", 0));
-        marioLabel_4->setText(QApplication::translate("StampSelector", "Mario", 0));
+        cowboyLabel->setText(QApplication::translate("StampSelector", "Cowboy", 0));
+        squirtleLabel->setText(QApplication::translate("StampSelector", "Squirtle", 0));
+        pokeballLabel->setText(QApplication::translate("StampSelector", "Pokeball", 0));
+        ashLabel->setText(QApplication::translate("StampSelector", "Ash", 0));
+        swordLabel->setText(QApplication::translate("StampSelector", "Sword", 0));
+        pikachuLabel->setText(QApplication::translate("StampSelector", "Pikachu", 0));
+        sunglassesLabel->setText(QApplication::translate("StampSelector", "Sunglasses", 0));
     } // retranslateUi
 
 };

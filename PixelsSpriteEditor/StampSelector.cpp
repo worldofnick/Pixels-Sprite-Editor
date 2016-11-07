@@ -1,26 +1,21 @@
 #include <QVBoxLayout>
 #include <QDesktopWidget>
-#include <QGraphicsBlurEffect>
-#include <QGraphicsDropShadowEffect>
-#include <QDebug>
 #include "StampSelector.h"
 #include "ui_StampSelector.h"
 
+// Constructs a stamp selection object. It contains the in-built stamps.
+// As soon as the user selects a stamp, this window closes.
 StampSelector::StampSelector(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::StampSelector)
 {
     ui->setupUi(this);
 
+    // Setup this window's flags and attributes
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setWindowFlags(Qt::FramelessWindowHint);
 
-    //    QGraphicsBlurEffect* blurEffect = new QGraphicsBlurEffect( );
-    //    blurEffect->setBlurHints(QGraphicsBlurEffect::AnimationHint);
-    //    blurEffect->setBlurRadius(1);
-    //    this->setGraphicsEffect( blurEffect );
-
-
+    // Install event filter on the QLabel containing the stamps.
     ui->marioLabel->installEventFilter(this);
     ui->pokeballLabel->installEventFilter(this);
     ui->swordLabel->installEventFilter(this);
@@ -32,7 +27,10 @@ StampSelector::StampSelector(QWidget *parent) :
     ui->cowboyLabel->installEventFilter(this);
     ui->squirtleLabel->installEventFilter(this);
 
+    // By default, select the first stamp
     whichStampSelected = 0;
+
+    // Load the images to the stamp QLabel's
 
     QPixmap mario;
     mario.load(":/stamps/Retro-Mario-icon.png");
@@ -73,45 +71,51 @@ StampSelector::StampSelector(QWidget *parent) :
     QPixmap squirtleMap;
     squirtleMap.load(":/stamps/squirtle.png");
     ui->squirtleLabel->setPixmap(squirtleMap);
-
 }
 
+// Destructor
 StampSelector::~StampSelector()
 {
     delete ui;
 }
 
+// An eventFilter which identifies a QEvent and associates it different actions.
+// Used to detect events on a QLabel (like mouse press). If the event was not for a QLabel,
+// returns the event to this object's parent class.
+//
+// Returns true if the event was for a QLabel, else returns the event to the parent class (for
+// its event handler).
 bool StampSelector::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::MouseButtonPress){
         if(watched == ui->marioLabel) {
             whichStampSelected = 0;
         }
-        else if (watched == ui->sunLabel){
+        else if (watched == ui->sunLabel) {
             whichStampSelected = 1;
         }
-        else if (watched == ui->cloudLabel){
+        else if (watched == ui->cloudLabel) {
             whichStampSelected = 2;
         }
-        else if (watched == ui->pokeballLabel){
+        else if (watched == ui->pokeballLabel) {
             whichStampSelected = 3;
         }
-        else if (watched == ui->swordLabel){
+        else if (watched == ui->swordLabel) {
             whichStampSelected = 4;
         }
-        else if (watched == ui->sunglassesLabel){
+        else if (watched == ui->sunglassesLabel) {
             whichStampSelected = 5;
         }
-        else if (watched == ui->pikachuLabel){
+        else if (watched == ui->pikachuLabel) {
             whichStampSelected = 6;
         }
-        else if (watched == ui->ashLabel){
+        else if (watched == ui->ashLabel) {
             whichStampSelected = 7;
         }
-        else if (watched == ui->squirtleLabel){
+        else if (watched == ui->squirtleLabel) {
             whichStampSelected = 8;
         }
-        else if (watched == ui->cowboyLabel){
+        else if (watched == ui->cowboyLabel) {
             whichStampSelected = 9;
         }
         this->close();
@@ -123,22 +127,18 @@ bool StampSelector::eventFilter(QObject *watched, QEvent *event)
     }
 }
 
-void StampSelector::closeEvent(QCloseEvent *){
-
-    //TODO: can initialize whichStampselected to -1 in case user clicked cancel. Or
-    // keep the current behavior (mario as defult)
+// Contains a close window event. Emits a signal identifying the
+// selected stamp tool. If user didn't select anything,
+// defaults to the first stamp.
+void StampSelector::closeEvent(QCloseEvent *)
+{
     emit(selectedStamp(whichStampSelected));
 }
 
-//void StampSelector::on_selectButton_clicked()
-//{
-//    this->close();
-//}
-
-void StampSelector::resolution(QRect geometry) {
-    //qDebug() << "res:" << geometry.x() << geometry.y() << geometry.width() << geometry.height();
+// Slot to set the resolution of the stamp.
+void StampSelector::resolution(QRect geometry)
+{
     int x = geometry.x() + geometry.width() - 120;
     int y = geometry.y() - 10;
-    //qDebug() << "x:" << x << "y: " << y;
     this->move(x, y);
 }

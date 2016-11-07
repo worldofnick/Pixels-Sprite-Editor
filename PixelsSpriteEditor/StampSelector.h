@@ -11,13 +11,13 @@ class StampSelector : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit StampSelector(QWidget *parent = 0);
-    ~StampSelector();
-
 private:
     Ui::StampSelector *ui;
     int whichStampSelected;
+
+public:
+    explicit StampSelector(QWidget *parent = 0);
+    ~StampSelector();
 
 protected:
     void closeEvent(QCloseEvent*);
@@ -25,8 +25,8 @@ protected:
 
 signals:
     void selectedStamp(int id);
+
 private slots:
-    //void on_selectButton_clicked();
     void resolution(QRect geometry);
 };
 
