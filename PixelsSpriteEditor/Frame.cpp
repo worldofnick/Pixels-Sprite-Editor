@@ -25,12 +25,14 @@ Frame::Frame(int width, int height)
 }
 
 //Destructs the current Frame.
-Frame::~Frame(){
+Frame::~Frame()
+{
     ;
 }
 
-
-void Frame::makeFrameActive(){
+//makes the current frame's border highlight if it is clicked on
+void Frame::makeFrameActive()
+{
     if(!this->isVisible) {
         this->setStyleSheet("background-color: rgb(232,0,71,50); border: 3px solid rgb(232,0,71); border-radius: 5px;");
     }
@@ -39,8 +41,9 @@ void Frame::makeFrameActive(){
     }
 }
 
-
-void Frame::makeFrameUnactive() {
+//changes the frame's border to be unhighlighted
+void Frame::makeFrameUnactive()
+{
 
     if(!this->isVisible) {
         this->setStyleSheet("background-color: rgb(232,0,71,50); border: 3px solid rgb(232,0,71); border-radius: 5px;");
@@ -49,17 +52,21 @@ void Frame::makeFrameUnactive() {
     }
 }
 
-
-QSize Frame::sizeHint() const{
+//returns the default size of the frame for alignment
+QSize Frame::sizeHint() const
+{
     return this->FRAME_VIEW_DIMENSION;
 }
 
-
-void Frame::mousePressEvent(QMouseEvent *event){
+//event handler when this frame is clicked
+void Frame::mousePressEvent(QMouseEvent *event)
+{
     emit clicked(this);
 }
 
-void Frame::toggleVisibility(bool visible){
+//toggles the visibility of this frame, in terms of showing/hiding, depending on the bool parameter
+void Frame::toggleVisibility(bool visible)
+{
     this->isVisible = visible;
 
     //Add a red border around the frame if it is hidden, else remove the border
@@ -71,6 +78,8 @@ void Frame::toggleVisibility(bool visible){
     }
 }
 
-bool Frame::getIsVisible(){
+//returns the state of whether this frame is hidden/visible
+bool Frame::getIsVisible()
+{
     return this->isVisible;
 }
