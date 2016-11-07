@@ -12,13 +12,13 @@ class GetResolutionDialog : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit GetResolutionDialog(QWidget *parent = 0);
-    ~GetResolutionDialog();
-
 private:
     Ui::GetResolutionDialog *ui;
     QButtonGroup* resButtonsGroup;
+
+public:
+    explicit GetResolutionDialog(QWidget *parent = 0);
+    ~GetResolutionDialog();
 
 protected:
     void closeEvent(QCloseEvent*);

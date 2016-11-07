@@ -9,6 +9,11 @@ class Sprite : public QWidget
 {
     Q_OBJECT
 
+private:
+    QVector<Frame*> frames;
+    QString filename;
+    int fps, width, height;
+
 public:
     Sprite(int, int, int, QString);
     Sprite();
@@ -28,11 +33,6 @@ public:
     void appendFrame(Frame* frame);
     bool removeFrame(Frame* frame);
     void insertFrame(int index, Frame* frame);
-
-private:
-    QVector<Frame*> frames;
-    QString filename;
-    int fps, width, height;
 
 private slots:
     void frameSelected(Frame*);
