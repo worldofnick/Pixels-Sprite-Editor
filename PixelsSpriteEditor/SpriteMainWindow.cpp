@@ -32,6 +32,7 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) : QMainWindow(parent), ui(ne
     penWidthSelected = 1;
     transparentGridIsVisible = true;
     pen.setWidth(penWidthSelected);
+    pen.setCapStyle(Qt::FlatCap);
     clickedInsideWorkspace = false;
     timesScaled = 0;
     mainWindowOriginalGeometry = this->saveGeometry();
@@ -238,6 +239,7 @@ void SpriteMainWindow::updateWorkspace()
     if (brush == pencil || brush == eraser || shapeShouldNowBeDrawn){
         painter.begin(&workspacePixMap);
         painter.setCompositionMode(QPainter::CompositionMode_Source);
+        painter.setRenderHints(QPainter::Antialiasing, QPainter::SmoothPixmapTransform);
 
         painter.setPen(pen);
 
@@ -275,6 +277,7 @@ void SpriteMainWindow::updateWorkspace()
         QPainter tempPainter(&temp);
 
         tempPainter.setPen(pen);
+        tempPainter.setRenderHints(QPainter::Antialiasing, QPainter::SmoothPixmapTransform);
 
         if(brush == line) {
             tempPainter.drawLine(mLine);
