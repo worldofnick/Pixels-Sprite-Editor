@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = PixelsSpriteEditor
 TEMPLATE = app
 
+ICON = assets/icon3.icns
+RC_ICONS = assets/icon3.ico
 
 SOURCES += main.cpp\
         SpriteMainWindow.cpp \

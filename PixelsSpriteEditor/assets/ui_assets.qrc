@@ -96,6 +96,8 @@
         <file>Pixels.png</file>
         <file>welcome_texture.png</file>
         <file>credits.png</file>
+        <file>icon3.icns</file>
+        <file>icon3.ico</file>
     </qresource>
     <qresource prefix="/stamps">
         <file>Retro-Mario-icon.png</file>

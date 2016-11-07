@@ -768,7 +768,7 @@ void SpriteMainWindow::on_actionDelete_triggered()
     else{
         //Add a message here that you can't remove a frame if there is only one??
         QMessageBox::StandardButton warning;
-        warning = QMessageBox::warning(this, "Warning", "Cannot remove the only frame!", QMessageBox::Ok);
+        warning = QMessageBox::warning(this, "Warning", "Must have atleast one frame!", QMessageBox::Ok);
     }
 }
 
