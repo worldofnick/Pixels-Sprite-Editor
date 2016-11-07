@@ -209,7 +209,6 @@ private slots:
     void changeStamp(int id);
 
     void setFps(int fps);
-    void on_duplicateFrameButton_clicked();
     void on_actionZoom_Out_triggered();
     void on_actionReset_Size_triggered();
     void on_transparentGridButton_clicked();

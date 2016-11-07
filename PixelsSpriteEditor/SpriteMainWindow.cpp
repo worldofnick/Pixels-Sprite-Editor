@@ -667,7 +667,34 @@ void SpriteMainWindow::on_actionDuplicate_triggered()
 {
     // Resize previous zoomed frame before switching
     currentFrame->setPixmap(currentFrame->pixmap()->scaled(spriteWidth, spriteHeight));
-    this->on_duplicateFrameButton_clicked();
+
+    Frame* f = new Frame();
+    QPixmap map = currentFrame->pixmap()->scaled(spriteWidth,spriteHeight).copy();
+    f->setPixmap(map);
+
+    currentFrame->setPixmap(currentFrame->pixmap()->scaled(spriteWidth, spriteHeight));
+    currentFrame->makeFrameUnactive();
+
+    currentSprite.appendFrame(f);
+
+    currentFrame = currentSprite.getFrames().last();
+
+    Frame* s =currentSprite.getFrames().last();
+    s->setMinimumSize(160,160);
+    s->setMaximumSize(160,160);
+    s->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    s->setScaledContents(true);
+    ui->scrollAreaWidgetContents->layout()->addWidget(s);
+
+    currentFrame->makeFrameActive();
+
+    workspacePixMap = map;
+    ui->workspaceLabel->setPixmap(workspacePixMap);
+
+    //sets the scrollbar to the bottom
+    QScrollBar* verticalScrollBar = ui->framesScrollArea->verticalScrollBar();
+    verticalScrollBar->setMaximum(verticalScrollBar->maximum() + 170);
+    verticalScrollBar->setSliderPosition(verticalScrollBar->maximum());
 }
 
 //Slot for when the delete option is selected from the menu. Removes the currently selected frame.
@@ -952,39 +979,6 @@ void SpriteMainWindow::whenTimerUpdates()
 void SpriteMainWindow::setFps(int fps){
     ui->fpsSlider->setValue(fps);
     currentSprite.setFps(fps);
-}
-
-//Slot for when the Frame/Duplicate option is selected from the menu bar.
-//Duplicates the last frame
-void SpriteMainWindow::on_duplicateFrameButton_clicked()
-{
-    Frame* f = new Frame();
-    QPixmap map = currentFrame->pixmap()->scaled(spriteWidth,spriteHeight).copy();
-    f->setPixmap(map);
-
-    currentFrame->setPixmap(currentFrame->pixmap()->scaled(spriteWidth, spriteHeight));
-    currentFrame->makeFrameUnactive();
-
-    currentSprite.appendFrame(f);
-
-    currentFrame = currentSprite.getFrames().last();
-
-    Frame* s =currentSprite.getFrames().last();
-    s->setMinimumSize(160,160);
-    s->setMaximumSize(160,160);
-    s->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    s->setScaledContents(true);
-    ui->scrollAreaWidgetContents->layout()->addWidget(s);
-
-    currentFrame->makeFrameActive();
-
-    workspacePixMap = map;
-    ui->workspaceLabel->setPixmap(workspacePixMap);
-
-    //sets the scrollbar to the bottom
-    QScrollBar* verticalScrollBar = ui->framesScrollArea->verticalScrollBar();
-    verticalScrollBar->setMaximum(verticalScrollBar->maximum() + 170);
-    verticalScrollBar->setSliderPosition(verticalScrollBar->maximum());
 }
 
 //Resets the sizes of all of the frames in the currentSprite.
