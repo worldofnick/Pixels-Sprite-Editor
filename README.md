@@ -1,4 +1,4 @@
-## The project works on both Mac and Windows platform BUT USE A MAC FOR GRADING. Tested on macOS Seirra & Mac OSX El Capitan.
+## The project works on both macOS and Windows BUT USE A MAC FOR GRADING. Tested on macOS Seirra & Mac OSX El Capitan.
 
 
 ### LIST OF FEATURES:
