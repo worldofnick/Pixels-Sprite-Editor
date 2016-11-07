@@ -9,7 +9,6 @@ GetResolutionDialog::GetResolutionDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->okButton, SIGNAL(pressed()), this, SLOT(resolution()));
-    //this->setAttribute(Qt::WA_TranslucentBackground);
     this->setWindowFlags(Qt::FramelessWindowHint);
 
     resButtonsGroup = new QButtonGroup(this);
@@ -23,7 +22,8 @@ GetResolutionDialog::~GetResolutionDialog()
     delete ui;
 }
 
-void GetResolutionDialog::resolution(){
+void GetResolutionDialog::resolution()
+{
     int width = ui->widthInputBox->text().toInt();
     int height = ui->heightInputBox->text().toInt();
 
@@ -36,17 +36,18 @@ void GetResolutionDialog::resolution(){
 
     //Get Selected Color
     int backColor = 0;
-    if(resButtonsGroup->checkedButton() == ui->whiteBackgroundButton){
+    if(resButtonsGroup->checkedButton() == ui->whiteBackgroundButton) {
         backColor = 1;
     }
-    else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton){
+    else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton) {
         backColor = 2;
     }
     emit okClicked(width, backColor);
     this->close();
 }
 
-void GetResolutionDialog::closeEvent(QCloseEvent *){
+void GetResolutionDialog::closeEvent(QCloseEvent *)
+{
     int width = ui->widthInputBox->text().toInt();
     int height = width;
     //int height = ui->heightInputBox->text().toInt();
@@ -58,16 +59,16 @@ void GetResolutionDialog::closeEvent(QCloseEvent *){
         warning = QMessageBox::warning(this, "Invalid size", "Invalid size: Defaulting to 128x128", QMessageBox::Ok);
     }
 
-    if(width <= 0){
+    if(width <= 0) {
         width = 128;
         height = 128;
     }
     //Get Selected Color
     int backColor = 0;
-    if(resButtonsGroup->checkedButton() == ui->whiteBackgroundButton){
+    if(resButtonsGroup->checkedButton() == ui->whiteBackgroundButton) {
         backColor = 1;
     }
-    else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton){
+    else if(resButtonsGroup->checkedButton() == ui->blackBackgroundButton) {
         backColor = 2;
     }
     emit okClicked(width, backColor);
