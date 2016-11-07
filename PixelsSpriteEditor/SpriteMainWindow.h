@@ -33,6 +33,7 @@ private:
     void resetWorkspaceSizeToOriginal();
     void scaleWorkspaceSizeDown();
     void resetAllFrameSizes();
+    void scalePen();
 
     int penWidthSelected;
 

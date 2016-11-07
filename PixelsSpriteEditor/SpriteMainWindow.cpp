@@ -783,11 +783,27 @@ bool SpriteMainWindow::maybeSave()
     return true;
 }
 
+void SpriteMainWindow::scalePen() {
+    if(timesScaled < 0 ) {
+        for(int i = 0; i < -timesScaled; i++) {
+            if(pen.width() > 0) {
+                pen.setWidth(pen.width() / 2);
+            }
+        }
+    }
+    else {
+        for(int i = 0; i < timesScaled; i++) {
+            pen.setWidth(pen.width()*2);
+        }
+    }
+}
+
 //Set the smallest brush size
 void SpriteMainWindow::on_brushSize1Button_clicked()
 {
     penWidthSelected = 1;
     pen.setWidth(penWidthSelected);
+    scalePen();
 }
 
 //Set the second smallest brush size
@@ -795,6 +811,7 @@ void SpriteMainWindow::on_brushSize2Button_clicked()
 {
     penWidthSelected = 10;
     pen.setWidth(penWidthSelected);
+    scalePen();
 }
 
 //Set the medium brush size
@@ -802,6 +819,7 @@ void SpriteMainWindow::on_brushSize3Button_clicked()
 {
     penWidthSelected = 30;
     pen.setWidth(penWidthSelected);
+    scalePen();
 }
 
 //Set the largest brush size
@@ -809,6 +827,7 @@ void SpriteMainWindow::on_brushSize4Button_clicked()
 {
     penWidthSelected = this->spriteWidth / 4;
     pen.setWidth(penWidthSelected);
+    scalePen();
 }
 
 //Zoom into the workspace
@@ -840,7 +859,8 @@ void SpriteMainWindow::scaleWorkspaceSizeUp()
 
     wspWidth = workspacePixMap.width() * 2;
     wspHeight = workspacePixMap.height() * 2;
-
+    pen.setWidth(penWidthSelected);
+    scalePen();
     workspacePixMap = workspacePixMap.copy().scaled(wspWidth, wspHeight);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 }
@@ -853,6 +873,8 @@ void SpriteMainWindow::scaleWorkspaceSizeDown()
     int wspWidth, wspHeight;
     wspWidth = workspacePixMap.width() / 2;
     wspHeight = workspacePixMap.height() / 2;
+    pen.setWidth(penWidthSelected);
+    scalePen();
     workspacePixMap = workspacePixMap.copy().scaled(wspWidth, wspHeight);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 }
@@ -861,6 +883,7 @@ void SpriteMainWindow::scaleWorkspaceSizeDown()
 void SpriteMainWindow::resetWorkspaceSizeToOriginal()
 {
     timesScaled = 0;
+    pen.setWidth(penWidthSelected);
     workspacePixMap = currentFrame->pixmap()->copy().scaled(this->spriteWidth, this->spriteHeight);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 }
