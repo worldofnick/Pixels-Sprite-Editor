@@ -19,6 +19,7 @@ PopupWindow::~PopupWindow()
 }
 
 //Closes PopupWindow when ok is clicked
-void PopupWindow::okClicked(){
+void PopupWindow::okClicked()
+{
     this->close();
 }
