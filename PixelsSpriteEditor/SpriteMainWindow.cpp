@@ -1,19 +1,17 @@
+#include <QDebug>
 #include <QColorDialog>
 #include <QPushButton>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPixmap>
 #include <QTransform>
-#include <iostream>
 #include <QPoint>
-#include <string>
-#include <QDebug>
+#include <QScrollBar>
+#include "GetResolutionDialog.h"
 #include "SpriteMainWindow.h"
 #include "ui_SpriteMainWindow.h"
-#include "GetResolutionDialog.h"
 
-#include <QScrollBar>
-
+//Constructs a new SpriteMainWindow, and initializes all member variables
 SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SpriteMainWindow)
@@ -25,7 +23,6 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     this->setWindowTitle("Pixels Sprite Editor");
-    //this->setWindowFlags(Qt::FramelessWindowHint);
 
     // default to pen
     on_penTool_clicked();
@@ -42,16 +39,17 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     mainWindowOriginalGeometry = this->saveGeometry();
 
 
+    //Initialize flags
     mousePressed = false;
     drawStarted = false;
-
+    isModified = false;
+    shapeShouldNowBeDrawn = false;
 
     filename = "";
-    isModified = false;
+
 
     // Assign buttons to the button group (with ids). These
     // ID's can be used to indentify which button was pressed.
-
     toolsButtonsGroup= new QButtonGroup(this);
     toolsButtonsGroup->addButton(ui->penTool, 0);
     toolsButtonsGroup->addButton(ui->eraserTool, 1);
@@ -59,16 +57,6 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     toolsButtonsGroup->addButton(ui->rectangleTool, 3);
     toolsButtonsGroup->addButton(ui->ellipseTool, 4);
     toolsButtonsGroup->addButton(ui->stampTool, 5);
-    //toolsButtonsGroup->addButton(ui->undoButton, 6);
-    //toolsButtonsGroup->addButton(ui->redoButton, 7);
-    //toolsButtonsGroup->addButton(ui->flipVerticalButton, 8);
-    //toolsButtonsGroup->addButton(ui->flipHorizontalButton, 9);
-    //toolsButtonsGroup->addButton(ui->rotateCounterClockButton, 10);
-    //toolsButtonsGroup->addButton(ui->rotateClockwiseButton, 11);
-    //toolsButtonsGroup->addButton(ui->unassignedButton_3, 12);
-    //toolsButtonsGroup->addButton(ui->unassignedButton_4, 13);
-    //toolsButtonsGroup->addButton(ui->unassignedButton_5, 14);
-    //toolsButtonsGroup->addButton(ui->unassignedButton_6, 15);
 
     brushSizeButtonsGroup = new QButtonGroup(this);
     brushSizeButtonsGroup->addButton(ui->brushSize1Button, 0);
@@ -77,17 +65,10 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     brushSizeButtonsGroup->addButton(ui->brushSize4Button, 3);
 
     // Set pixmap's resolution, color and set it to the workspace.
-    //workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight).scaled(this->WORKSPACE_DIMENSION);
     workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
-    qDebug() << this->spriteWidth;
-    qDebug() << this->spriteHeight;
-
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
-    mousePressed = false;
-
-    shapeShouldNowBeDrawn = false;
 
     // Connections for undo,redo,zooming buttons
     connect(ui->undoButton, &QPushButton::clicked, this, &SpriteMainWindow::on_actionUndo_triggered);
@@ -103,12 +84,10 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     //create the sprite
     Sprite temp(spriteWidth, spriteHeight, 0, tr("MySprite"));
     currentSprite = temp;
-
     connect(&currentSprite, SIGNAL(frameClicked(Frame*)), this, SLOT(frameClicked(Frame*)));
 
+    //Initialize the frame viewer panel on the left of the main window.
     QVBoxLayout* layout = new QVBoxLayout;
-    //Frame* something = &currentSprite.getFrame(0);
-
     Frame* s =currentSprite.getFrames().last();
     s->setMinimumSize(160,160);
     s->setMaximumSize(160,160);
@@ -116,22 +95,17 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     s->setScaledContents(true);
     layout->addWidget(s);
     ui->scrollAreaWidgetContents->setLayout(layout);
-    // Frame* something = new Frame();
-    //ui->scrollAreaWidgetContents->layout()->
 
     //sets the current frame to the first frame
     currentFrame = currentSprite.getFrames().last();
-
     currentFrame->makeFrameActive();
-
     connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
-
-    //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
     currentFrame->setPixmap(workspacePixMap.copy());
 
+
     QPixmap tempPixmap = *currentSprite.getFrame(0).pixmap();
-    //ui->previewLabelMap->setPixmap(tempPixmap.scaled(PREVIEW_DIMENSION));
     ui->previewLabelMap->setPixmap(tempPixmap.copy());
+
 
     // Setup and start the preview timer
     timer = new QTimer(this);
@@ -139,14 +113,8 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) :
     timer->start(ui->fpsSlider->value());
 
 
-
+    //Connect the previewWindow in order to change the fps
     connect(&(this->previewWindow), SIGNAL(fpsChanged(int)), this, SLOT(setFps(int)));
-
-    //Add loading custom stamp stuff here
-    numCustomStamps = 0;
-    selector = new StampSelector();
-    connect(this, SIGNAL(sendRes(QRect)), selector, SLOT(resolution(QRect)));
-    connect(selector, SIGNAL(selectedStamp(int)), this, SLOT(changeStamp(int)));
 }
 
 SpriteMainWindow::~SpriteMainWindow()
@@ -165,38 +133,34 @@ SpriteMainWindow::~SpriteMainWindow()
 bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
     if (qobject_cast<QLabel*>(watched)==ui->previewLabelMap && event->type() == QEvent::MouseButtonPress){
-        //if(event->type() == QEvent::MouseButtonPress){
 
-        qDebug() << "Preview Clicked";
-            previewWindow.setPixmap(workspacePixMap);
-            previewWindow.setFps(currentSprite.getFps());
-            previewWindow.exec();
-        //}
+        previewWindow.setPixmap(workspacePixMap);
+        previewWindow.setFps(currentSprite.getFps());
+        previewWindow.exec();
         return true;
     }
     if (watched == ui->workspaceLabel) {
+
         clickedInsideWorkspace = true;
+
         if (event->type() == QEvent::MouseButtonPress) {
+
+            //Get the mouse position from the event
             QMouseEvent *mousePressEvent = static_cast<QMouseEvent*>(event);
             int canvasX = mousePressEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2));
             int canvasY = mousePressEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
-            qDebug() << "Left mouse pressed in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
 
             if (brush == pencil || brush == eraser || brush == stamp){
                 drawPoint.setX(canvasX);
                 drawPoint.setY(canvasY);
 
-                if(brush == pencil || brush == eraser){
-
-                }
-
                 drawPath.moveTo(drawPoint);
-                //mousePressed = true;
             }
             else if (brush == line) {
                 mLine.setP1(QPoint(canvasX, canvasY));
                 mLine.setP2(QPoint(canvasX, canvasY));
-            } else if (brush == rect || brush == ellipse) {
+            }
+            else if (brush == rect || brush == ellipse) {
                 mRect.setTopLeft(QPoint(canvasX, canvasY));
                 mRect.setBottomRight(QPoint(canvasX, canvasY));
             }
@@ -212,12 +176,11 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             return true;
         }
         if(event->type() == QEvent::MouseMove) {
+
+            //Get the mouse position from the event.
             QMouseEvent *mouseMoveEvent = static_cast<QMouseEvent*>(event);
             int canvasX = mouseMoveEvent->pos().x() - ((ui->workspaceLabel->width()/2) - (workspacePixMap.width()/2));
             int canvasY = mouseMoveEvent->pos().y() - ((ui->workspaceLabel->height()/2) - (workspacePixMap.height()/2));
-
-            //qDebug() << "mouse is being moved in workspace: (" << QString::number(canvasX) << ", " << QString::number(canvasY) << ")";
-            qDebug() << "Brush size:" << pen.width();
 
             if (brush == pencil || brush == eraser || brush == stamp){
                 drawPoint.setX(canvasX);
@@ -226,18 +189,19 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             }
             else if (brush == line){
                 mLine.setP2(QPoint(canvasX, canvasY));
-            } else if (brush == rect || brush == ellipse) {
+            }
+            else if (brush == rect || brush == ellipse) {
                 mRect.setBottomRight(QPoint(canvasX, canvasY));
             }
             updateWorkspace();
             return true;
         }
         if(event->type() == QEvent::MouseButtonRelease) {
-            qDebug() << "mouse left click released inside workspace";
-
             mousePressed = false;
 
             if (brush == pencil){
+                //Now that we are using drawPath rather than drawPoint, it is necessary to draw the point on release
+                //so that if the user clicks fast it will still draw that particular point.
                 painter.begin(&workspacePixMap);
                 painter.setCompositionMode(QPainter::CompositionMode_Source);
                 painter.setPen(pen);
@@ -251,52 +215,23 @@ bool SpriteMainWindow::eventFilter(QObject *watched, QEvent *event)
             }
             updateWorkspace();
 
+            //Reset the drawPath member variable
             drawPath = QPainterPath();
 
-            //NEED TO SCALE IT HERE FOR THE SIDE VIEW
-            //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
             currentFrame->setPixmap(workspacePixMap.copy());
-
-
-
-            //ui->workspaceLabel->setPixmap(currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION));
 
             return true;
         }
         else {
             return false;
         }
-    } else {
+    }
+    else {
         // pass the event on to the parent class
         return QMainWindow::eventFilter(watched, event);
     }
 }
 
-// Nofity when the mouse is clicked
-void SpriteMainWindow::mousePressEvent(QMouseEvent *event) {
-
-    event->ignore();
-    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
-}
-
-// Track mouse moving events
-//void SpriteMainWindow::mouseMoveEvent(QMouseEvent *event) {
-//    if(mousePressed) {
-//        drawPoint.setX(event->pos().x() -242);
-//        drawPoint.setY(event->pos().y() - 50);
-//    }
-//    updateWorkspace();
-
-    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
-//}
-
-// Notify when the mouse ie released
-void SpriteMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-
-    event->ignore();
-
-    // CRAP FOR QLABEL EVENTS. ONLY ADD FOR OTHER WIDGETS' EVENTS
-}
 
 // Draws on the workspace's pixmap and reassigns it. All the tools will
 // paint in this method. (Replacement for paintEvent() method).
@@ -304,13 +239,10 @@ void SpriteMainWindow::updateWorkspace() {
    if (brush == pencil || brush == eraser || shapeShouldNowBeDrawn){
     painter.begin(&workspacePixMap);
     painter.setCompositionMode(QPainter::CompositionMode_Source);
-    //painter.setRenderHints(QPainter::Antialiasing, QPainter::SmoothPixmapTransform);
-
 
     painter.setPen(pen);
 
     if (brush == pencil || brush == eraser){
-        //painter.drawPoint(drawPoint);
         painter.drawPath(drawPath);
     }
     else if (brush == line){
@@ -336,43 +268,36 @@ void SpriteMainWindow::updateWorkspace() {
 
      ui->workspaceLabel->setPixmap(workspacePixMap);
     }
+
    //this is updating a temporary pixmap to the line before the mouse is released
    else if (brush == line || brush == rect || brush == ellipse || brush == stamp){
 
            QPixmap temp = QPixmap(workspacePixMap);
            QPainter tempPainter(&temp);
 
-           //alternate way based off of link on Slack; I don't know how to make it work
-           //painter.begin(&workspacePixMap);
-           // painter.drawPixmap(canvasX,canvasY, workspacePixMap);
-           //painter.drawLine(mLine);
-           //painter.end();
-
            tempPainter.setPen(pen);
 
            if(brush == line) {
                tempPainter.drawLine(mLine);
-           } else if(brush == rect) {
+           }
+           else if(brush == rect) {
                tempPainter.drawRect(mRect);
-           } else if(brush == ellipse) {
+           }
+           else if(brush == ellipse) {
                tempPainter.drawEllipse(mRect);
-           } else if(brush == stamp){
+           }
+           else if(brush == stamp){
                tempPainter.drawPixmap(drawPoint, selectedStamp);
            }
 
            ui->workspaceLabel->setPixmap(temp);
    }
-
-
     isModified = true;
 }
 
-//void SpriteMainWindow::paintEvent(QPaintEvent *event) {
-
-//}
-
 //Slots
 
+//Slot for when the colorPick button is clicked in the main window.
 void SpriteMainWindow::on_colorPickButton_clicked()
 {
     penColor = QColorDialog::getColor(penColor);
@@ -392,19 +317,23 @@ void SpriteMainWindow::on_colorPickButton_clicked()
     ui->colorPickButton->setStyleSheet(s.toLatin1());
 }
 
+
 void SpriteMainWindow::on_stampTool_clicked()
 {   
+    StampSelector window;
+    connect(&window, SIGNAL(selectedStamp(int)), this, SLOT(changeStamp(int)));
+    connect(this, SIGNAL(sendRes(QRect)), &window, SLOT(resolution(QRect)));
     call();
-    selector->exec();
+    window.exec();
 
     brush = stamp;
 }
 
 void SpriteMainWindow::call() {
-    //qDebug() << this->width() << this->height();
     emit(sendRes(this->geometry()));
 }
 
+//Change the selected stamp
 void SpriteMainWindow::changeStamp(int id){
     if(id == 0){
         selectedStamp.load(":/stamps/Retro-Mario-icon.png");
@@ -426,30 +355,35 @@ void SpriteMainWindow::changeStamp(int id){
     }
 }
 
+//Slot for when the ellipse tool is selected.
 void SpriteMainWindow::on_ellipseTool_clicked()
 {
     pen.setColor(penColor);
     brush = ellipse;
 }
 
+//Slot for when the rectangle tool is selected.
 void SpriteMainWindow::on_rectangleTool_clicked()
 {
     pen.setColor(penColor);
     brush = rect;
 }
 
+//Slot for when the line tool is selected.
 void SpriteMainWindow::on_lineTool_clicked()
 {
     pen.setColor(penColor);
     brush = line;
 }
 
+//Slot for when the eraser tool is selected.
 void SpriteMainWindow::on_eraserTool_clicked()
 {
     pen.setColor(this->backgroundColor);
     brush = eraser;
 }
 
+//Slot for when the pen tool is selected.
 void SpriteMainWindow::on_penTool_clicked()
 {
     pen.setColor(penColor);
@@ -472,18 +406,20 @@ void SpriteMainWindow::on_addFrameButton_clicked()
     s->setScaledContents(true);
     ui->scrollAreaWidgetContents->layout()->addWidget(s);
 
-    currentFrame = currentSprite.getFrames().last();
 
+    currentFrame = currentSprite.getFrames().last();
     currentFrame->makeFrameActive();
 
+
+    //Set the pixmap of the new frame
     QPixmap map(spriteWidth, spriteHeight);
     map.fill(this->backgroundColor);
-//    currentFrame->setPixmap(map.scaled(this->FRAME_VIEW_DIMENSION));
     currentFrame->setPixmap(map);
 
-    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
+
     workspacePixMap = currentFrame->pixmap()->copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
+
 
     //sets the scrollbar to the bottom
     QScrollBar* verticalScrollBar = ui->framesScrollArea->verticalScrollBar();
@@ -492,6 +428,8 @@ void SpriteMainWindow::on_addFrameButton_clicked()
 
 }
 
+//Slot for when the fps slider value changes.
+//Sets the fps contained in the currentSprite, and also adjusts the speed of the timer.
 void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
 {
     currentSprite.setFps(value);
@@ -501,8 +439,10 @@ void SpriteMainWindow::on_fpsSlider_valueChanged(int value)
         timer->start(1000/currentSprite.getFps());
 }
 
+
 //Menu Item Slots
 
+//Slot for when File/New is selected from the menu bar.
 void SpriteMainWindow::on_actionNew_triggered()
 {
     //Check if the user wants to save any changes first, then trigger the reset action.
@@ -512,26 +452,23 @@ void SpriteMainWindow::on_actionNew_triggered()
         welcomeScreen.exec();
         this->on_actionReset_triggered();
     }
+
     //Clear the workspacePixMap
-//    workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight).scaled(this->WORKSPACE_DIMENSION);
     workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
     //Clear out the current Sprite
     Sprite newSprite(this->spriteWidth, this->spriteHeight, 0, "IDK");
-
-
     currentSprite = newSprite;
 
     //sets the current frame to the first frame
     currentFrame = currentSprite.getFrames().last();
 
     connect(currentFrame, SIGNAL(clicked(Frame*)), this, SLOT(frameClicked(Frame*)));
-    //currentFrame->setPixmap(workspacePixMap.scaled(this->FRAME_VIEW_DIMENSION));
     currentFrame->setPixmap(workspacePixMap);
-
     currentFrame->makeFrameActive();
+
 
     //Deletes old layout and its children
     QLayoutItem* child;
@@ -540,33 +477,17 @@ void SpriteMainWindow::on_actionNew_triggered()
         delete child;
     }
 
-
-
-    //Reset the frames display on the left
-//    QVBoxLayout* layout = new QVBoxLayout;
-//    layout->addWidget(currentFrame);
-//    ui->scrollAreaWidgetContents->setLayout(layout);
-
     currentFrame->setMinimumSize(160,160);
     currentFrame->setMaximumSize(160,160);
     currentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     currentFrame->setScaledContents(true);
     ui->scrollAreaWidgetContents->layout()->addWidget(currentFrame);
-
-
-
 }
 
-//Open a file
+//Slot for when File/Open is selected from the menu bar. Opens a new Sprite in the current window,
+//replacing any current contents.
 void SpriteMainWindow::on_actionOpen_triggered()
 {
-    /*//Check if the user wants to save any changes first, then open a new project.
-    if(maybeSave()){
-        QFileDialog dialog;
-        QString filename = dialog.getOpenFileName();
-
-    }*/
-
     //creates a dialog and a popup appears asking for filename.
     QFileDialog dialog;
     QString nameOfFile= dialog.getOpenFileName(this, tr("Open File"), "", tr("Sprite (*.ssp)"));
@@ -581,8 +502,6 @@ void SpriteMainWindow::on_actionOpen_triggered()
 
     //opening project
     currentSprite.loadFile(nameOfFile);
-
-
 
     //Deletes old layout and its children
     QLayoutItem* child;
@@ -606,23 +525,15 @@ void SpriteMainWindow::on_actionOpen_triggered()
     currentFrame = (currentSprite.getFrames().first());
 
     //Clear the workspacePixMap
-    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
     workspacePixMap = currentFrame->pixmap()->copy();
-    //workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-
 
     ui->framesScrollArea->verticalScrollBar()->setSliderPosition(ui->framesScrollArea->verticalScrollBar()->minimum());
 
-    //ui->workspaceLabel->setPixmap(currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION));
-
     currentFrame->makeFrameActive();
-
-
-
 }
 
-//Save a file
+//Slot for when File/Save is selected from the menu bar. Saves the current Sprite to a .ssp file
 void SpriteMainWindow::on_actionSave_triggered()
 {
     QFileDialog dialog;
@@ -630,18 +541,6 @@ void SpriteMainWindow::on_actionSave_triggered()
     resetAllFrameSizes();
 
     currentSprite.saveFile(dialog.getSaveFileName(this, tr("Save File"), "/untitled.ssp", tr("Images (*.ssp)")));
-
-    //This saves the pixmap to a png
-    /*QFile file(filename);
-    file.open(QIODevice::WriteOnly);
-    QPixmap map = workspacePixMap.scaled(this->spriteWidth, this->spriteHeight, Qt::IgnoreAspectRatio, Qt::FastTransformation);
-    map.save(&file, "PNG");*/
-}
-
-//Slot for when the SpriteSheet menu item is selected.
-void SpriteMainWindow::on_actionSprite_Sheet_triggered()
-{
-
 }
 
 //Slot for when export as GIF is selected from the menu.
@@ -655,7 +554,6 @@ void SpriteMainWindow::on_actionExport_as_gif_triggered()
 //Slot for when undo is selected from the menu.
 void SpriteMainWindow::on_actionUndo_triggered()
 {
-
     if(!undoStack.empty()) {
         // Save the current frame
         redoStack.push_back(workspacePixMap);
@@ -687,7 +585,6 @@ void SpriteMainWindow::on_actionReset_triggered()
     workspacePixMap = QPixmap(this->spriteWidth, this->spriteHeight);
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
@@ -697,7 +594,6 @@ void SpriteMainWindow::on_actionFlip_Horizontally_triggered()
     QImage image = workspacePixMap.toImage().mirrored(true, false);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
@@ -707,7 +603,6 @@ void SpriteMainWindow::on_actionFlip_Vertically_triggered()
     QImage image = workspacePixMap.toImage().mirrored(false, true);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
@@ -719,10 +614,8 @@ void SpriteMainWindow::on_actionRotate_Horizontally_triggered()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
     workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 
 }
@@ -735,10 +628,8 @@ void SpriteMainWindow::on_actionRotate_Counterclockwise_triggered()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
     workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
@@ -764,8 +655,7 @@ void SpriteMainWindow::on_actionDuplicate_triggered()
     this->on_duplicateFrameButton_clicked();
 }
 
-//Slot for when the delete option is selected from the menu.
-//Remove a frame
+//Slot for when the delete option is selected from the menu. Removes the currently selected frame.
 void SpriteMainWindow::on_actionDelete_triggered()
 {
     //Find the position of the frame to be deleted from the currentSprite's frames vector
@@ -779,6 +669,7 @@ void SpriteMainWindow::on_actionDelete_triggered()
             }
         }
 
+        //Enter this only if the frame was successfully removed from the currentSprite.
         if(currentSprite.removeFrame(currentFrame)){
 
             if (frameID != 0){
@@ -798,16 +689,9 @@ void SpriteMainWindow::on_actionDelete_triggered()
         }
     }
     else{
-        //Add a message here that you can't remove a frame if there is only one??
         QMessageBox::StandardButton warning;
         warning = QMessageBox::warning(this, "Warning", "Must have atleast one frame!", QMessageBox::Ok);
     }
-}
-
-//Slot for when the remove all option is selected from the menu.
-void SpriteMainWindow::on_actionRemove_All_triggered()
-{
-
 }
 
 //Slot for when the about option is selected from the menu.
@@ -831,17 +715,16 @@ bool SpriteMainWindow::maybeSave(){
     if (isModified) {
         isModified = false;
         resetAllFrameSizes();
-        QMessageBox::StandardButton ret;
-        ret = QMessageBox::warning(this, tr("Warning"),
-                                   tr("The sprite has been modified.\n"
-                                      "Do you want to save your changes?"),
+        QMessageBox::StandardButton warning;
+        warning = QMessageBox::warning(this, tr("Warning"), tr("The sprite has been modified.\n Do you want to save your changes?"),
                                    QMessageBox::Save | QMessageBox::Discard
                                    | QMessageBox::Cancel);
-        if (ret == QMessageBox::Save) {
+        if (warning == QMessageBox::Save) {
             //Call the Save method here
             on_actionSave_triggered();
             return true;
-        } else if (ret == QMessageBox::Cancel) {
+        }
+        else if (warning == QMessageBox::Cancel) {
             isModified = true;
             return false;
         }
@@ -849,88 +732,71 @@ bool SpriteMainWindow::maybeSave(){
     return true;
 }
 
-//Change Brush Size Slots
+//Set the smallest brush size
 void SpriteMainWindow::on_brushSize1Button_clicked()
 {
     penWidthSelected = 1;
     pen.setWidth(penWidthSelected);
 }
 
+//Set the second smallest brush size
 void SpriteMainWindow::on_brushSize2Button_clicked()
 {
     penWidthSelected = 10;      //TODO: make them programmatic
     pen.setWidth(penWidthSelected);
 }
 
+//Set the medium brush size
 void SpriteMainWindow::on_brushSize3Button_clicked()
 {
     penWidthSelected = 30;
     pen.setWidth(penWidthSelected);
 }
 
+//Set the largest brush size
 void SpriteMainWindow::on_brushSize4Button_clicked()
 {
     penWidthSelected = this->spriteWidth / 4;
     pen.setWidth(penWidthSelected);
 }
 
+//Zoom into the workspace
 void SpriteMainWindow::on_action2x_Workspace_triggered()
 {
     scaleWorkspaceSizeUp();
     update();
 }
 
+//Zoom out of the workspace
 void SpriteMainWindow::on_actionZoom_Out_triggered()
 {
-    qDebug() << "In zoom out action";
     scaleWorkspaceSizeDown();
     update();
 }
 
+//Reset the workspace zoom level
 void SpriteMainWindow::on_actionReset_Size_triggered()
 {
-    qDebug() << "In reset action";
     resetWorkspaceSizeToOriginal();
     update();
 }
 
+//Scale the workspace up
 void SpriteMainWindow::scaleWorkspaceSizeUp() {
     timesScaled++;
     int wspWidth, wspHeight;
-    qDebug() << "in scale up";
 
-    //if(timesScaled >= 0) {
-        //pen.setWidth(pen.width()+10);
-        //scaleFactor = 2;
-    //    int wspWidth = workspacePixMap.width() * scaleFactor;
-    //    int wspHeight = workspacePixMap.height() * scaleFactor;
+    wspWidth = workspacePixMap.width() * 2;
+    wspHeight = workspacePixMap.height() * 2;
 
-        wspWidth = workspacePixMap.width() * 2;
-        wspHeight = workspacePixMap.height() * 2;
-
-//        workspacePixMap = workspacePixMap.scaled(wspWidth, wspHeight);
-//        ui->workspaceLabel->setPixmap(workspacePixMap);
-
-
-    //if(timesScaled != 1) {
-        workspacePixMap = workspacePixMap.copy().scaled(wspWidth, wspHeight);
-        ui->workspaceLabel->setPixmap(workspacePixMap);
-    //}
-
-//    update();
-
-//    if(wspWidth > this->width()) {
-//        this->resize(this->width() + wspWidth, this->height());
-//        if(wspHeight > this->height()) {
-//            this->resize(this->width(), this->height() + wspHeight);
-//        }
-//    }
-//    update();
+    workspacePixMap = workspacePixMap.copy().scaled(wspWidth, wspHeight);
+    ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
+//Scale the workspace down
 void SpriteMainWindow::scaleWorkspaceSizeDown() {
     timesScaled--;
-    qDebug() << "in scale down";
+
     int wspWidth, wspHeight;
     wspWidth = workspacePixMap.width() / 2;
     wspHeight = workspacePixMap.height() / 2;
@@ -938,20 +804,16 @@ void SpriteMainWindow::scaleWorkspaceSizeDown() {
     ui->workspaceLabel->setPixmap(workspacePixMap);
 }
 
+//Rescale the workspace to the original level
 void SpriteMainWindow::resetWorkspaceSizeToOriginal() {
     timesScaled = 0;
-//    int wspWidth = workspacePixMap.width() * scaleFactor;
-//    int wspHeight = workspacePixMap.height() * scaleFactor;
-
-//    int wspWidth = this->spriteWidth;
-//    int wspHeight = this->spriteHeight;
-    qDebug() << "in reset";
     workspacePixMap = currentFrame->pixmap()->copy().scaled(this->spriteWidth, this->spriteHeight);
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //pen.setWidth(penWidthSelected);      //TODO: replace 10 by the current brush size.
 }
 
+//Called after the intial popup, asking for the settings of the current session, closes.
 void SpriteMainWindow::initialResolution(int width, int backColor){
+
     //See which color the user selected for the background
     if(backColor == 0){
         //Set Transparent Background
@@ -968,10 +830,9 @@ void SpriteMainWindow::initialResolution(int width, int backColor){
 
     this->spriteWidth = width;
     this->spriteHeight = width;
-
-    // TODO: scale the image to worksapce
 }
 
+//Slot for when a frame is clicked.
 void SpriteMainWindow::frameClicked(Frame* other){
     // Resize previous zoomed frame before switching
     if(other != currentFrame) {
@@ -982,9 +843,6 @@ void SpriteMainWindow::frameClicked(Frame* other){
     currentFrame = other;
     currentFrame->makeFrameActive();
 
-    qDebug() << "Frame Clicked";
-
-//    workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
     workspacePixMap = currentFrame->pixmap()->copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
@@ -994,6 +852,7 @@ void SpriteMainWindow::frameClicked(Frame* other){
 
 }
 
+//Rotates the selected frame 90 degrees counterclockwise
 void SpriteMainWindow::on_rotateCounterClockButton_clicked()
 {
     QTransform tran;
@@ -1001,14 +860,12 @@ void SpriteMainWindow::on_rotateCounterClockButton_clicked()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
     workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
-
+//Rotates the selected frame 90 degrees clockwise
 void SpriteMainWindow::on_rotateClockwiseButton_clicked()
 {
     QTransform tran;
@@ -1016,23 +873,22 @@ void SpriteMainWindow::on_rotateClockwiseButton_clicked()
     QImage img = workspacePixMap.toImage();
     img = img.transformed(tran);
 
-    //workspacePixMap = QPixmap::fromImage(img).scaled(this->spriteWidth,this->spriteHeight);
     workspacePixMap = QPixmap::fromImage(img).copy();
     ui->workspaceLabel->setPixmap(workspacePixMap);
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
+//Mirrors the current frame across a horizontal axis (flips it vertically).
 void SpriteMainWindow::on_flipVerticalButton_clicked()
 {
     QImage image = workspacePixMap.toImage().mirrored(false, true);
     workspacePixMap = QPixmap::fromImage(image);
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
-    //currentFrame->setPixmap(workspacePixMap.scaled(spriteWidth, spriteHeight));
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
+//Mirrors the current frame across a vertical axis (flips it horizontally).
 void SpriteMainWindow::on_flipHorizontalButton_clicked()
 {
     QImage image = workspacePixMap.toImage().mirrored(true, false);
@@ -1043,6 +899,7 @@ void SpriteMainWindow::on_flipHorizontalButton_clicked()
     currentFrame->setPixmap(workspacePixMap.copy());
 }
 
+//Called when the timer updates
 void SpriteMainWindow::whenTimerUpdates()
 {
     if(currentSprite.getFps() > 0){
@@ -1054,18 +911,21 @@ void SpriteMainWindow::whenTimerUpdates()
 
     //counts how many non visible frames there are
     int numOfNotVisible = 0;
+
     //if the current frame is not visible, iterate until there is one visible.
     while (!currentSprite.getFrame(it).getIsVisible()){
+
         numOfNotVisible++;
         it++;
+
         if(it >= currentSprite.getFrames().size()){
             it = 0;
         }
-        //if all of the frames are not visible, return
+
+        //If all of the frames are not visible, return
         if (numOfNotVisible >= currentSprite.getFrames().size() ){
             return;
         }
-
     }
 
 
@@ -1073,11 +933,14 @@ void SpriteMainWindow::whenTimerUpdates()
     previewWindow.setPixmap((currentSprite.getFrame(it).pixmap()->scaled(spriteWidth, spriteHeight)).copy());
 }
 
+//Sets the fps of the slider in the UI, and also sets the fps of the current Sprite.
 void SpriteMainWindow::setFps(int fps){
     ui->fpsSlider->setValue(fps);
     currentSprite.setFps(fps);
 }
 
+//Slot for when the Frame/Duplicate option is selected from the menu bar.
+//Duplicates the last frame
 void SpriteMainWindow::on_duplicateFrameButton_clicked()
 {
     Frame* f = new Frame();
@@ -1100,7 +963,6 @@ void SpriteMainWindow::on_duplicateFrameButton_clicked()
 
     currentFrame->makeFrameActive();
 
-    //workspacePixMap = currentFrame->pixmap()->scaled(this->WORKSPACE_DIMENSION);
     workspacePixMap = map;
     ui->workspaceLabel->setPixmap(workspacePixMap);
 
@@ -1110,6 +972,7 @@ void SpriteMainWindow::on_duplicateFrameButton_clicked()
     verticalScrollBar->setSliderPosition(verticalScrollBar->maximum());
 }
 
+//Resets the sizes of all of the frames in the currentSprite.
 void SpriteMainWindow::resetAllFrameSizes() {
     QVector<Frame*> frames = currentSprite.getFrames();
     for(int i = 0; i < frames.size(); i++) {
@@ -1117,6 +980,7 @@ void SpriteMainWindow::resetAllFrameSizes() {
     }
 }
 
+//Toggles the transparent grid behind the workspace
 void SpriteMainWindow::on_transparentGridButton_clicked()
 {
     if(transparentGridIsVisible) {
@@ -1128,13 +992,4 @@ void SpriteMainWindow::on_transparentGridButton_clicked()
                                           "background-image: url(:transparent pattern 3.png);border: none;}");
         transparentGridIsVisible = true;
     }
-}
-
-void SpriteMainWindow::on_actionStamp_triggered(){
-    QImage stamp = currentFrame->pixmap()->toImage();
-    QString filename = QString("/Users/tylerdailey/Desktop/stamp%1.png").arg(QString::number(numCustomStamps));
-
-    stamp.save(filename, "PNG");
-    numCustomStamps++;
-    selector->addStamp(filename);
 }

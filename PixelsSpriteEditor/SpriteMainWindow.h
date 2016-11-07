@@ -116,8 +116,6 @@ private:
     Preview previewWindow;
     bool previewIsActive;
 
-    StampSelector* selector;
-
 public:
     explicit SpriteMainWindow(QWidget *parent = 0);
     ~SpriteMainWindow();
@@ -126,10 +124,7 @@ public:
 protected:
     bool eventFilter(QObject *watched, QEvent *event);      // Handles the QLabel events
     void closeEvent(QCloseEvent*);
-    void mousePressEvent(QMouseEvent *event);
-    //void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    //void paintEvent(QPaintEvent *event);
+
 signals:
     void sendRes(QRect geometry);
 public slots:
@@ -167,10 +162,6 @@ public slots:
 
     void on_actionSave_triggered();
 
-    void on_actionSprite_Sheet_triggered();
-
-    void on_actionStamp_triggered();
-
     void on_actionExport_as_gif_triggered();
 
     void on_actionUndo_triggered();
@@ -192,8 +183,6 @@ public slots:
     void on_actionDuplicate_triggered();
 
     void on_actionDelete_triggered();
-
-    void on_actionRemove_All_triggered();
 
     void on_actionAbout_triggered();
 

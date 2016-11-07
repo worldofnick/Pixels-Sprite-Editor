@@ -2254,17 +2254,9 @@ margin: 10px;
     <property name="title">
      <string>File</string>
     </property>
-    <widget class="QMenu" name="menuSave_As">
-     <property name="title">
-      <string>Save As...</string>
-     </property>
-     <addaction name="actionStamp"/>
-     <addaction name="actionSprite_Sheet"/>
-    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
-    <addaction name="menuSave_As"/>
     <addaction name="separator"/>
     <addaction name="actionExport_as_gif"/>
    </widget>
@@ -2418,7 +2410,7 @@ margin: 10px;
   </action>
   <action name="actionDelete">
    <property name="text">
-    <string>Remove</string>
+    <string>Delete Current Frame</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Backspace</string>
