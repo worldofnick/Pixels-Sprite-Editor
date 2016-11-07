@@ -405,7 +405,7 @@ border: none;</string>
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string notr="true"/>
       </property>
       <property name="whatsThis">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Workspace&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
