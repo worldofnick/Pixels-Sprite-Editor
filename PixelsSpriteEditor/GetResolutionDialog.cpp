@@ -1,7 +1,7 @@
-#include "GetResolutionDialog.h"
-#include "ui_GetResolutionDialog.h"
 #include <QDebug>
 #include <QMessageBox>
+#include "GetResolutionDialog.h"
+#include "ui_GetResolutionDialog.h"
 
 GetResolutionDialog::GetResolutionDialog(QWidget *parent) :
     QDialog(parent),

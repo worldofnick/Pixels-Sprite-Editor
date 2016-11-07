@@ -106,5 +106,9 @@
         <file>sword.png</file>
         <file>sunglasses.png</file>
         <file>pokeball.png</file>
+        <file>pikachu.png</file>
+        <file>cowboy.png</file>
+        <file>squirtle.png</file>
+        <file>ash.png</file>
     </qresource>
 </RCC>

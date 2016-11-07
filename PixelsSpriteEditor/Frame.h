@@ -4,7 +4,6 @@
 #include <QLabel>
 #include <QPainter>
 
-
 class Frame : public QLabel
 {
     Q_OBJECT

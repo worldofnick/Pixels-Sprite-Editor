@@ -1,8 +1,8 @@
-#include "Sprite.h"
-#include "gif.h"
 #include <QDebug>
 #include <QFile>
 #include <QRgb>
+#include "gif.h"
+#include "Sprite.h"
 
 Sprite::Sprite(int w, int h, int s, QString file)
 {

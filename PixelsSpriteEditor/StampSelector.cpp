@@ -27,6 +27,10 @@ StampSelector::StampSelector(QWidget *parent) :
     ui->sunglassesLabel->installEventFilter(this);
     ui->sunLabel->installEventFilter(this);
     ui->cloudLabel->installEventFilter(this);
+    ui->pikachuLabel->installEventFilter(this);
+    ui->ashLabel->installEventFilter(this);
+    ui->cowboyLabel->installEventFilter(this);
+    ui->squirtleLabel->installEventFilter(this);
 
     whichStampSelected = 0;
 
@@ -54,6 +58,21 @@ StampSelector::StampSelector(QWidget *parent) :
     cloud.load(":/stamps/cloud.png");
     ui->cloudLabel->setPixmap(cloud);
 
+    QPixmap pikachuMap;
+    pikachuMap.load(":/stamps/pikachu.png");
+    ui->pikachuLabel->setPixmap(pikachuMap.scaled(90,90, Qt::KeepAspectRatio));
+
+    QPixmap ashMap;
+    ashMap.load(":/stamps/ash.png");
+    ui->ashLabel->setPixmap(ashMap.scaled(90,90, Qt::KeepAspectRatio));
+
+    QPixmap cowboyMap;
+    cowboyMap.load(":/stamps/cowboy.png");
+    ui->cowboyLabel->setPixmap(cowboyMap);
+
+    QPixmap squirtleMap;
+    squirtleMap.load(":/stamps/squirtle.png");
+    ui->squirtleLabel->setPixmap(squirtleMap);
 
 }
 
@@ -83,6 +102,18 @@ bool StampSelector::eventFilter(QObject *watched, QEvent *event)
         else if (watched == ui->sunglassesLabel){
             whichStampSelected = 5;
         }
+        else if (watched == ui->pikachuLabel){
+            whichStampSelected = 6;
+        }
+        else if (watched == ui->ashLabel){
+            whichStampSelected = 7;
+        }
+        else if (watched == ui->squirtleLabel){
+            whichStampSelected = 8;
+        }
+        else if (watched == ui->cowboyLabel){
+            whichStampSelected = 9;
+        }
         this->close();
         return true;
     }
@@ -110,32 +141,4 @@ void StampSelector::resolution(QRect geometry) {
     int y = geometry.y() - 10;
     //qDebug() << "x:" << x << "y: " << y;
     this->move(x, y);
-}
-
-void StampSelector::addStamp(const QString &filename){
-    QLabel* newStamp = new QLabel();
-    QPixmap map;
-
-    qDebug() << "Entered addStamp";
-
-    map.load(filename);
-
-    map.save("/Users/tylerdailey/Desktop/test2.png", "PNG");
-
-    qDebug() << "Loaded file";
-
-    newStamp->setPixmap(map);
-
-    qDebug() << "Created Stamp";
-
-    newStamp->setStyleSheet("#newStamp { \n background-color: rgb(54,58,62,30); \n border-radius: 10px; \n background-repeat: none; \n"
-                           " margin: 6px; \n } \n #newStamp:hover \n { \n background-color: rgb(54,58,62,50); \n border-radius: 10px;"
-                           " \n border-top: -15px transparent; \n border-bottom: -15px transparent; \n border-right: -15px transparent;"
-                           "\n border-left: -15px transparent; \n margin: 2px; \n }");
-
-    qDebug() << "Passed stylesheet";
-
-    newStamp->installEventFilter(this);
-
-    ui->scrollAreaWidgetContents->layout()->addWidget(newStamp);
 }

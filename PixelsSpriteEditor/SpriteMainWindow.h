@@ -5,7 +5,6 @@
 #include <QPen>
 #include <QCloseEvent>
 #include <QTimer>
-#include "PopupWindow.h"
 #include <QPainter>
 #include <QButtonGroup>
 #include <list>
@@ -15,6 +14,7 @@
 #include "PopupWindow.h"
 #include "Preview.h"
 #include "StampSelector.h"
+#include "PopupWindow.h"
 
 namespace Ui {
 class SpriteMainWindow;

@@ -1,5 +1,4 @@
 #include <QPushButton>
-#include <iostream>
 #include "PopupWindow.h"
 #include "ui_PopupWindow.h"
 

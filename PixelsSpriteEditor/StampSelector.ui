@@ -123,7 +123,7 @@ background-color: transparent;
            <x>0</x>
            <y>0</y>
            <width>136</width>
-           <height>614</height>
+           <height>1006</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -300,6 +300,80 @@ margin: 2px;
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="cowboyLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#cowboyLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+}
+#cowboyLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Cowboy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="squirtleLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#squirtleLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+}
+#squirtleLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Squirtle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="pokeballLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -320,14 +394,14 @@ margin: 2px;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">#marioLabel_2 {
+             <string notr="true">#pokeballLabel {
 background-color: rgb(54,58,62,30);
 border-radius: 10px;
 background-repeat: none;
 margin: 6px;
 padding: 10px;
 }
-#marioLabel_2:hover
+#pokeballLabel:hover
 {
 background-color: rgb(54,58,62,50);
 border-radius: 10px;
@@ -357,6 +431,45 @@ padding: 0px;
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="ashLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#ashLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#ashLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Ash</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="swordLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -377,14 +490,14 @@ padding: 0px;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">#marioLabel_3 {
+             <string notr="true">#swordLabel {
 background-color: rgb(54,58,62,30);
 border-radius: 10px;
 background-repeat: none;
 margin: 6px;
 padding: 10px;
 }
-#marioLabel_3:hover
+#swordLabel:hover
 {
 background-color: rgb(54,58,62,50);
 border-radius: 10px;
@@ -410,6 +523,45 @@ padding: 0px;
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="pikachuLabel">
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>90</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#pikachuLabel {
+background-color: rgb(54,58,62,30);
+border-radius: 10px;
+background-repeat: none;
+margin: 6px;
+padding: 10px;
+}
+#pikachuLabel:hover
+{
+background-color: rgb(54,58,62,50);
+border-radius: 10px;
+border-top: -15px transparent;
+border-bottom: -15px transparent;
+border-right: -15px transparent;
+border-left: -15px transparent;
+margin: 2px;
+padding: 0px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Pikachu</string>
             </property>
            </widget>
           </item>

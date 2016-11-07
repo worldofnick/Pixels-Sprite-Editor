@@ -353,6 +353,18 @@ void SpriteMainWindow::changeStamp(int id){
     else if(id == 5){
         selectedStamp.load(":/stamps/sunglasses.png");
     }
+    else if(id == 6){
+        selectedStamp.load(":/stamps/pikachu.png");
+    }
+    else if(id == 7){
+        selectedStamp.load(":/stamps/ash.png");
+    }
+    else if(id == 8){
+        selectedStamp.load(":/stamps/squirtle.png");
+    }
+    else if(id == 9){
+        selectedStamp.load(":/stamps/cowboy.png");
+    }
 }
 
 //Slot for when the ellipse tool is selected.
