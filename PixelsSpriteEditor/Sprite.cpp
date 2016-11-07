@@ -181,9 +181,10 @@ void Sprite::exportToGif(QString file)
     const char* buffer = ba;
     int size = width * height * 4;
     uint8_t *fr = new uint8_t[size];
-    if(fps == 0)
-        fps = 1;
-    GifBegin(g, buffer, width, height, 100/fps, 8, true);
+    int gfps = fps;
+    if(gfps == 0)
+        gfps = 1;
+    GifBegin(g, buffer, width, height, 100/gfps, 8, true);
     for(int i = 0; i < frames.count(); i++) {
 
         if(frames.at(i)->getIsVisible()) {
@@ -196,11 +197,10 @@ void Sprite::exportToGif(QString file)
                     *(fr+index) = (uint8_t)colorValue.green(); index++;
                     *(fr+index) = (uint8_t)colorValue.blue(); index++;
                     *(fr+index) = (uint8_t)colorValue.alpha(); index++;
-
                 }
             }
             const uint8_t* cfr = const_cast<const uint8_t*>(fr);
-            GifWriteFrame(g, cfr, width, height, 100/fps, 8, true);
+            GifWriteFrame(g, cfr, width, height, 100/gfps, 8, true);
         }
 
     }
