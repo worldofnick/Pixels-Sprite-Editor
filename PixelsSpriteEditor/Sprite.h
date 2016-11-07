@@ -34,11 +34,11 @@ public:
     bool removeFrame(Frame* frame);
     void insertFrame(int index, Frame* frame);
 
-private slots:
-    void frameSelected(Frame*);
-
 signals:
     void frameClicked(Frame*);
+
+private slots:
+    void frameSelected(Frame*);
 };
 
 #endif // SPRITE_H

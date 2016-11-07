@@ -7,6 +7,7 @@
 class Frame : public QLabel
 {
     Q_OBJECT
+
 private:
     bool isVisible;
     int height;
@@ -23,15 +24,16 @@ public:
 
     void makeFrameUnactive();
 
+    QSize sizeHint() const;
+    void toggleVisibility(bool visible);
+    bool getIsVisible();
+
+
     // QWidget interface
 protected:
     void mousePressEvent(QMouseEvent *event);
 
     // QWidget interface
-public:
-    QSize sizeHint() const;
-    void toggleVisibility(bool visible);
-    bool getIsVisible();
 
 signals:
     void clicked(Frame*);

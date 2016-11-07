@@ -12,12 +12,12 @@ class PopupWindow : public QDialog
 {
     Q_OBJECT
 
+private:
+    Ui::PopupWindow *ui;
+
 public:
     explicit PopupWindow(QWidget *parent = 0);
     ~PopupWindow();
-
-private:
-    Ui::PopupWindow *ui;
 
 private slots:
     void okClicked();
