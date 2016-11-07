@@ -101,16 +101,8 @@ private:
     int spriteWidth;
     int spriteHeight;
 
-
-    //Constants used for scaling
-//    const QSize PREVIEW_DIMENSION = QSize(180, 150);
-//    const QSize FRAME_VIEW_DIMENSION = QSize(150, 150);
-//    const QSize WORKSPACE_DIMENSION = QSize(400, 400);
-
-
     //contains a pointer to the current frame selected
     Frame* currentFrame;
-
 
     //Preview Window
     Preview previewWindow;
@@ -127,6 +119,7 @@ protected:
 
 signals:
     void sendRes(QRect geometry);
+
 public slots:
 
     // Used by button group
