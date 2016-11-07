@@ -18,6 +18,7 @@ PopupWindow::~PopupWindow()
     delete ui;
 }
 
+//Closes PopupWindow when ok is clicked
 void PopupWindow::okClicked(){
     this->close();
 }
