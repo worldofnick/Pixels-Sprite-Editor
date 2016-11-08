@@ -2264,10 +2264,21 @@ margin: 10px;
     <property name="title">
      <string>Edit</string>
     </property>
+    <widget class="QMenu" name="menuPen_style">
+     <property name="title">
+      <string>Pen style</string>
+     </property>
+     <addaction name="actionSolid"/>
+     <addaction name="actionDash"/>
+     <addaction name="actionDot"/>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
     <addaction name="actionReset"/>
+    <addaction name="separator"/>
+    <addaction name="actionToggle_Pen_Tip"/>
+    <addaction name="menuPen_style"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
@@ -2459,6 +2470,38 @@ margin: 10px;
    </property>
    <property name="shortcut">
     <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionToggle_Pen_Tip">
+   <property name="text">
+    <string>Toggle Pen Tip</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionSolid">
+   <property name="text">
+    <string>Solid</string>
+   </property>
+   <property name="shortcut">
+    <string>1</string>
+   </property>
+  </action>
+  <action name="actionDash">
+   <property name="text">
+    <string>Dash</string>
+   </property>
+   <property name="shortcut">
+    <string>2</string>
+   </property>
+  </action>
+  <action name="actionDot">
+   <property name="text">
+    <string>Dot</string>
+   </property>
+   <property name="shortcut">
+    <string>3</string>
    </property>
   </action>
  </widget>

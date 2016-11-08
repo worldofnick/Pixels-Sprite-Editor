@@ -84,13 +84,10 @@ private:
     bool isModified;
     bool mousePressed;
     bool maybeSave();
-    bool clickedInsideWorkspace;     //TODO: keep or remove later
-
+    bool clickedInsideWorkspace;
 
     // Helper methods
-    void updateWorkspace();         // paints on the workspaceLabel's pixmap and updates it
-
-
+    void updateWorkspace();
 
     // Sprite
     Sprite currentSprite;
@@ -122,10 +119,6 @@ signals:
     void sendRes(QRect geometry);
 
 public slots:
-
-    // Used by button group
-    //void buttonClick(QAbstractButton* button);    //TODO: stub that can be used later
-
     //Button Slots
 
     void on_colorPickButton_clicked();
@@ -206,6 +199,10 @@ private slots:
     void on_actionZoom_Out_triggered();
     void on_actionReset_Size_triggered();
     void on_transparentGridButton_clicked();
+    void on_actionToggle_Pen_Tip_triggered();
+    void on_actionSolid_triggered();
+    void on_actionDash_triggered();
+    void on_actionDot_triggered();
 };
 
 #endif // SPRITEMAINWINDOW_H

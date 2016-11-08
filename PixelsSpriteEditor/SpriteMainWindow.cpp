@@ -31,8 +31,11 @@ SpriteMainWindow::SpriteMainWindow(QWidget *parent) : QMainWindow(parent), ui(ne
     pen.setColor(penColor);
     penWidthSelected = 1;
     transparentGridIsVisible = true;
+
     pen.setWidth(penWidthSelected);
     pen.setCapStyle(Qt::FlatCap);
+    pen.setJoinStyle(Qt::RoundJoin);
+
     clickedInsideWorkspace = false;
     timesScaled = 0;
     mainWindowOriginalGeometry = this->saveGeometry();
@@ -1047,4 +1050,30 @@ void SpriteMainWindow::on_transparentGridButton_clicked()
                                           "background-image: url(:transparent pattern 3.png);border: none;}");
         transparentGridIsVisible = true;
     }
+}
+
+// Toggles pen tip between round or flat.
+void SpriteMainWindow::on_actionToggle_Pen_Tip_triggered()
+{
+    if(pen.capStyle() == Qt::FlatCap) {
+        pen.setCapStyle(Qt::RoundCap);
+    }
+    else {
+        pen.setCapStyle(Qt::FlatCap);
+    }
+}
+
+void SpriteMainWindow::on_actionSolid_triggered()
+{
+    pen.setStyle(Qt::SolidLine);
+}
+
+void SpriteMainWindow::on_actionDash_triggered()
+{
+    pen.setStyle(Qt::DashLine);
+}
+
+void SpriteMainWindow::on_actionDot_triggered()
+{
+    pen.setStyle(Qt::DotLine);
 }
