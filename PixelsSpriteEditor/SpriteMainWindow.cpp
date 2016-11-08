@@ -571,6 +571,7 @@ void SpriteMainWindow::on_actionSave_triggered()
 //Slot for when export as GIF is selected from the menu.
 void SpriteMainWindow::on_actionExport_as_gif_triggered()
 {
+    resetAllFrameSizes();
     QFileDialog dialog;
     isModified = false;
     currentSprite.exportToGif(dialog.getSaveFileName(this, tr("Save File"), "/untitled.gif", tr("Images (*.gif)")));
