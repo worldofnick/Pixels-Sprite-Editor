@@ -412,6 +412,8 @@ void SpriteMainWindow::on_addFrameButton_clicked()
     // Resize previous zoomed frame before switching
     currentFrame->setPixmap(currentFrame->pixmap()->scaled(spriteWidth, spriteHeight));
     currentFrame->makeFrameUnactive();
+    pen.setWidth(penWidthSelected);
+    timesScaled = 0;
 
     currentSprite.addFrame();
     Frame* s =currentSprite.getFrames().last();
@@ -606,6 +608,9 @@ void SpriteMainWindow::on_actionReset_triggered()
     workspacePixMap.fill(this->backgroundColor);
     ui->workspaceLabel->setPixmap(workspacePixMap);
     currentFrame->setPixmap(workspacePixMap.copy());
+    pen.setWidth(penWidthSelected);
+    timesScaled = 0;
+    scalePen();
 }
 
 //Slot for when the Flip Horizontally option is selected from the menu.
@@ -673,6 +678,8 @@ void SpriteMainWindow::on_actionDuplicate_triggered()
 {
     // Resize previous zoomed frame before switching
     currentFrame->setPixmap(currentFrame->pixmap()->scaled(spriteWidth, spriteHeight));
+    pen.setWidth(penWidthSelected);
+    timesScaled = 0;
 
     Frame* f = new Frame();
     QPixmap map = currentFrame->pixmap()->scaled(spriteWidth,spriteHeight).copy();
