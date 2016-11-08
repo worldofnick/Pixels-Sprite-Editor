@@ -1044,11 +1044,14 @@ void SpriteMainWindow::on_transparentGridButton_clicked()
 {
     if(transparentGridIsVisible) {
         ui->workspaceLabel->setStyleSheet("#workspaceLabel { background-color: rgb(29,29,29); border: none;}");
+        ui->previewLabelMap->setStyleSheet(" background-color: rgb(29,29,29); border: none;");
         transparentGridIsVisible = false;
     }
     else {
         ui->workspaceLabel->setStyleSheet("#workspaceLabel { background-color: rgb(29,29,29); "
                                           "background-image: url(:transparent pattern 3.png);border: none;}");
+        ui->previewLabelMap->setStyleSheet(" background-color: rgb(29,29,29); "
+                                          "background-image: url(:transparent pattern 3.png);border: none;");
         transparentGridIsVisible = true;
     }
 }
